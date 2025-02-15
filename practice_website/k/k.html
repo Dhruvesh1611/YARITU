@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Change Text on Click</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    #changeTextBtn {
+      display: flex;
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      margin: 10px;
+      background-color: #f0f0f0;
+      transition: background-color 0.3s;
+    }
+
+    #changeTextBtn:hover {
+      background-color: #dcdcdc;
+    }
+
+    h1 {
+      font-size: 24px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="header">Click the button to change this text!</h1>
+
+  <!-- Buttons with unique IDs for each -->
+  <div id="leftButton" class="button">
+    <i class="fa-solid fa-less-than"></i>
+  </div>
+  <div id="rightButton" class="button">
+    <i class="fa-solid fa-greater-than"></i>
+  </div>
+
+  <script>
+    // Get references to the elements
+    const header = document.getElementById('header');
+    const leftButton = document.getElementById('leftButton');
+    const rightButton = document.getElementById('rightButton');
+
+    // Function to load text from localStorage (if available)
+    function loadTextFromStorage() {
+      const storedText = localStorage.getItem('headerText');
+      if (storedText) {
+        header.textContent = storedText; // Set the stored text as the header's content
+      }
+    }
+
+    // Add click event listeners to the buttons
+    leftButton.addEventListener('click', function() {
+      const newText = 'You clicked the left button!';
+      header.textContent = newText;
+      localStorage.setItem('headerText', newText); // Save the updated text in localStorage
+    });
+
+    rightButton.addEventListener('click', function() {
+      const newText = 'You clicked the right button!';
+      header.textContent = newText;
+      localStorage.setItem('headerText', newText); // Save the updated text in localStorage
+    });
+
+    // Load the stored text (if any) when the page is loaded
+    loadTextFromStorage();
+  </script>
+</body>
+</html>

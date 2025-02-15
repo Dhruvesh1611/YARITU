@@ -1,0 +1,36 @@
+/* MenuPage Styles */
+.menu-container {
+    padding: 40px;
+    background-color: #ecf0f1;
+  }
+  
+  .menu-header {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+  
+  .menu-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .menu-item:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .menu-item-name {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  
+  .menu-item-price {
+    font-size: 1.1rem;
+    color: #3498db;
+  }
+  

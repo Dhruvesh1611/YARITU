@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EatClub</title>
+    <link rel="stylesheet" href="EatClub.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Slider container styles */
+        .photos {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .slider-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slider-container img {
+            width: 100%;
+            flex-shrink: 0;
+        }
+
+        .photo1, .photo4 {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            cursor: pointer;
+            font-size: 2rem;
+            color: black;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            padding: 10px;
+        }
+
+        .photo1 {
+            left: 10px;
+        }
+
+        .photo4 {
+            right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="navbar">
+            <div class="head_items logo"><img src="https://dwc6ndmngc4q3.cloudfront.net/20241024151519/assets/images/logo.png" width="95" alt="logo"></div>
+            <div class="head_items search">
+                <p style="text-transform: uppercase;">delivery</p>
+                <p1>Showing Default Loca..</p1>
+                <div class="dropdown"><i class="fa-solid fa-angle-down"></i></div>
+            </div>
+
+            <div class="head_items last">
+                <div class="item"><img
+                        src="https://dwc6ndmngc4q3.cloudfront.net/20241024151519/assets/images/eatclub.svg"
+                        alt="">Eatclub</div>
+                <div class="line">|</div>
+                <div class="item"><img src="discount.png" width="20" alt="" id="discount">
+                    <pre> Deals </pre><i class="fa-solid fa-angle-down"></i>
+                </div>
+                <div class="line">|</div>
+                <div class="item cart"><i class="fa-solid fa-cart-shopping"></i>
+                    <pre>  Cart</pre>
+                </div>
+                <div class="line">|</div>
+                <div class="item"><img src="avatar.png " width="20" alt="">
+                    <pre>  Sign in</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Photos Slider -->
+        <div class="photos">
+            <div class="photo1 sym1"><i class="fa-solid fa-less-than"></i></div>
+            <div class="slider-container" id="slider">
+                <img src="https://via.placeholder.com/800x300?text=Image+1" alt="Image 1">
+                <img src="https://via.placeholder.com/800x300?text=Image+2" alt="Image 2">
+                <img src="https://via.placeholder.com/800x300?text=Image+3" alt="Image 3">
+                <img src="https://via.placeholder.com/800x300?text=Image+4" alt="Image 4">
+            </div>
+            <div class="photo4 sym2"><i class="fa-solid fa-greater-than"></i></div>
+        </div>
+
+        <!-- Other sections remain the same -->
+        <div class="brads">
+            <div class="heading">
+                <p2>Popular Brands</p2><br>
+                <p3>Order food from our curated list of handpicked brands.</p3>
+            </div>
+        </div>
+        <div class="boxes">
+            <div class="c">
+                <div class="box i"></div>
+                <div class="box ii r"></div>
+                <div class="box iii r"></div>
+            </div>
+            <div class="c">
+                <div class="box iv"></div>
+                <div class="box v r"></div>
+                <div class="box vi r"></div>
+            </div>
+            <div class="c">
+                <div class="box vii"></div>
+                <div class="box viii r"></div>
+                <div class="box ix r"></div>
+            </div>
+            <div class="c">
+                <div class="box x"></div>
+                <div class="box xi r"></div>
+                <div class="box xii r"></div>
+            </div>
+        </div>
+
+        <div class="lastbox">
+            <div class="end">
+                <p4>Start your free trial.</p4><br>
+                <p4>Join EatClub @ ₹0</p4>
+                <div class="download">
+                    <div class="android"><img src="android.png" width="150" height="45px" alt=""></div>
+                    <div class="ios"><img src="apple.png" width="150" height="45px" alt=""></div>
+                </div>
+            </div>
+            <div class="phone"><img src="phone.png" width="350" alt=""></div>
+        </div>
+        <div class="blueline"></div>
+        <div class="footer">
+            <div class="footer1">
+                <div class="details1">
+                    <p5>EatClub</p5><br><br><br>
+                    <p6>Getting food delivered at home is always a great idea. But the whole episode of scrolling
+                        endlessly, scanning restaurant ratings, hunting for coupon codes...now that’s not fun at all.
+                        So, here’s the smarter way out with EatClub!
+
+                        <br><br>A membership program that takes you straight to a no-nonsense, curated selection of
+                        restaurants. Get unlimited savings with 30% OFF every time on all restaurants and NO extra
+                        charges on delivery, packaging or surge. <br><br>
+
+                        One membership, many benefits!
+                    </p6>
+                </div>
+                <div class="details2">
+                    <p7>COMPANY<p7><br><br>
+                            <p8>About Us</p8>
+                </div>
+                <div class="details3">
+                    <p7>GET HELP</p7><br><br>
+                    <p8>
+                        <pre>
+Contact us
+
+Help & Support
+
+Delivery Policies
+
+Privacy Policies
+
+Disclaimers</pre>
+                    </p8>
+                </div>
+                <div class="details4">
+                    <p7>EXPLORE<p7><br><br>
+                            <p8>Offers</p8><br><br>
+                            <p8>Bulk Order</p8>
+                </div>
+            </div>
+            <div class="footer2">
+                <div class="details5">
+                    <p8>Copyright 2020 - 2024. EatClub Brands Pvt. Ltd. All rights reserved. v5.18.1-0</p8>
+                </div>
+                <div class="details6">
+                    <div class="logos"><i class="fa-brands fa-instagram"></i></div>
+                    <div class="logos"><i class="fa-brands fa-facebook-f"></i></div>
+                    <div class="logos"><i class="fa-brands fa-twitter"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for slider functionality -->
+    <script>
+        const slider = document.getElementById('slider');
+        const sym1 = document.querySelector('.sym1');
+        const sym2 = document.querySelector('.sym2');
+
+        let currentIndex = 0;
+
+        sym1.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+            }
+        });
+
+        sym2.addEventListener('click', () => {
+            if (currentIndex < slider.children.length - 1) {
+                currentIndex++;
+                slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+            }
+        });
+    </script>
+</body>
+
+</html>

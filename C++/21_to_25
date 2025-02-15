@@ -1,0 +1,422 @@
+// q.21
+// i)
+// #include <iostream>
+// using namespace std;
+// string toUpperCaseASCII(string str) {
+//     for (int i = 0; i < str.length(); i++) { 
+        
+//         if (str[i] >= 'a' && str[i] <= 'z') { 
+            
+//             str[i] = str[i] - 32;
+//         }
+//     }
+//     return str; 
+// }
+// int main() {
+//     string input = "hello"; 
+//     cout << "Uppercase (Brute Force): " << toUpperCaseASCII(input) << endl;
+//     return 0;
+// }
+
+
+
+// ii)
+// #include <iostream>
+// using namespace std;
+
+// string toUpperCaseASCII(string str) {
+//     for (char &ch : str) {
+//         if (ch >= 'a' && ch <= 'z') {
+//             ch = ch - 32;
+//         }
+//     }
+//     return str;
+// }
+// int main() {
+//     string input = "hello";
+//     cout << "Uppercase (ASCII Values): " << toUpperCaseASCII(input) << endl;
+//     return 0;
+// }
+
+
+
+// iii)
+// #include <iostream>
+// using namespace std;
+
+// void toUpperCaseRecursive(string &str, int index = 0) {
+//     if (index == str.length()) {
+//         return;
+//     }
+//     if (str[index] >= 'a' && str[index] <= 'z') {
+//         str[index] = str[index] - 32;
+//     }
+//     toUpperCaseRecursive(str, index + 1);
+// }
+
+// int main() {
+//     string input = "hello";
+//     toUpperCaseRecursive(input);
+//     cout << "Uppercase (Using Recursion): " << input << endl;
+//     return 0;
+// }
+
+
+// q.22)
+// i)
+#include <iostream>
+using namespace std;
+
+int findLengthManual(string str) {
+    int count = 0; 
+    for (int i = 0; str[i] != '\0'; i++) { 
+        count++; 
+    }
+    return count; 
+}
+
+int main() {
+    string inputString = "Hello, World!"; 
+    cout << "Length (Brute Force): " << findLengthManual(inputString) << endl;
+    return 0;
+}
+
+// ii)
+// #include <iostream>
+// using namespace std;
+
+// int findLengthMethod(string str) {
+//     return str.length(); 
+// }
+
+// int main() {
+//     string inputString = "Hello, World!";
+//     cout << "Length (Using length()): " << findLengthMethod(inputString) << endl;
+//     return 0;
+// }
+
+// q.23
+// i)
+// #include <iostream>
+// using namespace std;
+
+// string concatenateManual(string str1, string str2) {
+//     for (int i = 0; i < str2.length(); i++) { 
+//         str1 += str2[i]; 
+//     }
+//     return str1; 
+// }
+
+// int main() {
+//     string str1 = "hello";  
+//     string str2 = " world"; 
+//     cout << "Concatenated String (Brute Force): " << concatenateManual(str1, str2) << endl;
+//     return 0;
+// }
+
+// ii)
+// #include <iostream>
+// using namespace std;
+
+// string concatenateWithPlus(string str1, string str2) {
+// }
+
+// int main() {
+//     string str1 = "hello";
+//     string str2 = " world";
+//     cout << "Concatenated String (Using +): " << concatenateWithPlus(str1, str2) << endl;
+//     return 0;
+// }
+
+// iii)
+// #include <iostream>
+// using namespace std;
+
+// void concatenateManually(char* str1, const char* str2) {
+//     int i = 0; 
+//     while (str1[i] != '\0') { 
+//         i++;
+//     }
+
+//     int j = 0; 
+//     while (str2[j] != '\0') { 
+//         str1[i] = str2[j];
+//         i++;
+//         j++;
+//     }
+//     str1[i] = '\0'; 
+// }
+
+// int main() {
+//     char str1[50] = "hello";  
+//     const char* str2 = " world"; 
+//     concatenateManually(str1, str2);
+//     cout << "Concatenated String (Manual Method): " << str1 << endl;
+//     return 0;
+// }
+
+// q.24
+// #include <iostream>
+// using namespace std;
+// string trimManual(string str) {
+//     int start = 0, end = str.length() - 1;
+ 
+//     while (start <= end ) {
+//         start++;
+//     }
+//     while (end >= start && (str[end] == ' ' || str[end] == '\t' || str[end] == '\n')) {
+//         end--;
+//     }
+
+    
+//     return str.substr(start, end - start + 1);
+// }
+
+// int main() {
+//     string input = "   hello   ";
+//     cout << "Trimmed String (Manual): \"" << trimManual(input) << "\"" << endl;
+//     return 0;
+// }
+
+// #include <iostream>
+// #include <cstring> 
+// using namespace std;
+
+// void splitManualArray(string str) {
+//     int start = 0;  
+//     int length = str.length();  
+
+//     for (int i = 0; i < length; i++) {
+        
+//         if (str[i] == ' ' || ispunct(str[i])) {
+            
+//             if (i > start) {
+//                 cout << "'" << str.substr(start, i - start) << "', "; 
+//             }
+//             start = i + 1; 
+//         }
+//     }
+
+    
+//     if (start < length) {
+//         cout << "'" << str.substr(start) << "'" << endl; 
+//     }
+// }
+
+// int main() {
+//     string inputString = "Hello world, welcome to JavaScript!";
+//     cout << "Words (Manual Array Split): ";
+//     splitManualArray(inputString);
+//     return 0;
+// }
+
+//q.26
+// #include <iostream>
+// using namespace std;
+
+
+// bool endsWithBruteForce(string str, char ch) {
+
+//     if (str.length() == 0) {
+//         return false; 
+//     }
+
+//     if (str[str.length() - 1] == ch) {
+//         return true; 
+//     }
+//     return false; 
+
+// int main() {
+//     string inputString = "codinggita";  
+//     char targetChar = 'a';  
+
+    
+//     if (endsWithBruteForce(inputString, targetChar)) {
+//         cout << "Output: true" << endl; 
+//     } else {
+//         cout << "Output: false" << endl;  
+//     }
+
+//     return 0;
+// }
+
+// q.27
+// #include <iostream>
+// #include <string>
+// using namespace std;
+
+// // Function to extract the file extension from the filename
+// string getFileExtensionBruteForce(string filename) {
+//     // Find the position of the last period (.)
+//     int pos = filename.rfind('.');
+    
+//     // Check if a period is found and it's not at the beginning of the string
+//     if (pos != string::npos && pos != 0) {
+//         // Extract the substring after the last period
+//         return filename.substr(pos + 1);  // Extract the file extension
+//     }
+//     return "";  // Return empty string if no period is found
+// }
+
+// int main() {
+//     string filename = "document.pdf";  // Example filename
+
+//     // Output the extracted file extension
+//     cout << "File Extension (Brute Force): " << getFileExtensionBruteForce(filename) << endl;
+
+//     return 0;
+// }
+
+// q28
+// #include <iostream>
+// using namespace std;
+
+// // Function to print the largest number
+// void printLargestNumber(int number1, int number2) {
+//     // Compare the two numbers and print the largest
+//     if (number1 > number2) {
+//         cout << "The largest number is: " << number1 << endl;
+//     } else {
+//         cout << "The largest number is: " << number2 << endl;
+//     }
+// }
+
+// int main() {
+//     int number1 = 10; // First input number
+//     int number2 = 20; // Second input number
+
+//     // Call the function to print the largest number
+//     printLargestNumber(number1, number2);
+
+//     return 0;
+// }
+
+
+// q.29
+// #include <iostream>
+// using namespace std;
+
+// // Function to find all pairs whose sum is equal to the target using brute force
+// void findPairsBruteForce(int nums[], int n, int target) {
+//     bool foundPair = false; // Flag to check if we found any pair
+
+//     // Iterate over all pairs using two loops
+//     for (int i = 0; i < n; i++) {
+//         for (int j = i + 1; j < n; j++) {
+//             // Check if the sum of the pair equals the target
+//             if (nums[i] + nums[j] == target) {
+//                 // Output the indices of the pair
+//                 cout << "[" << i << ", " << j << "]" << endl;
+//                 foundPair = true;
+//             }
+//         }
+//     }
+
+//     // If no pair was found, print a message
+//     if (!foundPair) {
+//         cout << "No pairs found!" << endl;
+//     }
+// }
+
+// int main() {
+//     int nums[] = {2, 7, 11, 15}; // Input array
+//     int n = sizeof(nums) / sizeof(nums[0]); // Length of the array
+//     int target = 9; // Target sum
+
+//     // Call the function to find pairs
+//     cout << "Pairs with sum " << target << ":" << endl;
+//     findPairsBruteForce(nums, n, target);
+
+//     return 0;
+// }
+
+// q.30
+// #include <iostream> // Include library to use input and output functions
+// using namespace std; // Use the standard namespace for convenience
+
+// // Function to calculate the sum of even and odd digits separately
+// void sumEvenOddDigits(int n) {
+//     // Initializing variables to store the sum of even and odd digits
+//     int evenSum = 0, oddSum = 0;
+    
+//     // Iterate through each digit of the number 'n'
+//     while (n > 0) {  // Keep processing digits as long as n is greater than 0
+//         int digit = n % 10;  // Extract the last digit of the number using modulus operator
+        
+//         // Check if the digit is even
+//         if (digit % 2 == 0) {  // If the digit is divisible by 2 (even)
+//             evenSum += digit;  // Add the even digit to the evenSum
+//         } else {  // Otherwise, if the digit is odd
+//             oddSum += digit;  // Add the odd digit to the oddSum
+//         }
+        
+//         n /= 10;  // Remove the last digit of 'n' by performing integer division
+//     }
+    
+//     // Output the final sums of even and odd digits
+//     cout << "Sum of even digits: " << evenSum << endl;  // Print the sum of even digits
+//     cout << "Sum of odd digits: " << oddSum << endl;  // Print the sum of odd digits
+// }
+
+// int main() {
+//     int n;  // Declare an integer variable to store the user input
+//     cout << "Enter a number: ";  // Prompt the user to input a number
+//     cin >> n;  // Read the input number from the user
+    
+//     // Call the function to calculate the sum of even and odd digits
+//     sumEvenOddDigits(n);  // Pass the input number 'n' to the function
+    
+//     return 0;  // End of the program
+// }
+
+
+//q.35(1)
+// #include <iostream>
+// using namespace std;
+
+// int main() {
+//     int n; 
+//     cout << "Enter number of rows: ";
+//     cin >> n; 
+//     for (int i = 0; i < n; i++) {
+        
+//         for (int j = 0; j < n - i; j++) {
+//             cout << "*"; 
+//         }
+//         cout << endl; 
+//     }
+
+//     return 0;
+// }
+
+//q.39
+// #include <iostream>
+// #include <string>
+// using namespace std;
+
+// bool areBracketsClosedProperly(string str) {
+//     int openCount = 0; 
+//     int closeCount = 0; 
+//     for (int i = 0; i < str.length(); i++) {
+//         char ch = str[i];
+        
+//         if (ch == '(' || ch == '{' || ch == '[') {
+//             openCount++;
+//         }
+//         else if (ch == ')' || ch == '}' || ch == ']') {
+//             closeCount++;
+//         }
+
+//         if (closeCount > openCount) {
+//             return false;  
+//         }
+//     }
+
+//     return openCount == closeCount;
+// }
+
+// int main() {
+//     string input = "{[()]}";
+//     cout << "Is the string properly closed? " << (areBracketsClosedProperly(input) ? "True" : "False") << endl;
+//     return 0;
+// }

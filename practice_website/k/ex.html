@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Change Text on Click</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    #changeTextBtn {
+      display: flex;
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      margin: 10px;
+      background-color: #f0f0f0;
+      transition: background-color 0.3s;
+    }
+    h1 {
+      font-size: 24px;
+      color: #333;
+    }
+    .blackline{
+    /* border: 1px solid black; */
+    display: flex;
+    height: 30px;
+    margin-top: -4px;;
+    background-color: black;
+    color: white;
+    justify-content: center;
+    align-items: center;
+}
+  </style>
+</head>
+<body>
+  <h1 id="header">Click the button to change this text!</h1>
+  
+  <div id="leftButton" class="button">
+    <i class="fa-solid fa-less-than"></i>
+  </div>
+  <div id="rightButton" class="button">
+    <i class="fa-solid fa-greater-than"></i>
+  </div>
+  <div class="blackline"><i class="fa-solid fa-less-than"></i>
+    <pre id="header">   SHOP FOR ₹3999 GET EXTRA 15% OFF | CODE SALE15   </pre><i
+        class="fa-solid fa-greater-than"></i>
+</div>
+
+  <script>
+    const header = document.getElementById('header');
+    const leftButton = document.getElementById('leftButton');
+    const rightButton = document.getElementById('rightButton');
+
+    // When the page loads, check if there is saved text in localStorage
+    const savedText = localStorage.getItem('headerText');
+    if (savedText) {
+      header.textContent = savedText;  // Set the saved text as the header
+    }
+
+    // When the left button is clicked
+    leftButton.addEventListener('click', function() {
+      const newText = 'You clicked the left button!';
+      header.textContent = newText;
+      localStorage.setItem('headerText', newText); // Save the new text
+    });
+
+    // When the right button is clicked
+    rightButton.addEventListener('click', function() {
+      const newText = 'You clicked the right button!';
+      header.textContent = newText;
+      localStorage.setItem('headerText', newText); // Save the new text
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* body{
+            background-color: lightblue;
+            font-weight: bold;
+            font-size: larger;
+
+        } */
+    </style>
+</head>
+<body>
+ 
+    <!-- <p id = 'para'>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, saepe ut nisi fuga minima quod earum reprehenderit commodi cumque nihil quos, fugit quibusdam, placeat sed repudiandae! Ea totam veritatis optio.
+    </p>-->
+    <!-- <button>Click Me!!</button>  -->
+
+    <p class = 'para'>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, saepe ut nisi fuga minima quod earum reprehenderit commodi cumque nihil quos, fugit quibusdam, placeat sed repudiandae! Ea totam veritatis optio.
+    </p>
+    <!-- <button>Click Me!!</button> -->
+
+     <p class="para">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus voluptas reiciendis possimus earum, at, aliquam ut fuga quod consequuntur quia qui perferendis ex minima voluptates excepturi minus corrupti hic dolorem!</p>
+
+     <p class="para">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis magnam sed amet, soluta alias ducimus unde, nam a, quod laudantium aut exercitationem aperiam iste necessitatibus voluptatum natus ullam enim ad?</p>
+
+
+</body>
+
+<script>
+    // const para= document.getElementById('para');
+    // para.style.color = 'Brown';
+    // console.log(para);
+
+    // const paragraph = document.getElementsByClassName('para');
+    // paragraph[0].style.color='Brown';
+
+    
+    // const button1 = document.querySelectorAll('button')[0];
+    // button1.addEventListener('click', () => {
+    //   para.textContent = 'Hello, DOM Manipulation!';
+    //   button1.textContent = 'Clicked';
+    //   button1.style.backgroundColor= 'yellow';
+    // });
+
+    // console.log(button1);
+
+
+    // const button2 = document.querySelectorAll('button')[1];
+    // button2.addEventListener('click', () => {
+    //   paragraph[0].textContent = 'Hello, DOM Manipulation!';
+    //   button2.textContent = 'Clicked';
+    //   button2.style.backgroundColor= 'red';
+    // });
+
+
+    // ------
+    window.onload = function() {
+       const paras = document.getElementsByClassName('para');
+    for (let i = 0; i < paras.length; i++) {
+        paras[i].textContent = "Hello, DOM"; // Change the text content
+    }
+};
+const tag = document.getElementsByTagName('paragraph');
+const class_ = document.getElementsByClassName('para');
+
+//    document.addEventListener('DOMContentLoaded',()=>{
+
+//     for(let i=0;i<paras.length;i++) {
+
+//     paras[i].textContent="Hello, DOM";}
+// });
+
+</script>
+</html>

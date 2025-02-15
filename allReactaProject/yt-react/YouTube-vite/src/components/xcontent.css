@@ -1,0 +1,40 @@
+
+.feed{
+    display: flex;
+    flex-wrap: wrap;
+    /* border: 1px solid red; */
+  
+}
+.title{
+/* border: 1px solid black; */
+width: 15vw;
+font-size: 0.9rem;
+font-weight: 500;
+font-weight: 800;
+line-height: 15px;
+margin-bottom: 3%;
+}
+
+.info{
+width:16vw;
+font-size: 0.8rem;
+
+}
+.video{
+    /* border: 1px solid rgb(0, 255, 0); */
+    margin-left:2%;
+    margin-bottom: 8%;
+    width: 230px;
+
+}
+.Channel{
+    /* border: 1px solid rgb(47, 0, 255); */
+    height: 3vh;
+    display: flex;
+}
+
+.Video-thumb{
+    height: 17vh;
+    margin-bottom: 3%;
+    /* border: 1px solid red; */
+}

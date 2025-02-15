@@ -1,0 +1,21 @@
+*{
+  margin: 0%;
+  padding: 0%;
+}
+.searchbar{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border :1px solid rgb(0, 0, 0);
+  width: 99.9vw;
+  height: 10vh;
+}
+button{
+  height: 30px;
+  margin-left: 30px;
+}
+.searchbar input{
+  text-align: center;
+  width: 200px;
+  height: 30px;
+}

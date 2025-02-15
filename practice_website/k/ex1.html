@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Text on Button Click</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .text-container {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Interactive Text Change</h1>
+    
+    <!-- Button that will change the text -->
+    <button id="changeTextBtn">Click to Change Text</button>
+    
+    <!-- Container where the text will change -->
+    <div class="text-container">
+        <p id="text">This is the original text.</p>
+    </div>
+
+    <script>
+        // Get references to the button and the text element
+        const button = document.getElementById('changeTextBtn');
+        const text = document.getElementById('text');
+
+        // Add click event listener to the button
+        button.addEventListener('click', function() {
+            // Change the text when the button is clicked
+            text.textContent = 'The text has been changed!';
+        });
+    </script>
+</body>
+</html>

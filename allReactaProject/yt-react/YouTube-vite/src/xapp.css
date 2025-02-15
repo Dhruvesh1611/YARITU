@@ -1,0 +1,291 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    /* border: 1px solid rgb(255, 0, 0); */
+  }
+  .main{
+    display: flex;
+    width: 1278px;
+    border: 1px solid rgb(255, 255, 255);
+    height: 820px;
+  }
+  .sidebar{
+    /* border: 1px solid rgb(68, 0, 255); */
+    height: 500px;
+    width: 220px;
+  }
+  .searchbar{
+    /* border: 1px solid rgb(255, 255, 255); */
+    height: 50px;
+    width: 1058px;
+  }
+  
+  .options{
+    /* border: 1px solid rgb(255, 255, 255); */
+    height: 50px;
+    width: 1058px;
+  }
+  .content{
+    /* border: 1px solid rgb(255, 255, 255); */
+    height: 600px;
+    width: 1058px;;
+  }
+  .logo{
+    display: flex;
+    width:220px;
+    height: 50px;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .img1{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+    margin-left: 20px;
+  }
+  .img2{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  
+  .home1{
+    display: flex;
+    width:220px;
+    height: 40px;
+    align-items: center;
+    background-color: #383838;
+  }
+  .home{
+    margin-top: -5px;
+    display: flex;
+    width:220px;
+    height: 40px;
+    align-items: center;
+  }
+  .img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+    margin-left: 20px;
+  }
+  .text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: small;
+  }
+  
+  .details2{
+    /* border: 1px solid rgb(220, 61, 61); */
+    margin-top: 5px;
+  }
+  .line{
+    width: 200px;
+    border: 1px solid rgb(97, 93, 93);
+    margin-top: 7px;
+  }
+  
+    
+  .searchbar{
+    display: flex;
+  align-items: center;  
+  border-bottom:1px solid gray;
+  }
+  .search{
+    display: flex;
+    border: 1px solid rgb(255, 255, 255);
+    height: 30px;
+    width: 500px;
+    margin-left: 120px;
+    border-radius: 4px;
+  }
+  .search_icone{
+    display: flex;
+    border: 1px solid red;
+    align-items: center;
+    justify-content: center;
+    background-color: #383838;
+    /* border: 1px solid rgb(255, 255, 255); */
+    height: 30px;
+    width: 150px;
+    margin-left: 380px;
+  }
+  .search input {
+    width: 90%;  
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    
+  }
+  .it{
+    display: flex;
+    margin-left: 20px;
+  }
+  .items{
+    display: flex;
+    margin-left: 230px;
+    
+  }
+  .mic{
+    margin-left: -230px;
+    margin-right: 200px;
+  }
+  p1{
+  
+    margin-left: 10px;
+  }
+  .option{
+    display: flex;
+    align-items: center;
+    height: 50px;
+    border-bottom: 1px solid gray;
+    
+    /* border: 1px solid white; */
+  }
+  .text1{
+    display: flex;
+    align-items: center;
+    font-size: small;
+    justify-content: center;
+    height: 30px;
+    border: 1px solid white;
+    margin-left: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 30px;
+  }
+  .r1{
+    display: flex;
+    border: 1px solid white;
+    height: 200px;
+  }
+  .photo1{
+    display: flex;
+    border: 1px solid rgb(202, 59, 59);
+    height: 120px;
+    width: 262.5px;
+  }
+  .photo2{
+    display: flex;
+    border: 1px solid rgb(202, 59, 59);
+    height: 100px;
+    width: 262.5px;
+  }
+  .photo3{
+    display: flex;
+    border: 1px solid rgb(202, 59, 59);
+    height: 100px;
+    width: 262.5px;
+  }
+  .photo4{
+    display: flex;
+    border: 1px solid rgb(202, 59, 59);
+    height: 100px;
+    width: 262.5px;
+  }
+  .r2{
+    display: flex;
+    border: 1px solid white;
+    height: 200px;
+  }
+  .r3{
+    display: flex;
+    border: 1px solid white;
+    height: 200px;
+  }
+  .c1{
+    border: 1px solid rgb(255, 255, 255);
+    height: 200px;
+    width: 262.5px;
+  }
+  .first{
+    height: 35px;
+    border: 1px solid blue;
+    display: flex;
+    line-height: 15px;
+    font-size: small;
+  }
+  .textfirst{
+    border: 1px solid rgb(145, 255, 0);
+    width: 200px;
+  }
+  .text3{
+      display: flex;
+      align-items: center;
+      font-size: small;
+      justify-content: center;
+      height: 30px;
+      border: 1px solid white;
+      margin-left: 10px;
+      padding-left: 10px;
+      padding-right: 10px;
+      border-radius: 20px;
+      color: black;
+      background-color: #ffffff;
+  }
+  
+  /* css for after searching result**/
+  .results {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Creates 4 equal-width columns */
+    grid-gap: 20px; /* Adds space between items */
+    margin-top: 20px; /* Adds top margin for spacing */
+  }
+  
+  .result-item {
+    border: 1px solid rgb(117, 115, 115);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .video-thumbnail {
+    margin-top: 8px;
+    width: 230px;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .result-item p {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+  }
+  
+  /*for add a video when click thumbnail**/
+  .close-video {
+    position: absolute;
+    bottom:1px;
+    right: 46%;
+    border: 1px solid white;
+  
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+  
+  .video-player {
+    position: relative;
+    width: 80%; /* Adjust as necessary */
+    margin: 0 auto;
+  }
+  
+  /*for click options then give the output releted to those options**/
+  
+  .text1.active {
+    color: #ff0000; /* Change color when active */
+    font-weight: bold;
+  }
+  

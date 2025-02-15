@@ -1,0 +1,24 @@
+Key Features of a Production Build:
+Minification:
+
+Removes unnecessary characters like spaces, comments, and line breaks from the code to reduce file size.
+Bundling:
+
+Combines all your app’s files into one or a few files to reduce the number of HTTP requests.
+Tree Shaking:
+
+Removes unused or dead code from your app to make it smaller and faster.
+Compression:
+
+Files are often compressed (e.g., Gzip or Brotli) to further reduce size and improve load times.
+Environment-Specific Code:
+
+Removes development-only features, like detailed error messages or debugging tools, to improve performance and security.
+Browser Compatibility:
+
+Transpiles modern JavaScript (e.g., ES6+) into a version that works in older browsers if needed.
+Why is a Production Build Important?
+Faster Load Times: Optimized files load quickly for users.
+Better Performance: Smaller code means faster execution in the browser.
+Security: Removes sensitive development information.
+Professional Deployment: Ensures that the app is ready for real-world use.

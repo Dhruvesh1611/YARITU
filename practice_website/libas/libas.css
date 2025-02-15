@@ -1,0 +1,333 @@
+ *{
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: lighter;
+}
+ .main{
+    /* border: 1px solid black; */
+} 
+.navbar{
+    /* border: 1px solid black; */
+    display: flex;
+    align-items: center;
+    height: 75px;
+    width: 100%;
+    position: fixed;
+    background-color: white;
+}
+.nev{
+    /* border: 1px solid black; */
+    margin-left: 40px;
+    display: flex;
+    height: 50px;
+    width: 100px;
+    align-items: center;
+    justify-content: center;
+}
+.contactus{
+    width: 140px;
+}
+.myacc{
+    width: 120px;
+    
+}
+.logo{
+    display: flex;
+    margin-left: 300px;
+    margin-right: 180px;
+}
+.heart{
+    margin-left: 10px;
+}
+.shop{
+    margin-left: 20px;
+}
+.blackline{
+    /* border: 1px solid black; */
+    display: flex;
+    height: 30px;
+    margin-top: -4px;;
+    background-color: black;
+    color: white;
+    justify-content: center;
+    align-items: center;
+}
+.collection{
+    /* border: 1px solid black; */
+    height: 120px;
+    text-align: center;
+    width: 100%;
+    border:1px solid rgb(255, 255, 255)
+
+}
+p1{
+    display: flex;
+    margin-top: 60px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: 100;
+} 
+p2{
+    display: flex;
+    justify-content: center;
+    margin-top: -5px;
+    font-size: 16px;
+    font-weight: 300;
+}
+.c1{
+    height: 520px;
+    /* border: 1px solid black; */
+    
+}
+.c2{
+    /* border: 1px solid rgb(43, 0, 255); */
+    height: 520px;
+    margin-left: 12px;
+    
+}
+.c3{
+   margin-right: 12px;
+}
+.c4{
+    margin-right: 12px;
+
+ }
+ 
+.photos{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.r1{
+    height: 520px;
+    /* border: 1px solid red; */
+}
+.photo1{
+    width: 563px; 
+    height: 410px;
+     
+}
+.photo2{
+    height: 410px;
+    width: 563px; 
+    
+}
+.text1{
+    height: 60px;
+    width: 100%;
+}
+.text2{
+    height: 60px;
+    width: 100%;
+}
+p3{
+    display: flex;
+    margin-top: 10px;
+    margin-left: 20px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+} 
+p4{
+    display: flex;
+    margin-top: -5px;
+    margin-left: 20px;
+    font-size: 14px;
+    font-weight: 300;
+    
+}
+P5{
+    display: flex;
+    font-size: 12px;
+    font-weight: 300;
+}
+.explore{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 445px;
+    margin-top: -35px;
+    height: 30px;
+    width: 90px;
+    border: 1px solid black;
+
+}
+.categories{
+    /* border: 1px solid black; */
+    height: 70px;
+    text-align: center;
+    width: 100%;
+    margin-top: -60px;
+}
+
+.catagory_photo1_r1{
+    height: 382px;
+    width: 348px; 
+    /* margin-right: 12px; */
+    
+}
+.catagory_photo2_r1{
+    height: 382px;
+    width: 348px; 
+}
+.catagory_photo3_r1{
+    height: 382px;
+    width: 348px; 
+}
+.r2{
+    height: 450px;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+ p6{
+    display: flex;
+    margin-top: 10px;
+    width: 340px;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 300; 
+}
+.ourbrands{
+    height: 70px;
+    
+} 
+ .brandsphoto{
+    display: flex;
+    justify-content: center;
+    /* border: 1px solid black; */
+}
+.photo{
+    margin-right: 10px;
+    
+}
+.kiara{
+    
+    display: flex;
+    
+    justify-content: center;
+   
+}
+.kc1{
+    /* height: 475px; */
+    margin-right: 10px;
+}
+ .kphoto1{
+    background-image: url(https://www.libas.in/cdn/shop/files/35852_b0dc62a9-c529-4b98-8574-e0da08bcb35e.jpg?v=1727691006&width=1080);
+    background-size: cover;
+    height: 378px;
+} 
+.kphoto2{
+    background-image: url(https://www.libas.in/cdn/shop/files/48605_53db1ec4-625f-466c-958b-b2f453e26cd6.jpg?v=1727691110&width=1080);
+    background-size: cover;
+    height: 378px;
+} 
+.kphoto3{
+    background-image: url(https://www.libas.in/cdn/shop/files/LibasKiara2_0318.jpg?v=1721986149&width=1080);
+    background-size: cover;
+    height: 378px;
+} 
+.kphoto4{
+    background-image: url(https://www.libas.in/cdn/shop/files/48605_53db1ec4-625f-466c-958b-b2f453e26cd6.jpg?v=1727691110&width=1080);
+    background-size: cover;
+    height: 378px;
+} 
+.ktext{
+    height: 80px;
+    padding-top: 10px;
+    width: 259px;
+}
+p7{
+    display: flex;
+    color: red;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    
+}
+p8{
+    display: flex;
+    font-size: 12.8px;
+}
+.tag{
+    padding-top: 15px;
+}
+.top_pics{
+    /* display: flex; */
+    height: 80px;
+   padding: 20px;
+    /* align-items: center;
+    justify-content: center; */
+}
+.video{
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    height: 456px;
+}
+.video1{
+    border-radius: 2px;
+    overflow:hidden;
+    margin-left: 10px;
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0,.1);
+    width: 256px;
+    
+}
+.video2{
+    margin-left: 5px;
+    border-radius: 2px;
+    overflow:hidden;
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0,.1);
+    width: 256px;
+}
+.box{
+    display: flex;
+    height: 456px;
+    width: 1080px;
+}
+.pephoto1{
+    background-image: url(https://www.libas.in/cdn/shop/articles/27th_Nov-Valentine_Day_Gifts_for_Her.webp?v=1732947708&width=1080);
+    height: 600px;
+    width: 300px;
+    background-size:contain;
+    background-repeat: no-repeat;
+}
+.text{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    height: 300px;
+}
+.text3{
+    border: 1px solid red;
+    height: 300px;
+    width: 350px;
+    margin-right: 10px;
+}
+p11{
+    display: flex;
+    text-align: center;
+    margin-top: 10px;
+}
+p12{
+    display: flex;
+    font-size: 11px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+p13{
+    text-decoration: underline;
+    font-weight: normal;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}

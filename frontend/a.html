@@ -1,0 +1,68 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    </style>
+</head>
+<body>
+    <div class="table">
+    <script>
+        const table = document.createElement('table');
+        table.style.border = '1px solid black';
+        table.style.borderCollapse = 'collapse';
+    
+        const row1 = document.createElement('tr');
+        const cell1_1 = document.createElement('td');
+        cell1_1.textContent = 'Row 1, Cell 1';
+        const cell1_2 = document.createElement('td');
+        cell1_2.textContent = 'Row 1, Cell 2';
+        row1.appendChild(cell1_1);
+        row1.appendChild(cell1_2);
+    
+        const row2 = document.createElement('tr');
+        const cell2_1 = document.createElement('td');
+        cell2_1.textContent = 'Row 2, Cell 1';
+        const cell2_2 = document.createElement('td');
+        cell2_2.textContent = 'Row 2, Cell 2';
+        row2.appendChild(cell2_1);
+        row2.appendChild(cell2_2);
+    
+        table.appendChild(row1);
+        table.appendChild(row2);
+    
+        document.body.appendChild(table);
+        </script>
+    </div>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Table</title>
+</head>
+<body>
+    <div id="container"></div>
+    <script>
+        const container = document.getElementById('container');
+
+        // Using innerHTML to create the table structure
+        container.innerHTML = `
+            <table border="1">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+                <tr>
+                    <td>Dhruvesh</td>
+                    <td>dhruveshshyara@gmail.com</td>
+                </tr>
+            </table>
+        `;
+    </script>
+</body>
+</html>
