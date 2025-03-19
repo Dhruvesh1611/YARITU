@@ -1,0 +1,137 @@
+.leaderboardContainer {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 20px;
+  margin-top: 30px;
+  width: 100%;
+  max-width: 500px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transform: translateZ(10px);
+  transition: all 0.3s ease;
+}
+
+.leaderboardContainer:hover {
+  transform: translateZ(15px) scale(1.02);
+}
+
+.leaderboardContainer h2 {
+  color: #fff;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8em;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+.scoreForm {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  animation: pulse 1.5s infinite alternate;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes pulse {
+  from { box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }
+  to { box-shadow: 0 5px 25px rgba(46, 204, 113, 0.6); }
+}
+
+.scoreForm p {
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 1.1em;
+}
+
+.inputGroup {
+  display: flex;
+  gap: 10px;
+}
+
+.inputGroup input {
+  flex: 1;
+  padding: 10px 15px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.inputGroup input:focus {
+  border-color: #2ecc71;
+  box-shadow: 0 0 10px rgba(46, 204, 113, 0.4);
+  outline: none;
+}
+
+.inputGroup button {
+  background: linear-gradient(45deg, #2ecc71, #27ae60);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(46, 204, 113, 0.3);
+}
+
+.inputGroup button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(46, 204, 113, 0.5);
+}
+
+.scoresList {
+  width: 100%;
+}
+
+.scoresList table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.scoresList th {
+  background: linear-gradient(45deg, #3498db, #2980b9);
+  color: white;
+  padding: 12px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.scoresList td {
+  padding: 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+.scoresList tr:last-child td {
+  border-bottom: none;
+}
+
+.scoresList tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.currentScore {
+  background: rgba(46, 204, 113, 0.2) !important;
+  animation: highlight 2s infinite alternate;
+}
+
+@keyframes highlight {
+  from { background: rgba(46, 204, 113, 0.2); }
+  to { background: rgba(46, 204, 113, 0.4); }
+}
+
+.noScores {
+  text-align: center;
+  color: #fff;
+  font-style: italic;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
