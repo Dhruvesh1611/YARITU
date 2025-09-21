@@ -1,0 +1,98 @@
+.multiple-offers-section {
+  padding: 80px 20px;
+  background-color: #f8f4f0;
+  text-align: center;
+  overflow: hidden;
+}
+
+.multiple-offers-section .section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  margin-bottom: 60px;
+}
+
+.multiple-offers-section .section-title .highlight {
+  color: #c5a46d;
+}
+
+.multiple-offers-section .offers-container {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px;
+}
+
+.multiple-offers-section .offer-card {
+  position: absolute;
+  width: 280px;
+  border: 3px solid white;
+  height: 500px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+
+
+.multiple-offers-section .offer-image {
+  width: 100%;
+  height: 100%;
+}
+
+.multiple-offers-section .offer-details {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.multiple-offers-section .offer-category {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #2a2a2a;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.multiple-offers-section .offer-discount {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #c5a46d;
+}
+
+@media (max-width: 992px) {
+  .multiple-offers-section .offers-container {
+    height: 400px;
+  }
+  .multiple-offers-section .offer-card {
+    width: 200px;
+    height: 320px;
+  }
+}
+
+@media (max-width: 768px) {
+  .multiple-offers-section .offers-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    height: auto;
+    perspective: none;
+  }
+  .multiple-offers-section .offer-card {
+    position: static;
+    transform: none !important;
+    filter: grayscale(0%) !important;
+    width: 100%;
+    height: 350px;
+  }
+}

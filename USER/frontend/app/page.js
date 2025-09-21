@@ -2,9 +2,9 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import './home.css';
-import MultipleOffers from '../components/home_sections/MultipleOffers';
-import StayClassy from '../components/home_sections/StayClassy';
-import CelebritySection from '../components/home_sections/CelebritySection';
+import MultipleOffers from '../components/MultipleOffers';
+import StayClassy from '../components/StayClassy';
+import CelebritySection from '../components/CelebritySection';
 
 const stores = [
   { id: 1, name: 'Yogichowk, Surat' },

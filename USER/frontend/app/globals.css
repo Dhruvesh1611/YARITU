@@ -1,0 +1,196 @@
+:root {
+    --color-primary: #c5a46d;
+    --color-dark-blue: #25384d;
+    --color-dark-gray: #2a2a2a;
+    --color-text-gray: #666666;
+    --color-light-gray-bg: #e5e5e5;
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Poppins', sans-serif;
+    --font-special-1: 'Poiret One', sans-serif;
+    --font-special-2: 'Cinzel', serif;
+
+    --color-background: #f8f4f0;
+    --color-surface: #ffffff;
+    --color-primary-dark: #25384d;
+    --color-text-primary: #2a2a2a;
+    --color-text-secondary: #666666;
+    --color-accent: #c5a46d;
+    --color-border-light: #f5f5f5;
+    --color-icon-bg: #c8bdaa;
+
+    --font-display: 'Playfair Display', serif;
+    --font-special: 'Poiret One', cursive;
+    --font-accent: 'Cinzel', serif;
+    --font-button: 'Source Serif Pro', serif;
+    
+    --color-text-dark: #2a2a2a;
+    --color-text-light: #666666;
+    --color-background-alt: #eaeaea;
+    --color-background-alt-2: #f8f4f0;
+    --color-background-alt-3: #eae5e5;
+    --color-footer: #25384d;
+    --color-dark: #000000;
+    --font-nav: 'Poiret One', sans-serif;
+    --primary-bg: #f8f4f0;
+    --secondary-bg: #ffffff;
+    --footer-bg: #25384d;
+    --text-dark: #2a2a2a;
+    --text-light: #ffffff;
+    --brand-accent: #c5a46d;
+    --button-bg: #25334d;
+
+    --color-primary-text: #2a2a2a;
+    --color-secondary-text: #666666;
+    --color-highlight: #c5a46d;
+    --color-background-light: #ffffff;
+    --color-background-dark: #25384d;
+    --color-text: #2a2a2a;
+    --color-dark-bg: #25384d;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--color-text);
+    background-color: var(--color-background);
+    /* padding-top: 88px;  REMOVED */
+}
+
+.page-container {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.highlight-text {
+    color: var(--color-primary);
+}
+
+.section-padding {
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.container {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.page-wrapper {
+    max-width: 1280px;
+    margin: 0 auto;
+    background-color: #ffffff;
+}
+
+.highlight {
+  color: var(--color-highlight);
+}
+
+.whatsapp-float {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 100;
+  width: 50px;
+  height: 50px;
+  transition: transform 0.3s ease;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+}
+
+.whatsapp-float img {
+  width: 100%;
+  height: 100%;
+}
+
+.section-container {
+    padding: 80px 40px;
+    text-align: center;
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 42px;
+    color: #000000;
+    margin-bottom: 16px;
+}
+
+.section-title .highlight {
+    color: var(--color-primary);
+}
+
+.section-subtitle {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 21px;
+    color: var(--color-text-light);
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 768px) {
+    .section-padding {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+  .container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .whatsapp-float {
+    width: 40px;
+    height: 40px;
+    bottom: 20px;
+    right: 20px;
+  }
+  .section-container {
+        padding: 40px 20px;
+    }
+
+    .section-title {
+        font-size: 32px;
+    }
+
+    .section-subtitle {
+        font-size: 18px;
+    }
+}
+

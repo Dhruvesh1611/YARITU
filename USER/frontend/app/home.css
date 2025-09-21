@@ -175,35 +175,14 @@
 }
 @media (max-width: 1200px) {
     .gallery-items {
-        flex-wrap: nowrap; /* Prevent wrapping */
-        overflow-x: auto; /* Enable horizontal scrolling */
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-        padding: 10px;
-    }
-    .gallery-item {
-        flex-shrink: 0; /* Prevent items from shrinking */
-        scroll-snap-align: center;
-        width: 300px; /* Restore original width */
-        height: 453px; /* Restore original height */
-    }
-    .gallery-item.large {
-        width: 340px; /* Restore original large width */
-        height: 566px; /* Restore original large height */
+        flex-wrap: wrap;
     }
     .gallery-arrow {
-        display: none; /* Hide arrows on mobile */
+        position: static;
+        transform: none;
     }
     .featured-gallery {
-        justify-content: flex-start;
-    }
-}
-
-@media (max-width: 768px) {
-    /* This can be removed or adjusted if stacking is not desired */
-    .gallery-item, .gallery-item.large {
-        width: 280px; /* A consistent smaller size for phones */
-        height: auto;
+        flex-wrap: wrap;
     }
 }
 
@@ -233,16 +212,12 @@
     background-color: #f1eeee;
     padding-top: 70px;
     padding-bottom: 70px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 .trending-images-container {
     position: relative;
     width: 1280px;
     height: 622px;
-    margin: 40px 0 0; /* Removed auto margin */
+    margin: 40px auto 0;
 }
 .trending-bg {
     position: absolute;
@@ -258,26 +233,18 @@
     object-fit: cover;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
-@media (max-width: 1200px) {
+ @media (max-width: 1200px) {
     .trending-images-container {
-        width: 100%;
+        width: 90%;
         height: auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         gap: 10px;
-        padding: 20px;
-    }
-    /* Hide the first and last images on mobile */
-    .trending-images-container > :nth-child(2),
-    .trending-images-container > :nth-child(6) {
-        display: none;
     }
     .trending-img {
         position: static;
-        width: 30%; /* Distribute width among 3 images */
+        width: 100%;
         height: auto;
-        flex-shrink: 1;
     }
     .trending-bg {
         display: none;
