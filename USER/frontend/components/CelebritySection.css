@@ -2,6 +2,7 @@
     text-align: center;
     padding: 50px 20px;
     background-color: #f9f9f9;
+    overflow-x: hidden; /* Prevent horizontal overflow */
 }
 
 .celebrity-title {
@@ -22,4 +23,33 @@
     width: 100%;
     height: auto;
     display: block;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+    .celebrity-section {
+        padding: 30px 15px;
+        max-width: 100vw;
+        overflow-x: hidden;
+    }
+    
+    .celebrity-section video {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+        padding: 0 10px;
+    }
+    
+    .section-subtitle {
+        font-size: 1rem;
+        margin-bottom: 20px;
+        padding: 0 10px;
+    }
 }

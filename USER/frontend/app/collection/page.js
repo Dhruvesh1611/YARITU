@@ -55,6 +55,7 @@ export default function Collection() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [viewMode, setViewMode] = useState('grid'); // 'grid' (2 per row) or 'single' (1 per row)
 
   useEffect(() => {
     let products = allProducts.filter(p => p.category === activeCategory);
@@ -222,7 +223,34 @@ export default function Collection() {
             <h2 className="collection-title">Royal Collection</h2>
             <p className="collection-subtitle">Explore our finest selection.</p>
 
-            <div className="product-grid">
+            {/* View Toggle Buttons */}
+            <div className="view-toggle-container">
+              <button 
+                className={`view-toggle-btn ${viewMode === 'single' ? 'active' : ''}`}
+                onClick={() => setViewMode('single')}
+                title="Single column view"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="3" y="3" width="18" height="4" rx="1" stroke="currentColor" strokeWidth="2"/>
+                  <rect x="3" y="10" width="18" height="4" rx="1" stroke="currentColor" strokeWidth="2"/>
+                  <rect x="3" y="17" width="18" height="4" rx="1" stroke="currentColor" strokeWidth="2"/>
+                </svg>
+              </button>
+              <button 
+                className={`view-toggle-btn ${viewMode === 'grid' ? 'active' : ''}`}
+                onClick={() => setViewMode('grid')}
+                title="Grid view"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="2"/>
+                  <rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="2"/>
+                  <rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="2"/>
+                  <rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="2"/>
+                </svg>
+              </button>
+            </div>
+
+            <div className={`product-grid ${viewMode === 'single' ? 'single-column' : 'grid-view'}`}>
               {currentProducts.length > 0 ? (
                 currentProducts.map(product => (
                   <article className="product-card" key={product.id} onClick={() => handleProductClick(product)}>

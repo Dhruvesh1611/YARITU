@@ -153,11 +153,62 @@
   margin-bottom: 22px;
 }
 
+/* View Toggle Buttons */
+.view-toggle-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.view-toggle-btn {
+  background-color: #f8f4f0;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+}
+
+.view-toggle-btn:hover {
+  border-color: var(--brand-accent);
+  background-color: #fff;
+}
+
+.view-toggle-btn.active {
+  background-color: var(--brand-accent);
+  border-color: var(--brand-accent);
+  color: white;
+}
+
+.view-toggle-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Product Grid Layouts */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(4, 300px);
   gap: 28px;
   justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.product-grid.grid-view {
+  grid-template-columns: repeat(2, 1fr); /* Default to 2 columns for grid view */
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.product-grid.single-column {
+  grid-template-columns: 1fr;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .product-card {
@@ -182,14 +233,17 @@
 }
 
 @media (max-width: 1300px) {
-  .product-grid {
-    grid-template-columns: repeat(3, 300px);
+  .product-grid.grid-view {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 700px;
   }
 }
 
 @media (max-width: 992px) {
-  .product-grid {
-    grid-template-columns: repeat(2, 300px);
+  .product-grid.grid-view {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 600px;
+    gap: 20px;
   }
 }
 
@@ -200,14 +254,45 @@
   .breadcrumbs, .collection-title, .collection-subtitle {
     text-align: center;
   }
-  .product-grid {
-    grid-template-columns: repeat(1, 300px);
+  .product-grid.grid-view {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 100%;
+    gap: 15px;
+    padding: 0 15px;
+  }
+  
+  .view-toggle-container {
+    margin-bottom: 20px;
+  }
+  
+  .view-toggle-btn {
+    width: 45px;
+    height: 45px;
+    padding: 10px;
   }
 }
 
 @media (max-width: 480px) {
-  .product-grid {
+  .product-grid.grid-view {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 100%;
+    padding: 0 10px;
+    gap: 10px;
+  }
+  
+  .product-grid.single-column {
     grid-template-columns: 1fr;
+    max-width: 100%;
+    padding: 0 10px;
+  }
+  
+  .product-card {
+    width: 100%;
+  }
+  
+  .product-image {
+    height: auto;
+    aspect-ratio: 3/4;
   }
 }
 

@@ -1,10 +1,13 @@
-import React from 'react';
+"use client";
+
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import './home.css';
 import MultipleOffers from '../components/MultipleOffers';
 import StayClassy from '../components/StayClassy';
 import CelebritySection from '../components/CelebritySection';
+import TestimonialsSlider from '../components/TestimonialsSlider';
 
 const stores = [
   { id: 1, name: 'Yogichowk, Surat' },
@@ -25,6 +28,65 @@ const stores = [
 ];
 
 export default function Home() {
+  useEffect(() => {
+    // Set initial scroll position for sections to show partial images on both sides
+    const initializeScrollPositions = () => {
+      // Initialize trending section
+      const trendingContainer = document.querySelector('.trending-images-container');
+      if (trendingContainer) {
+        // Scroll to position that shows second image centered with partial first and third visible
+        const scrollPosition = 275; // Adjust this value to get the perfect positioning
+        trendingContainer.scrollLeft = scrollPosition;
+      }
+
+      // Initialize featured section  
+      const featuredContainer = document.querySelector('.featured-gallery');
+      if (featuredContainer) {
+        // Scroll to position that shows second image centered with partial first and third visible
+        const featuredScrollPosition = 300; // Adjust this value for featured section
+        featuredContainer.scrollLeft = featuredScrollPosition;
+      }
+    };
+
+    // Set up scroll animations for store cards
+    const setupStoreAnimations = () => {
+      const storeCards = document.querySelectorAll('.store-card');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            // Add delay based on index for staggered effect
+            setTimeout(() => {
+              entry.target.classList.add('animate-in');
+            }, index * 100); // 100ms delay between each card
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '50px'
+      });
+
+      storeCards.forEach(card => {
+        observer.observe(card);
+      });
+
+      // Cleanup observer
+      return () => {
+        storeCards.forEach(card => {
+          observer.unobserve(card);
+        });
+      };
+    };
+
+    // Delay to ensure DOM is fully loaded
+    const timer = setTimeout(() => {
+      initializeScrollPositions();
+      setupStoreAnimations();
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <>
       <section id="section-hero" className="hero-section">
@@ -137,16 +199,7 @@ export default function Home() {
         <section id="section-testimonials" className="section-container">
           <h2 className="section-title">What Our <span className="highlight">Clients Say</span></h2>
           <p className="section-subtitle">Real experiences from our satisfied customers</p>
-          <div className="testimonials-grid">
-            <div className="testimonial-card"><Image src="/images/Rectangle 4.png" alt="Testimonial 1" width={280} height={400} /></div>
-            <div className="testimonial-card"><Image src="/images/Rectangle 4.png" alt="Testimonial 2" width={280} height={400} /></div>
-            <div className="testimonial-card"><Image src="/images/Rectangle 4.png" alt="Testimonial 3" width={280} height={400} /></div>
-            <div className="testimonial-card"><Image src="/images/Rectangle 4.png" alt="Testimonial 4" width={280} height={400} /></div>
-            <div className="testimonial-card"><Image src="/images/Rectangle 4.png" alt="Testimonial 5" width={280} height={400} /></div>
-            <div className="testimonial-card"><Image src="/images/Rectangle 4.png" alt="Testimonial 6" width={280} height={400} /></div>
-            <div className="testimonial-card"><Image src="/images/Rectangle 4.png" alt="Testimonial 7" width={280} height={400} /></div>
-            <div className="testimonial-card"><Image src="/images/Rectangle 4.png" alt="Testimonial 8" width={280} height={400} /></div>
-          </div>
+          <TestimonialsSlider />
         </section>
       </div>
     </>
