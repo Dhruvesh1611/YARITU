@@ -65,7 +65,7 @@ export default function Home() {
           <h2 className="section-title">Trending <span className="highlight">Now</span></h2>
           <p className="section-subtitle">Where style meets the spotlight — the moments everyone’s talking about.</p>
           <div className="trending-images-container">
-            <Image src="/images/background_shape.png" className="trending-bg" alt="background shape" layout="fill" />
+            <Image src="/images/background_shape.png" className="trending-bg" alt="background shape" fill style={{ objectFit: 'cover' }} />
             <Image src="/images/reel2.png" alt="Trending 1" className="trending-img" style={{ left: '96px', top: '145px', width: '204px', height: '363px', zIndex: 2 }} width={204} height={363} />
             <Image src="/images/reel3.png" alt="Trending 2" className="trending-img" style={{ left: '309px', top: '106px', width: '214px', height: '441px', zIndex: 3 }} width={214} height={441} />
             <Image src="/images/reel4.png" alt="Trending 3" className="trending-img" style={{ left: '532px', top: '67px', width: '215px', height: '527px', zIndex: 4 }} width={215} height={527} />

@@ -141,12 +141,32 @@
     background-color: #ffffff;
     flex-direction: column;
     align-items: center;
-    padding-top: 100px;
-    gap: 2rem;
+    gap: .5rem;
     z-index: 102; /* Higher than header and overlay */
     transform: translateX(100%);
     transition: transform 0.3s ease-in-out;
     box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+}
+
+/* Mobile logo at the top of the slide-in menu */
+.mobile-logo-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 14px 0 8px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    background: linear-gradient(180deg, rgba(0,0,0,0.02), transparent);
+}
+
+/* Slight separators between links for clarity and larger tap targets */
+.mobile-nav-link + .mobile-nav-link {
+    border-top: 1px solid rgba(0,0,0,0.04);
+}
+
+.mobile-nav-link {
+    padding: 16px 20px;
+    font-size: 18px;
 }
 
 .mobile-nav.open {

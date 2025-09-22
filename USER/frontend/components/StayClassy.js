@@ -63,8 +63,8 @@ const StayClassy = () => {
                 <Image
                   src={collectionImages[index]}
                   alt={`Collection item ${index + 1}`}
-                  layout="fill"
-                  objectFit="cover"
+                  fill
+                  style={{ objectFit: 'cover' }}
                 />
               </div>
             </div>
