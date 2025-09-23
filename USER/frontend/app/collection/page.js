@@ -49,6 +49,12 @@ const allProducts = [
 const PRODUCTS_PER_PAGE = 8;
 
 export default function Collection() {
+  // Track client mount to avoid reading window during server render
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const [activeCategory, setActiveCategory] = useState('MEN');
   const [activeType, setActiveType] = useState(null);
   const [activeOccasion, setActiveOccasion] = useState(null);
@@ -100,16 +106,67 @@ export default function Collection() {
     setActiveOccasion(null);
   };
 
+  // Mobile dropdown open state (category key or null)
+  const [openDropdown, setOpenDropdown] = useState(null);
+
+  const toggleDropdown = (category) => {
+  // If viewport is desktop, just switch category without toggling dropdown
+  // Guard with isClient so server render remains deterministic
+  // On desktop we prefer hover to reveal the menu; clicking should only toggle
+  // the 'open' state and must NOT change filters or layout.
+  if (isClient && typeof window !== 'undefined' && window.innerWidth > 768) {
+      setOpenDropdown(prev => (prev === category ? null : category));
+      return;
+    }
+
+    // Mobile behaviour: toggle the dropdown panel. Do not set the active
+    // category on second click — selection happens when a sub-filter is chosen.
+    setOpenDropdown(prev => (prev === category ? null : category));
+  };
+
+  // When a mobile dropdown is open, add a class to collection-content to push it down
+  useEffect(() => {
+    const el = document.querySelector('.collection-content');
+    if (!el) return;
+    if (openDropdown) {
+      el.classList.add('dropdown-active');
+    } else {
+      el.classList.remove('dropdown-active');
+    }
+    // cleanup on unmount
+    return () => el.classList.remove('dropdown-active');
+  }, [openDropdown]);
+
   const handleTypeClick = (category, type) => {
     setActiveCategory(category);
     setActiveType(type);
     setActiveOccasion(null); // Reset occasion filter
+    // Close any open mobile dropdown
+    setOpenDropdown(null);
+    // ensure collection content is in view on selection
+    scrollToCollectionTitle();
   };
 
   const handleOccasionClick = (category, occasion) => {
     setActiveCategory(category);
     setActiveOccasion(occasion);
     setActiveType(null); // Reset type filter
+    // Close any open mobile dropdown
+    setOpenDropdown(null);
+    // ensure collection content is in view on selection
+    scrollToCollectionTitle();
+  };
+
+  // Client-only scroll helper
+  const scrollToCollectionTitle = () => {
+    if (!isClient) return;
+    setTimeout(() => {
+      const title = document.querySelector('.collection-title');
+      if (title) {
+        const y = title.getBoundingClientRect().top + window.pageYOffset - 24; // small offset
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    }, 60);
   };
 
   const getBreadcrumbs = () => {
@@ -131,8 +188,8 @@ export default function Collection() {
 
           <div className="category-buttons">
             {/* MEN */}
-            <div className="category-button-container">
-              <button onClick={() => handleCategoryClick('MEN')} className="category-button">
+            <div className={`category-button-container ${openDropdown === 'MEN' ? 'open' : ''}`}>
+              <button onClick={() => toggleDropdown('MEN')} className="category-button">
                 <Image src="/images/2195_79.svg" alt="Men category background glow" className="btn-glow" width={252} height={50} />
                 <div className="btn-bg"></div>
                 <span className="btn-text">MEN</span>
@@ -160,8 +217,8 @@ export default function Collection() {
             </div>
 
             {/* WOMEN */}
-            <div className="category-button-container">
-              <button onClick={() => handleCategoryClick('WOMEN')} className="category-button">
+            <div className={`category-button-container ${openDropdown === 'WOMEN' ? 'open' : ''}`}>
+              <button onClick={() => toggleDropdown('WOMEN')} className="category-button">
                 <Image src="/images/2195_84.svg" alt="Women category background glow" className="btn-glow" width={252} height={50} />
                 <div className="btn-bg"></div>
                 <span className="btn-text">WOMEN</span>
@@ -189,8 +246,8 @@ export default function Collection() {
             </div>
 
             {/* CHILDREN */}
-            <div className="category-button-container">
-              <button onClick={() => handleCategoryClick('CHILDREN')} className="category-button">
+            <div className={`category-button-container ${openDropdown === 'CHILDREN' ? 'open' : ''}`}>
+              <button onClick={() => toggleDropdown('CHILDREN')} className="category-button">
                 <Image src="/images/2195_89.svg" alt="Children category background glow" className="btn-glow" width={252} height={50} />
                 <div className="btn-bg"></div>
                 <span className="btn-text">CHILDREN</span>

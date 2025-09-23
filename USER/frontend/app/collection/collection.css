@@ -54,7 +54,7 @@
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  width: 500px;
+  width: 600px;
   background: #213346;
   color: white;
   padding: 20px;
@@ -74,11 +74,11 @@
   visibility: visible;
 }
 
-.dropdown-column {
+/* .dropdown-column {
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
+} */
 
 .dropdown-column h4 {
   font-weight: bold;
@@ -124,7 +124,7 @@
 .btn-text {
   z-index: 3;
   color: var(--text-light);
-  font-size: 20px;
+  font-size: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -159,6 +159,13 @@
   justify-content: center;
   gap: 10px;
   margin-bottom: 30px;
+}
+
+/* Hide view toggle on wider screens (desktop) - only show on mobile */
+@media (min-width: 769px) {
+  .view-toggle-container {
+    display: none;
+  }
 }
 
 .view-toggle-btn {
@@ -203,6 +210,20 @@
   grid-template-columns: repeat(2, 1fr); /* Default to 2 columns for grid view */
   max-width: 800px;
   margin: 0 auto;
+}
+
+/* Desktop: show 4 items per row and allow cards to be fluid */
+@media (min-width: 1200px) {
+  .product-grid.grid-view {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 1200px;
+    gap: 32px;
+    padding: 0 40px;
+  }
+
+  .product-card {
+    width: 100%; /* let grid column control size */
+  }
 }
 
 .product-grid.single-column {
@@ -254,6 +275,90 @@
   .breadcrumbs, .collection-title, .collection-subtitle {
     text-align: center;
   }
+  
+  /* Mobile button styling like the screenshot */
+  .category-buttons {
+    gap: 15px;
+    margin: 50px 0 30px 0;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .category-button {
+    width: 220px;
+    height: 40px;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(44, 62, 80, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .category-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(44, 62, 80, 0.4);
+    background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+  }
+  
+  .category-button .btn-text {
+    position: relative;
+    z-index: 2;
+    color: white;
+  }
+  
+  /* Hide background images and elements on mobile */
+  .category-button .btn-glow,
+  .category-button .btn-bg {
+    display: none;
+  }
+
+  /* Mobile: when a dropdown is opened, show a stacked full-width panel under the button */
+  .category-button-container .dropdown-menu {
+    position: static;
+    transform: none;
+    border: 2px solid red;
+    width: calc(100%);
+    max-width: 1160px;
+    background: #213346;
+    color: #fff;
+    border-radius: 12px;
+    padding: 18px;
+    margin: 12px 0 0 0;
+    display: none;
+    opacity: 1;
+    visibility: visible;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  }
+
+  /* When dropdown is active (via JS), reveal the menu panel */
+  .category-button-container.open .dropdown-menu,
+  .category-button-container .dropdown-menu.show {
+    display: flex;
+    flex-direction: row; /* show two columns side-by-side */
+    gap: 16px;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .category-button-container.open .dropdown-menu .dropdown-column,
+  .category-button-container .dropdown-menu.show .dropdown-column {
+    width: 48%;
+  }
+  
+
+  /* Push the main collection content down so dropdown doesn't overlap */
+  .collection-content.dropdown-active {
+    margin-top: 12px; /* small gap so title is visible right beneath dropdown */
+    transition: margin-top 0.12s ease;
+  }
+  
   .product-grid.grid-view {
     grid-template-columns: repeat(2, 1fr);
     max-width: 100%;
