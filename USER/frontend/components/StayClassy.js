@@ -49,6 +49,9 @@ const StayClassy = () => {
 
   return (
     <section className="stay-classy-section" ref={gridRef}>
+      <h2 className="section-title">
+        Stay <span className="highlight">Classsy</span>
+      </h2>
       <div className="stay-classy-grid">
         {Array.from({ length: 25 }).map((_, index) => (
           <div key={index} className="flip-card">

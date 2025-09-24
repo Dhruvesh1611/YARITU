@@ -110,18 +110,38 @@ export default function Collection() {
   const [openDropdown, setOpenDropdown] = useState(null);
 
   const toggleDropdown = (category) => {
-  // If viewport is desktop, just switch category without toggling dropdown
-  // Guard with isClient so server render remains deterministic
-  // On desktop we prefer hover to reveal the menu; clicking should only toggle
-  // the 'open' state and must NOT change filters or layout.
-  if (isClient && typeof window !== 'undefined' && window.innerWidth > 768) {
+    // Guard with isClient so server render remains deterministic
+    if (isClient && typeof window !== 'undefined' && window.innerWidth > 768) {
+      // Desktop: do NOT change the active category or layout on click.
+      // Keep hover behavior for showing the two-column dropdown. Clicking
+      // the button should only toggle the 'open' state for accessibility
+      // or keyboard users, not change the product layout.
       setOpenDropdown(prev => (prev === category ? null : category));
       return;
     }
 
-    // Mobile behaviour: toggle the dropdown panel. Do not set the active
-    // category on second click — selection happens when a sub-filter is chosen.
-    setOpenDropdown(prev => (prev === category ? null : category));
+    // Mobile behavior: first click opens the dropdown panel.
+    // If the same category is clicked again while open, treat as a selection
+    // and scroll to the collection title.
+    if (openDropdown === category) {
+      // Second click: set the category and scroll to results
+      setOpenDropdown(null);
+      setActiveCategory(category);
+      setActiveType(null);
+      setActiveOccasion(null);
+      // smooth scroll to collection title on client
+      if (isClient) {
+        const title = document.querySelector('.collection-title');
+        if (title) {
+          const y = title.getBoundingClientRect().top + window.pageYOffset - 24;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }
+      return;
+    }
+
+    // Otherwise open the dropdown for this category (first click)
+    setOpenDropdown(category);
   };
 
   // When a mobile dropdown is open, add a class to collection-content to push it down

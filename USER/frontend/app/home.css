@@ -1,10 +1,11 @@
 .page-content-wrapper {
-    padding-top: 0px; /* Height of the fixed header */
+    /* Reserve space for the fixed header so content doesn't jump under it */
+    padding-top: 88px; /* match .main-nav height in Header.css */
 }
 
 .hero-section {
     position: relative;
-    height: 100vh; 
+    height: 100vh;
     width: 100%; /* Use 100% instead of 100vw to avoid overflow */
     display: flex;
     flex-direction: column;
@@ -57,6 +58,11 @@
     padding: 12px 30px;
     text-decoration: none;
     transition: background-color 0.3s, transform 0.3s;
+}
+
+.hero-button:hover {
+    background-color: rgba(37, 51, 77, 1);
+    transform: scale(1.05);
 }
 
 .hero-button:hover {
@@ -269,9 +275,10 @@
     overflow: hidden; /* Prevent any overflow */
 }
 .trending-images-container {
+
     position: relative;
     width: 1280px;
-    height: 622px;
+    height: 700px;
     margin: 40px auto 0;
     overflow: hidden; /* Prevent vertical scroll */
 }
@@ -291,6 +298,7 @@
 }
  @media (max-width: 1200px) {
     .trending-images-container {
+
         width: 90%;
         height: auto;
         display: grid;
@@ -318,6 +326,7 @@
     .trending-images-container {
         display: flex;
         flex-direction: row;
+        /* border: 2px solid red; */
         gap: 15px;
         align-items: center;
         overflow-x: auto;
@@ -537,24 +546,80 @@
 }
 
 .how-it-works-section {
-    position: relative;
     min-height: 960px;
-    background-image: url('/images/5a0deaf6120d1eb05813de08e6d0745c6e4e208e.png');
+    background-image: url('/images/store_1.png');
     background-size: cover;
     background-position: center;
+    /* visually fixed background on desktop */
+    background-attachment: fixed;
     padding: 80px 0;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center; /* center content horizontally for big framed image */
     align-items: center;
 }
-.how-it-works-content {
-    width: 50%;
-    padding-right: 5%;
+.how-it-works-title {
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: 52px; /* slightly bigger like screenshot */
+    color: #ffffff;
+    text-shadow: 0 6px 18px rgba(0,0,0,0.65);
+    z-index: 60;
+    letter-spacing: 2px;
 }
+.how-it-works-content {
+    width: 48%;
+    padding-right: 6%;
+    display: flex;
+    justify-content: flex-end; /* push timeline to the right */
+}
+/* Left framed image - desktop presentation */
+.how-it-works-frame {
+    position: -webkit-sticky;
+    position: sticky;
+    top: calc(88px + 24px); /* header height + small offset */
+    left: calc(50% - 560px); /* place frame to the left of center content */
+    width: 520px; /* larger framed image */
+    height: 520px;
+    border: 6px solid rgba(255,255,255,0.9);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+    border-radius: 6px;
+    overflow: hidden;
+    z-index: 70;
+    background: rgba(255,255,255,0.02);
+}
+
+.how-it-works-overlay {
+    position: absolute;
+    right: 10%;
+    top: 22%;
+    width: 420px; /* wider translucent panel */
+    height: 520px; /* match framed image height visually */
+    background: rgba(255,255,255,0.32);
+    backdrop-filter: blur(6px);
+    border-radius: 6px;
+    z-index: 40;
+    border: 1px solid rgba(255,255,255,0.6);
+}
+
+/* Hide framed image on very small screens to avoid layout overflow; keep desktop-first behavior */
+@media (max-width: 480px) {
+    .how-it-works-frame {
+        display: none;
+    }
+}
+.timeline {
+    width: 380px; /* narrow timeline container on the right */
+}
+
 .timeline-item {
     display: flex;
-    align-items: flex-start;
+    align-items: center; /* vertically center content inside each item */
     position: relative;
+    min-height: 560px; /* tall items so only one is visible at a time */
+    margin-left: auto; /* align items to right inside the timeline */
 }
 .timeline-number {
     width: 60px;
@@ -573,7 +638,7 @@
 }
 .timeline-connector {
     position: absolute;
-    left: 30px;
+    right: 30px; /* place connector to the right of the number */
     top: 60px;
     width: 2px;
     height: 100%;
@@ -581,8 +646,13 @@
     z-index: 1;
 }
 .timeline-desc {
-    margin-left: 40px;
+    margin-right: 40px; /* use right-aligned spacing now */
     padding-bottom: 60px;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.35s ease, max-height 0.35s ease;
+    text-align: left; /* keep text left aligned inside the panel */
 }
 .timeline-desc img {
     max-width: 100px;
@@ -602,13 +672,31 @@
     line-height: 1.4;
     max-width: 200px;
 }
+/* Show only active timeline description */
+.timeline-item.active .timeline-desc {
+    opacity: 1;
+    max-height: 400px; /* big enough for content */
+}
+
+/* Reduce timeline-number opacity for inactive items to emphasize active */
+.timeline-item:not(.active) .timeline-number {
+    opacity: 0.35;
+}
 @media (max-width: 992px) {
+    /* Preserve desktop layout for How-It-Works on smaller screens
+       so mobile matches desktop UI as requested. */
     .how-it-works-section {
-        justify-content: center;
+        justify-content: flex-end;
+        align-items: center;
+        min-height: 960px; /* match desktop height to keep framing consistent */
+        padding: 80px 0;
+        background-size: cover;
+        background-position: center;
+        background-attachment: scroll; /* disable fixed bg on smaller screens */
     }
     .how-it-works-content {
-        width: 90%;
-        padding: 0;
+        width: 50%;
+        padding-right: 5%;
     }
 }
 

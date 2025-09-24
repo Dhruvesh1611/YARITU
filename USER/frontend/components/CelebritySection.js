@@ -9,7 +9,7 @@ const CelebritySection = () => {
       <h2 className="section-title">Worn by <span className="highlight">Celebrities</span></h2>
       <p className="section-subtitle">Trusted by the stars for their most important moments</p>
       <div className="video-container">
-        <video controls autoPlay muted loop playsInline>
+        <video  autoPlay muted loop >
           <source src="/images/celebrity.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
