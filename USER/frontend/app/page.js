@@ -30,112 +30,78 @@ const stores = [
 export default function Home() {
   const [activeStep, setActiveStep] = useState(1);
   const framedImgRef = useRef(null);
-  const steps = [
-    {
-      id: 1,
-      img: '/images/HOW YARITU WORKS.png',
-      title: 'select a style',
-      desc: 'nec viverra vitae eget placerat commodo dignissim, quam enim. felis, Morbi gravida lacus amet, enim. nisl.'
-    },
-    {
-      id: 2,
-      img: '/images/HOW YARITU WORKS.png',
-      title: 'Book Your Outfit',
-      desc: 'amet, elementum vitae ipsum non, placerat dui maximus placerat Nam turpis ex nisl. dui. nisi elit est.'
-    },
-    {
-      id: 3,
-      img: '/images/HOW YARITU WORKS.png',
-      title: 'Enjoy it',
-      desc: 'nec viverra vitae eget placerat commodo dignissim, quam enim. felis, Morbi gravida lacus amet, enim. nisl.'
-    },
-    {
-      id: 4,
-      img: '/images/HOW YARITU WORKS.png',
-      title: 'Return it',
-      desc: 'non, vitae tortor. commodo Ut lobortis, odio Cras porta Ut eget ipsum laoreet cursus elit Nullam Morbi eu In adipiscing ex felis, lacus, sed sollicitudin. Nam'
-    }
-  ];
+
+  // backgroundAttachment state
+  const [bgAttachment, setBgAttachment] = useState('scroll');
+
   useEffect(() => {
-    // Set initial scroll position for sections to show partial images on both sides
+    if (typeof window !== 'undefined') {
+      setBgAttachment(window.innerWidth > 992 ? 'fixed' : 'scroll');
+    }
+  }, []);
+
+  const steps = [
+    { id: 1, img: '/images/HOW YARITU WORKS.png', title: 'select a style', desc: 'nec viverra vitae eget placerat commodo dignissim, quam enim. felis, Morbi gravida lacus amet, enim. nisl.' },
+    { id: 2, img: '/images/HOW YARITU WORKS.png', title: 'Book Your Outfit', desc: 'amet, elementum vitae ipsum non, placerat dui maximus placerat Nam turpis ex nisl. dui. nisi elit est.' },
+    { id: 3, img: '/images/HOW YARITU WORKS.png', title: 'Enjoy it', desc: 'nec viverra vitae eget placerat commodo dignissim, quam enim. felis, Morbi gravida lacus amet, enim. nisl.' },
+    { id: 4, img: '/images/HOW YARITU WORKS.png', title: 'Return it', desc: 'non, vitae tortor. commodo Ut lobortis, odio Cras porta Ut eget ipsum laoreet cursus elit Nullam Morbi eu In adipiscing ex felis, lacus, sed sollicitudin. Nam' }
+  ];
+
+  useEffect(() => {
     const initializeScrollPositions = () => {
-      // Initialize trending section
       const trendingContainer = document.querySelector('.trending-images-container');
       if (trendingContainer) {
-        // If mobile viewport, center the 3rd image initially. Otherwise keep existing position.
         if (window.innerWidth <= 768) {
           const imgs = trendingContainer.querySelectorAll('.trending-img');
           if (imgs && imgs.length >= 3) {
             const third = imgs[2];
-            // Compute center position for the third image inside the scroll container
             const containerRect = trendingContainer.getBoundingClientRect();
             const imgRect = third.getBoundingClientRect();
-            // scrollLeft needed = current scrollLeft + (imgCenter - containerCenter)
             const imgCenter = imgRect.left + imgRect.width / 2;
             const containerCenter = containerRect.left + containerRect.width / 2;
-            const delta = imgCenter - containerCenter;
-            trendingContainer.scrollLeft += Math.round(delta);
+            trendingContainer.scrollLeft += Math.round(imgCenter - containerCenter);
           } else {
-            // fallback to previous static value
             trendingContainer.scrollLeft = 275;
           }
         } else {
-          // Desktop/tablet: Scroll to position that shows second image centered
-          const scrollPosition = 275; // Adjust this value to get the perfect positioning
-          trendingContainer.scrollLeft = scrollPosition;
+          trendingContainer.scrollLeft = 275;
         }
       }
 
-      // Initialize featured section  
       const featuredContainer = document.querySelector('.featured-gallery');
       if (featuredContainer) {
-        // Scroll to position that shows second image centered with partial first and third visible
-        const featuredScrollPosition = 300; // Adjust this value for featured section
-        featuredContainer.scrollLeft = featuredScrollPosition;
+        featuredContainer.scrollLeft = 300;
       }
     };
 
-    // Set up scroll animations for store cards
     const setupStoreAnimations = () => {
       const storeCards = document.querySelectorAll('.store-card');
-      
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
           if (entry.isIntersecting) {
-            // Add delay based on index for staggered effect
             setTimeout(() => {
               entry.target.classList.add('animate-in');
-            }, index * 100); // 100ms delay between each card
+            }, index * 100);
           }
         });
-      }, {
-        threshold: 0.1,
-        rootMargin: '50px'
-      });
+      }, { threshold: 0.1, rootMargin: '50px' });
 
-      storeCards.forEach(card => {
-        observer.observe(card);
-      });
+      storeCards.forEach(card => observer.observe(card));
 
-      // Cleanup observer
       return () => {
-        storeCards.forEach(card => {
-          observer.unobserve(card);
-        });
+        storeCards.forEach(card => observer.unobserve(card));
       };
     };
 
-    // Delay to ensure DOM is fully loaded
     const timer = setTimeout(() => {
       initializeScrollPositions();
       setupStoreAnimations();
-  setupHowItWorksObserver();
+      setupHowItWorksObserver();
     }, 100);
 
     return () => clearTimeout(timer);
   }, []);
 
-  // Observe timeline items and update framed image when they enter view
   const setupHowItWorksObserver = () => {
     const items = document.querySelectorAll('.timeline-item');
     if (!items || items.length === 0) return;
@@ -152,7 +118,6 @@ export default function Home() {
     items.forEach(i => observer.observe(i));
   };
 
-  // Map active step to a background image for the section
   const sectionBgMap = {
     1: '/images/store_1.png',
     2: '/images/store_2.png',
@@ -164,14 +129,14 @@ export default function Home() {
     backgroundImage: `url(${sectionBgMap[activeStep] || '/images/store_1.png'})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    backgroundAttachment: window && window.innerWidth > 992 ? 'fixed' : 'scroll'
+    backgroundAttachment: bgAttachment,
   };
 
   return (
     <>
       <section id="section-hero" className="hero-section">
         <div className="hero-content">
-          <Image src="/images/yaritu_logo_white.png" alt="Yaritu Logo" className="hero-logo" width={96} height={96} />
+          <Image src="/images/yaritu_logo_white.png" alt="Yaritu Logo" width={96} height={96} />
           <h1 className="hero-title">Where Dreams meet<br />Elegance</h1>
           <p className="hero-subtitle">Discover our exquisite collection of premium attire</p>
           <Link href="/collection" className="hero-button">Explore Collection</Link>
@@ -180,6 +145,7 @@ export default function Home() {
           <Image src="/images/whatsapp.png" alt="WhatsApp" width={45} height={45} />
         </a>
       </section>
+
       <div className="page-content-wrapper">
         <CelebritySection />
 
@@ -217,7 +183,6 @@ export default function Home() {
         </section>
 
         <MultipleOffers />
-
         <StayClassy />
 
         <section id="section-stores" className="section-container">
@@ -234,11 +199,9 @@ export default function Home() {
           </div>
         </section>
 
-  <section id="section-how-it-works" className="how-it-works-section" style={howItWorksStyle}>
+        <section id="section-how-it-works" className="how-it-works-section" style={howItWorksStyle}>
           <h2 className="how-it-works-title">HOW YARITU WORKS</h2>
-          {/* Framed left image that updates with scroll-driven steps (desktop-first) */}
           <div className="how-it-works-frame" ref={framedImgRef}>
-            {/* map activeStep to image source - adjust paths as needed */}
             {activeStep === 1 && <Image src="/images/step1.png" alt="Step 1" fill style={{ objectFit: 'cover' }} />}
             {activeStep === 2 && <Image src="/images/step2.png" alt="Step 2" fill style={{ objectFit: 'cover' }} />}
             {activeStep === 3 && <Image src="/images/step3.png" alt="Step 3" fill style={{ objectFit: 'cover' }} />}
@@ -259,8 +222,7 @@ export default function Home() {
               ))}
             </div>
           </div>
-          {/* right translucent overlay as in design */}
-          <div className="how-it-works-overlay" aria-hidden="true"></div>
+
         </section>
 
         <section id="section-testimonials" className="section-container">

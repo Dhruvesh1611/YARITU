@@ -591,18 +591,6 @@
     background: rgba(255,255,255,0.02);
 }
 
-.how-it-works-overlay {
-    position: absolute;
-    right: 10%;
-    top: 22%;
-    width: 420px; /* wider translucent panel */
-    height: 520px; /* match framed image height visually */
-    background: rgba(255,255,255,0.32);
-    backdrop-filter: blur(6px);
-    border-radius: 6px;
-    z-index: 40;
-    border: 1px solid rgba(255,255,255,0.6);
-}
 
 /* Hide framed image on very small screens to avoid layout overflow; keep desktop-first behavior */
 @media (max-width: 480px) {
