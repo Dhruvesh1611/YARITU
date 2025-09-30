@@ -50,7 +50,7 @@ const StayClassy = () => {
   return (
     <section className="stay-classy-section" ref={gridRef}>
       <h2 className="section-title">
-        Stay <span className="highlight">Classsy</span>
+        Stay <span className="highlight">Classy</span>
       </h2>
       <div className="stay-classy-grid">
         {Array.from({ length: 25 }).map((_, index) => (

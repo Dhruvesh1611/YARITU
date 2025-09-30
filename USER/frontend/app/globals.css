@@ -1,4 +1,7 @@
+
 :root {
+  /* height of the fixed header - keep in sync with .main-nav height */
+  --header-height: 88px;
     --color-primary: #c5a46d;
     --color-dark-blue: #25384d;
     --color-dark-gray: #2a2a2a;
@@ -57,10 +60,15 @@
 }
 
 body {
-    font-family: var(--font-body);
-    color: var(--color-text);
-    background-color: var(--color-background);
-    /* padding-top: 88px;  REMOVED */
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  /* ensure content sits below fixed header */
+  padding-top: var(--header-height);
+
+  
+  overflow: visible !important;
+  overflow-x: visible !important;
 }
 
 .page-container {
@@ -80,10 +88,14 @@ body {
     padding-bottom: 80px;
 }
 
-html,
-body {
-  max-width: 100vw;
+html {
+  /* Overflow ko sirf html par lagana behtar hai */
   overflow-x: hidden;
+}
+
+body {
+  /* Body se max-width hataya taaki aage problem na ho */
+  width: 100%;
 }
 
 a {
@@ -194,3 +206,72 @@ img {
     }
 }
 
+
+
+
+
+@media (max-width: 768px) {
+    /* Aapka pehle se diya gaya code */
+    .section-padding {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+    .container {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .whatsapp-float {
+        width: 40px;
+        height: 40px;
+        bottom: 20px;
+        right: 20px;
+    }
+    .section-container {
+        padding: 40px 20px;
+    }
+
+    /* Collection Section ke liye naya code */
+
+    /* Title aur Subtitle ka font size chota kiya */
+    .section-title {
+        font-size: 28px; /* Thoda aur chota kiya */
+        text-align: center;
+    }
+
+    .section-subtitle {
+        font-size: 16px; /* Ise bhi chota kiya */
+        text-align: center;
+        margin-bottom: 20px; /* Thodi jagah di */
+    }
+
+    /* Yeh image ke container (slider) ke liye hai */
+    .collection-slider {
+        /* Yeh slider ko aage-peeche karne mein madad karega */
+        overflow-x: hidden; 
+        padding: 0;
+    }
+
+    /* Yeh har ek image card ke liye hai */
+    .collection-card {
+        /* Card ko screen ka 90% width dega taaki woh bada dikhe */
+        flex: 0 0 90%; 
+        scroll-snap-align: center; /* Scroll karne par center mein laayega */
+    }
+
+    /* Dono arrows ke liye style */
+    .slider-arrow {
+        width: 35px;       /* Arrow ka size chota kiya */
+        height: 35px;
+        top: 45%;          /* Arrow ko thoda upar adjust kiya */
+    }
+
+    /* Left arrow ki position */
+    .slider-arrow.left {
+        left: 5px; /* Screen ke thoda kareeb laya */
+    }
+
+    /* Right arrow ki position */
+    .slider-arrow.right {
+        right: 5px; /* Screen ke thoda kareeb laya */
+    }
+}

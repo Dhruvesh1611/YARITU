@@ -1,0 +1,171 @@
+/* components/HowItWorksTimeline.module.css */
+
+.mainContainer {
+  padding: 80px 20px;
+  background-color: #fdfaf6;
+  overflow: hidden; /* Extra spacing issues se bachne ke liye */
+}
+
+.mainHeading {
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 60px;
+}
+
+.contentWrapper {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 60px; /* Thoda gap badhaya */
+}
+
+/* === Left Column Styles === */
+.leftColumn {
+  width: 45%;
+  height: 100vh; /* Full screen height zaroori hai sticky ke liye */
+  position: sticky; /* ### CHANGE: Sticky behavior wapas add kiya ### */
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 70%; /* Container ki height ko thoda control kiya */
+  max-width: 500px; /* Image ka max size */
+}
+
+.imageFrame {
+  position: absolute; /* ### CHANGE: Ab saare frames ek doosre ke upar stack honge ### */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  padding: 15px;
+  border: 1px solid #eee;
+  box-shadow: 0 10px nerdy 30px rgba(0,0,0,0.05);
+  transition: opacity 0.8s ease-in-out; /* Fade animation */
+}
+
+/* ### CHANGE: Nayi classes image ko show/hide karne ke liye ### */
+.visible {
+  opacity: 1;
+  z-index: 2;
+}
+
+.hidden {
+  opacity: 0;
+  z-index: 1;
+}
+
+.frameStands {
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px;
+  box-sizing: border-box;
+}
+
+.stand {
+  width: 80px;
+  height: 20px;
+  background-color: #e0d5c4;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+/* === Right Column Styles === */
+.rightColumn {
+  width: 55%;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 50px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 24px;
+  top: 25px;
+  width: 2px;
+  height: calc(100% - 50px);
+  background-color: #d4c0a5;
+  z-index: 1;
+}
+
+.timelineItem {
+  position: relative;
+  /* ### CHANGE: Har step ko scroll karne ke liye zaroori height ### */
+  min-height: 50vh; 
+  display: flex;
+  align-items: center; /* Content ko vertically center kiya */
+  opacity: 0.4;
+  transition: opacity 0.4s ease;
+}
+
+.timelineItem.active {
+  opacity: 1;
+}
+
+.timelineNumber {
+  position: absolute;
+  left: 0;
+  top: 50%; /* Center mein align karne ke liye */
+  transform: translateY(-50%); /* Exact center */
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #fdfaf6;
+  border: 2px solid #d4c0a5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #d4c0a5;
+  z-index: 2;
+  transition: all 0.4s ease;
+}
+
+.timelineItem.active .timelineNumber {
+  background-color: #c9a87c;
+  color: white;
+  border-color: #c9a87c;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.timelineContent {
+  padding-left: 40px;
+}
+
+.timelineContent .icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.timelineContent h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.timelineContent p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #666;
+}

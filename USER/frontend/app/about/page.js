@@ -20,16 +20,14 @@ export default function About() {
             <p>Our master craftsmen combine traditional techniques with contemporary design, ensuring each piece is a work of art that tells your unique love story.</p>
             <Link href="#our-work" className="cta-button">
               Explore Our Work
-              <Image src="/images/1930_1950.svg" alt="Arrow icon" width={12} height={10} />
+              <Image src="/images/right.png" alt="Arrow icon" width={12} height={10} />
             </Link>
           </div>
           <div className="about-us-image-wrapper">
-            <Image src="/images/e4233c8705cd8d900f4c3a2d11a232e4fd0670f5.png" alt="Yaritu traditional attire" className="main-image" width={548} height={600} />
+            <Image src="/images/Our_story.png" alt="Yaritu traditional attire" className="main-image" width={548} height={600} />
             <div className="overlay-shape-1"></div>
             <div className="overlay-shape-2"></div>
-            <a href="#" className="about-whatsapp-float">
-              <Image src="/images/1995_4119.svg" alt="WhatsApp" width={45} height={45} />
-            </a>
+            {/* Global WhatsApp button is provided in app/layout.js */}
           </div>
         </div>
       </section>
@@ -41,22 +39,22 @@ export default function About() {
           </div>
           <div className="achievements-grid">
             <div className="achievement-item">
-              <Image src="/images/1931_2093.svg" alt="Happy Clients Icon" width={40} height={40} />
+              <Image src="/images/happy_clients.png" alt="Happy Clients Icon" width={40} height={40} />
               <h3>10,000+</h3>
               <p>Happy Clients</p>
             </div>
             <div className="achievement-item">
-              <Image src="/images/1931_2095.svg" alt="Awards Won Icon" width={40} height={40} />
+              <Image src="/images/award.png" alt="Awards Won Icon" width={40} height={40} />
               <h3>25+</h3>
               <p>Awards Won</p>
             </div>
             <div className="achievement-item">
-              <Image src="/images/1931_2097.svg" alt="Cities Served Icon" width={40} height={40} />
+              <Image src="/images/location.png" alt="Cities Served Icon" width={40} height={40} />
               <h3>15+</h3>
               <p>Cities Served</p>
             </div>
             <div className="achievement-item">
-              <Image src="/images/1931_2099.svg" alt="Years of Excellence Icon" width={40} height={40} />
+              <Image src="/images/years_of_excellence.png" alt="Years of Excellence Icon" width={40} height={40} />
               <h3>15+</h3>
               <p>Years of Excellence</p>
             </div>
@@ -75,14 +73,14 @@ export default function About() {
           <p>To become the global leader in luxury wedding fashion, setting new standards of excellence in design, craftsmanship, and customer experience. We envision a world where every celebration is adorned with the finest artistry and timeless beauty.</p>
         </div>
       </section>
-      <section id="stores" className="stores-section">
+  <section id="about-stores" className="stores-section about-stores">
         <div className="container">
           <div className="stores-header">
             <h2>Visit Our <span className="highlight">Stores</span></h2>
             <p>Experience our collections firsthand at our premium boutiques</p>
           </div>
           <div className="stores-grid">
-            <div className="store-card">
+            <div className="about-store-card">
               <div className="store-details">
                 <h3>Mumbai</h3>
                 <p className="address">123 Wedding Street, Bandra West</p>
@@ -90,10 +88,10 @@ export default function About() {
                 <a href="#" className="store-button">Get Directions</a>
               </div>
               <div className="store-image">
-                <Image src="/images/25b3365bb1696aadec9508d75cf56d4bd5ff8972.png" alt="Mumbai Store Interior" width={580} height={390} />
+                <Image src="/images/store_1.png" alt="Mumbai Store Interior" width={580} height={390} />
               </div>
             </div>
-            <div className="store-card card-reverse">
+            <div className="about-store-card card-reverse">
               <div className="store-details">
                 <h3>Jamnagar</h3>
                 <p className="address">789 Style Boulevard, Koramangala</p>
@@ -104,7 +102,7 @@ export default function About() {
                 <Image src="/images/5a0deaf6120d1eb05813de08e6d0745c6e4e208e.png" alt="Jamnagar Store Interior" width={580} height={390} />
               </div>
             </div>
-            <div className="store-card">
+            <div className="about-store-card">
               <div className="store-details">
                 <h3>Jaipur</h3>
                 <p className="address">456 Royal Plaza, Pink City</p>
@@ -115,7 +113,7 @@ export default function About() {
                 <Image src="/images/25b3365bb1696aadec9508d75cf56d4bd5ff8972.png" alt="Jaipur Store Interior" width={580} height={390} />
               </div>
             </div>
-            <div className="store-card card-reverse">
+            <div className="about-store-card card-reverse">
               <div className="store-details">
                 <h3>Delhi</h3>
                 <p className="address">101 Heritage Lane, Connaught Place</p>

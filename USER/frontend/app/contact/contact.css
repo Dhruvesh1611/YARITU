@@ -15,8 +15,8 @@
 
 .contact-hero-content h1 {
   font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 64px;
+  font-weight: 400;
+  font-size: 60px;
   line-height: 1.2;
   color: var(--color-text-primary);
 }
@@ -80,7 +80,7 @@
 
 .form-wrapper h2, .info-wrapper h2 {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 400;
   font-size: 32px;
   line-height: 1.2;
 }
@@ -155,7 +155,7 @@
 
 .info-icon {
   width: 24px;
-  height: 24px;
+  height: auto;
   margin-top: 3px;
 }
 
@@ -606,8 +606,8 @@
 }
 
 .contact-social-links a img {
-  width: 16px;
-  height: 16px;
+  width: 36px;
+  height: 36px;
 }
 
 .social-caption {
@@ -640,7 +640,7 @@
     padding: 40px 15px;
   }
   .form-wrapper {
-    padding: 24px;
+    padding: 14px;
   }
   .form-grid {
     grid-template-columns: 1fr;

@@ -43,6 +43,37 @@ const allProducts = [
   { id: 34, name: 'Ivory Indo-Western', category: 'WOMEN', type: 'INDO WESTERN', occasion: 'WEDDING', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Indo-Western', description: 'women • indo western' },
   { id: 35, name: 'Festive Kurta Set', category: 'CHILDREN', type: 'BOYS', occasion: 'SANGEET', image: 'https://placehold.co/300x349/2a2a2a/ffffff?text=Boys+Kurta', description: 'children • boys' },
   { id: 36, name: 'Sparkle Party Frock', category: 'CHILDREN', type: 'GIRLS', occasion: 'BIRTHDAY', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Girls+Frock', description: 'children • girls' },
+  { id: 37, name: 'Crimson Red Lehenga', category: 'WOMEN', type: 'LEHENGA', occasion: 'WEDDING', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Lehenga', description: 'women • lehenga' },
+  { id: 88, name: 'Midnight Blue Gown', category: 'WOMEN', type: 'GOWN', occasion: 'COCKTAIL PARTY', image: 'https://placehold.co/300x349/25334d/ffffff?text=Gown', description: 'women • gown' },
+  { id: 39, name: 'Pastel Saree', category: 'WOMEN', type: 'SAREE', occasion: 'SANGEET', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Saree', description: 'women • saree' },
+  { id: 40, name: 'Little Prince Suit', category: 'CHILDREN', type: 'BOYS', occasion: 'BIRTHDAY', image: 'https://placehold.co/300x349/2a2a2a/ffffff?text=Boys+Suit', description: 'children • boys' },
+  { id: 41, name: 'Princess Pink Gown', category: 'CHILDREN', type: 'GIRLS', occasion: 'BIRTHDAY', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Girls+Gown', description: 'children • girls' },
+  { id: 42, name: 'Floral Indo-Western', category: 'MEN', type: 'INDO WESTERN', occasion: 'SANGEET', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Indo-Western', description: 'men • indo western' },
+  { id: 43, name: 'Velvet Tuxedo Blazer', category: 'MEN', type: 'BLAZER', occasion: 'COCKTAIL PARTY', image: 'https://placehold.co/300x349/25334d/ffffff?text=Blazer', description: 'men • blazer' },
+  { id: 44, name: 'Emerald Green Gown', category: 'WOMEN', type: 'GOWN', occasion: 'PRE WEDDING SHOOT', image: 'https://placehold.co/300x349/25334d/ffffff?text=Gown', description: 'women • gown' },
+  { id: 45, name: 'Golden Silk Lehenga', category: 'WOMEN', type: 'LEHENGA', occasion: 'SANGEET', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Lehenga', description: 'women • lehenga' },
+  { id: 46, name: 'Ivory Indo-Western', category: 'WOMEN', type: 'INDO WESTERN', occasion: 'WEDDING', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Indo-Western', description: 'women • indo western' },
+  { id: 47, name: 'Festive Kurta Set', category: 'CHILDREN', type: 'BOYS', occasion: 'SANGEET', image: 'https://placehold.co/300x349/2a2a2a/ffffff?text=Boys+Kurta', description: 'children • boys' },
+  { id: 48, name: 'Sparkle Party Frock', category: 'CHILDREN', type: 'GIRLS', occasion: 'BIRTHDAY', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Girls+Frock', description: 'children • girls' },
+  { id: 49, name: 'Royal Gold Sherwani', category: 'MEN', type: 'SHERVANI', occasion: 'WEDDING', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Sherwani', description: 'men • sherwani' },
+  { id: 50, name: 'Classic Black Suit', category: 'MEN', type: 'SUIT', occasion: 'COCKTAIL PARTY', image: 'https://placehold.co/300x349/2a2a2a/ffffff?text=Suit', description: 'men • suit' },
+  { id: 51, name: 'Modern Indo-Western', category: 'MEN', type: 'INDO WESTERN', occasion: 'SANGEET', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Indo-Western', description: 'men • indo western' },
+  { id: 52, name: 'Navy Formal Blazer', category: 'MEN', type: 'BLAZER', occasion: 'COCKTAIL PARTY', image: 'https://placehold.co/300x349/25334d/ffffff?text=Blazer', description: 'men • blazer' },
+  { id: 53, name: 'Elegant Wedding Sherwani', category: 'MEN', type: 'SHERVANI', occasion: 'WEDDING', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Sherwani', description: 'men • sherwani' },
+  { id: 54, name: 'Three-Piece Suit', category: 'MEN', type: 'SUIT', occasion: 'PRE WEDDING SHOOT', image: 'https://placehold.co/300x349/2a2a2a/ffffff?text=Suit', description: 'men • suit' },
+  { id: 55, name: 'Crimson Red Lehenga', category: 'WOMEN', type: 'LEHENGA', occasion: 'WEDDING', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Lehenga', description: 'women • lehenga' },
+  { id: 56, name: 'Midnight Blue Gown', category: 'WOMEN', type: 'GOWN', occasion: 'COCKTAIL PARTY', image: 'https://placehold.co/300x349/25334d/ffffff?text=Gown', description: 'women • gown' },
+  { id: 57, name: 'Pastel Saree', category: 'WOMEN', type: 'SAREE', occasion: 'SANGEET', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Saree', description: 'women • saree' },
+  { id: 58, name: 'Little Prince Suit', category: 'CHILDREN', type: 'BOYS', occasion: 'BIRTHDAY', image: 'https://placehold.co/300x349/2a2a2a/ffffff?text=Boys+Suit', description: 'children • boys' },
+  { id: 59, name: 'Princess Pink Gown', category: 'CHILDREN', type: 'GIRLS', occasion: 'BIRTHDAY', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Girls+Gown', description: 'children • girls' },
+  { id: 60, name: 'Floral Indo-Western', category: 'MEN', type: 'INDO WESTERN', occasion: 'SANGEET', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Indo-Western', description: 'men • indo western' },
+  { id: 61, name: 'Velvet Tuxedo Blazer', category: 'MEN', type: 'BLAZER', occasion: 'COCKTAIL PARTY', image: 'https://placehold.co/300x349/25334d/ffffff?text=Blazer', description: 'men • blazer' },
+  { id: 62, name: 'Emerald Green Gown', category: 'WOMEN', type: 'GOWN', occasion: 'PRE WEDDING SHOOT', image: 'https://placehold.co/300x349/25334d/ffffff?text=Gown', description: 'women • gown' },
+  { id: 63, name: 'Golden Silk Lehenga', category: 'WOMEN', type: 'LEHENGA', occasion: 'SANGEET', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Lehenga', description: 'women • lehenga' },
+  { id: 64, name: 'Ivory Indo-Western', category: 'WOMEN', type: 'INDO WESTERN', occasion: 'WEDDING', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Indo-Western', description: 'women • indo western' },
+  { id: 65, name: 'Festive Kurta Set', category: 'CHILDREN', type: 'BOYS', occasion: 'SANGEET', image: 'https://placehold.co/300x349/2a2a2a/ffffff?text=Boys+Kurta', description: 'children • boys' },
+  { id: 66, name: 'Sparkle Party Frock', category: 'CHILDREN', type: 'GIRLS', occasion: 'BIRTHDAY', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Girls+Frock', description: 'children • girls' },
+  // Add more products as needed
   // Add more products as needed
 ];
 
@@ -57,6 +88,7 @@ export default function Collection() {
 
   const [activeCategory, setActiveCategory] = useState('MEN');
   const [activeType, setActiveType] = useState(null);
+  const [activeSubcategory, setActiveSubcategory] = useState(null);
   const [activeOccasion, setActiveOccasion] = useState(null);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -65,14 +97,31 @@ export default function Collection() {
 
   useEffect(() => {
     let products = allProducts.filter(p => p.category === activeCategory);
+
+    // If a subcategory is selected (e.g., BOYS or GIRLS under CHILDREN), prefer
+    // matching product.type or description for that subcategory when filtering.
+    if (activeSubcategory) {
+      const sub = activeSubcategory.toUpperCase();
+      products = products.filter(p => {
+        const desc = (p.description || '').toUpperCase();
+        const type = (p.type || '').toUpperCase();
+        return type === sub || desc.includes(sub);
+      });
+    }
+
     if (activeType) {
-      products = products.filter(p => p.type === activeType);
+      const t = activeType.toUpperCase();
+      products = products.filter(p => {
+        const type = (p.type || '').toUpperCase();
+        const desc = (p.description || '').toUpperCase();
+        return type === t || desc.includes(t) || (p.name || '').toUpperCase().includes(t);
+      });
     } else if (activeOccasion) {
       products = products.filter(p => p.occasion === activeOccasion);
     }
     setFilteredProducts(products);
     setCurrentPage(1); // Reset to first page on filter change
-  }, [activeCategory, activeType, activeOccasion]);
+  }, [activeCategory, activeType, activeOccasion, activeSubcategory]);
 
   useEffect(() => {
     if (selectedProduct) {
@@ -103,6 +152,7 @@ export default function Collection() {
   const handleCategoryClick = (category) => {
     setActiveCategory(category);
     setActiveType(null);
+    setActiveSubcategory(null);
     setActiveOccasion(null);
   };
 
@@ -157,9 +207,10 @@ export default function Collection() {
     return () => el.classList.remove('dropdown-active');
   }, [openDropdown]);
 
-  const handleTypeClick = (category, type) => {
+  const handleTypeClick = (category, type, subcategory = null) => {
     setActiveCategory(category);
     setActiveType(type);
+    setActiveSubcategory(subcategory);
     setActiveOccasion(null); // Reset occasion filter
     // Close any open mobile dropdown
     setOpenDropdown(null);
@@ -167,10 +218,11 @@ export default function Collection() {
     scrollToCollectionTitle();
   };
 
-  const handleOccasionClick = (category, occasion) => {
+  const handleOccasionClick = (category, occasion, subcategory = null) => {
     setActiveCategory(category);
     setActiveOccasion(occasion);
     setActiveType(null); // Reset type filter
+    setActiveSubcategory(subcategory);
     // Close any open mobile dropdown
     setOpenDropdown(null);
     // ensure collection content is in view on selection
@@ -190,13 +242,22 @@ export default function Collection() {
   };
 
   const getBreadcrumbs = () => {
+    // If we have a subcategory (e.g., BOYS / GIRLS under CHILDREN), show that first
+      if (activeSubcategory && activeType) {
+        return `${activeCategory} > ${activeSubcategory.toUpperCase()} Collection > ${activeType.toUpperCase()}`;
+      }
+      if (activeSubcategory && activeOccasion) {
+        return `${activeCategory} > ${activeSubcategory.toUpperCase()} Collection > ${activeOccasion.toUpperCase()}`;
+      }
+
+    // Fallbacks for MEN/WOMEN where we only have a type or occasion
     if (activeType) {
-      return `${activeCategory} > RENT BY TYPE > ${activeType}`;
+      return `${activeCategory} > ${activeType.toUpperCase()}`;
     }
     if (activeOccasion) {
-      return `${activeCategory} > RENT BY OCATION > ${activeOccasion}`;
+      return `${activeCategory} > ${activeOccasion.toUpperCase()}`;
     }
-    return activeCategory;
+    return activeCategory ? activeCategory.toUpperCase() : activeCategory;
   };
 
   return (
@@ -206,10 +267,21 @@ export default function Collection() {
           <h1 className="section-title">Our <span className="highlight">Collection</span></h1>
           <hr className="divider" />
 
-          <div className="category-buttons">
+          <div className={`category-buttons ${openDropdown ? 'dropdown-open' : ''}`}>
             {/* MEN */}
             <div className={`category-button-container ${openDropdown === 'MEN' ? 'open' : ''}`}>
-              <button onClick={() => toggleDropdown('MEN')} className="category-button">
+              <button onClick={() => {
+                handleCategoryClick('MEN');
+                setOpenDropdown(null);
+                // Scroll to collection title
+                setTimeout(() => {
+                  const title = document.querySelector('.collection-title');
+                  if (title) {
+                    const y = title.getBoundingClientRect().top + window.pageYOffset - 24;
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                  }
+                }, 60);
+              }} className="category-button">
                 <Image src="/images/2195_79.svg" alt="Men category background glow" className="btn-glow" width={252} height={50} />
                 <div className="btn-bg"></div>
                 <span className="btn-text">MEN</span>
@@ -238,7 +310,17 @@ export default function Collection() {
 
             {/* WOMEN */}
             <div className={`category-button-container ${openDropdown === 'WOMEN' ? 'open' : ''}`}>
-              <button onClick={() => toggleDropdown('WOMEN')} className="category-button">
+              <button onClick={() => {
+                handleCategoryClick('WOMEN');
+                setOpenDropdown(null);
+                setTimeout(() => {
+                  const title = document.querySelector('.collection-title');
+                  if (title) {
+                    const y = title.getBoundingClientRect().top + window.pageYOffset - 24;
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                  }
+                }, 60);
+              }} className="category-button">
                 <Image src="/images/2195_84.svg" alt="Women category background glow" className="btn-glow" width={252} height={50} />
                 <div className="btn-bg"></div>
                 <span className="btn-text">WOMEN</span>
@@ -267,7 +349,17 @@ export default function Collection() {
 
             {/* CHILDREN */}
             <div className={`category-button-container ${openDropdown === 'CHILDREN' ? 'open' : ''}`}>
-              <button onClick={() => toggleDropdown('CHILDREN')} className="category-button">
+              <button onClick={() => {
+                handleCategoryClick('CHILDREN');
+                setOpenDropdown(null);
+                setTimeout(() => {
+                  const title = document.querySelector('.collection-title');
+                  if (title) {
+                    const y = title.getBoundingClientRect().top + window.pageYOffset - 24;
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                  }
+                }, 60);
+              }} className="category-button">
                 <Image src="/images/2195_89.svg" alt="Children category background glow" className="btn-glow" width={252} height={50} />
                 <div className="btn-bg"></div>
                 <span className="btn-text">CHILDREN</span>
@@ -276,19 +368,19 @@ export default function Collection() {
                 <div className="dropdown-column">
                   <h4>BOYS COLLECTION</h4>
                   <ul>
-                    <li><a href="#" onClick={(e) => { e.preventDefault(); handleTypeClick('CHILDREN', 'BOYS'); }}>SUIT</a></li>
-                    <li><a href="#">KOTI</a></li>
-                    <li><a href="#">SHIRT-PENT</a></li>
-                    <li><a href="#">DHOTI</a></li>
+                    <li><a href="#" onClick={(e) => { e.preventDefault(); handleTypeClick('CHILDREN', 'SUIT', 'BOYS'); }}>SUIT</a></li>
+                    <li><a href="#" onClick={(e) => { e.preventDefault(); handleTypeClick('CHILDREN', 'KOTI', 'BOYS'); }}>KOTI</a></li>
+                    <li><a href="#" onClick={(e) => { e.preventDefault(); handleTypeClick('CHILDREN', 'SHIRT-PENT', 'BOYS'); }}>SHIRT-PENT</a></li>
+                    <li><a href="#" onClick={(e) => { e.preventDefault(); handleTypeClick('CHILDREN', 'DHOTI', 'BOYS'); }}>DHOTI</a></li>
                   </ul>
                 </div>
                 <div className="dropdown-column">
                   <h4>GIRLS COLLECTION</h4>
                   <ul>
-                    <li><a href="#" onClick={(e) => { e.preventDefault(); handleTypeClick('CHILDREN', 'GIRLS'); }}>FROCK</a></li>
-                    <li><a href="#">LEHENGA</a></li>
-                    <li><a href="#">GOWN</a></li>
-                    <li><a href="#">SAREE</a></li>
+                    <li><a href="#" onClick={(e) => { e.preventDefault(); handleTypeClick('CHILDREN', 'FROCK', 'GIRLS'); }}>FROCK</a></li>
+                    <li><a href="#" onClick={(e) => { e.preventDefault(); handleTypeClick('CHILDREN', 'LEHENGA', 'GIRLS'); }}>LEHENGA</a></li>
+                    <li><a href="#" onClick={(e) => { e.preventDefault(); handleTypeClick('CHILDREN', 'GOWN', 'GIRLS'); }}>GOWN</a></li>
+                    <li><a href="#" onClick={(e) => { e.preventDefault(); handleTypeClick('CHILDREN', 'SAREE', 'GIRLS'); }}>SAREE</a></li>
                   </ul>
                 </div>
               </div>
@@ -351,9 +443,7 @@ export default function Collection() {
           </div>
         </div>
       </section>
-      <a href="#" className="whatsapp-fab">
-        <Image src="/images/2139_1807.svg" alt="WhatsApp" width={45} height={45} />
-      </a>
+    {/* Global WhatsApp button is provided in app/layout.js */}
       <ProductModal product={selectedProduct} onClose={handleCloseModal} />
     </main>
   );

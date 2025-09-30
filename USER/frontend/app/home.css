@@ -1,6 +1,5 @@
 .page-content-wrapper {
-    /* Reserve space for the fixed header so content doesn't jump under it */
-    padding-top: 88px; /* match .main-nav height in Header.css */
+    padding-top: 0px; /* Height of the fixed header */
 }
 
 .hero-section {
@@ -417,59 +416,67 @@
     }
 }
 
-#section-stores {
+#section-stores, .home-stores, .about-stores {
     background-color: #ffffff;
     border-top: 1px solid #000;
     border-bottom: 1px solid #000;
 }
-#section-stores .section-title {
+.home-stores .section-title, .about-stores .section-title, #section-stores .section-title {
     font-size: 36px;
     margin-bottom: 40px;
     text-align: center;
 }
-.stores-grid {
+.home-stores .stores-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 15px;
-    margin-bottom: 40px;
+    /* five fixed columns that match card width so grid centers cleanly */
+    grid-template-columns: repeat(5, 230px);
+    gap: 28px 24px; /* row-gap column-gap */
+    justify-content: center; /* center the grid within available space */
+    max-width: calc(230px * 5 + 24px * 4); /* approx width for 5 columns + gaps */
+    margin: 0 auto 40px;
+    grid-auto-rows: 180px; /* ensure row height matches card height */
 }
-.store-card {
+.home-store-card {
     position: relative;
     overflow: hidden;
     border-radius: 10px;
     opacity: 0;
     transform: translateX(-100px);
     transition: all 0.6s ease-out;
+    width: 230px;
+    height: 180px;
+    box-sizing: border-box;
 }
 
-/* Animation classes for scroll reveal */
-.store-card.animate-in {
+/* Animation classes for scroll reveal (home) */
+.home-store-card.animate-in {
     opacity: 1;
     transform: translateX(0);
 }
 
-/* Alternate animation directions for left/right effect */
-.store-card:nth-child(odd) {
+/* Alternate animation directions for left/right effect (home) */
+.home-stores .home-store-card:nth-child(odd) {
     transform: translateX(-100px); /* Come from left */
 }
 
-.store-card:nth-child(even) {
+.home-stores .home-store-card:nth-child(even) {
     transform: translateX(100px); /* Come from right */
 }
 
-.store-card:nth-child(odd).animate-in,
-.store-card:nth-child(even).animate-in {
+.home-stores .home-store-card:nth-child(odd).animate-in,
+.home-stores .home-store-card:nth-child(even).animate-in {
     transform: translateX(0);
 }
 
-.store-card img {
+.home-store-card img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
     display: block;
     transition: transform 0.3s ease;
 }
 
-.store-name-overlay {
+.home-store-card .store-name-overlay {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -483,22 +490,25 @@
     font-family: 'Poppins', sans-serif;
 }
 
-.store-card:hover img {
+.home-store-card:hover img {
     transform: scale(1.1);
 }
 
-.store-card:hover .store-name-overlay {
+.home-store-card:hover .store-name-overlay {
     opacity: 1;
 }
 
 @media (max-width: 768px) {
-    .stores-grid {
-        grid-template-columns: repeat(3, 1fr);
+    .home-stores .stores-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: auto;
     }
 }
 @media (max-width: 480px) {
-    .stores-grid {
+    .home-stores .stores-grid {
         grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 200;
+        grid-auto-columns: auto;
     }
 }
 
@@ -508,7 +518,7 @@
 }
 .brand-gallery-container {
     position: relative;
-    width: 1280px;
+    width: 1080px;
     height: 665px;
     margin: 0 auto;
 }
@@ -541,13 +551,9 @@
 }
 
 .how-it-works-section {
-    /* Make section sticky so when user scrolls up it will stick below the fixed navbar */
-    position: -webkit-sticky;
-    position: sticky;
-    top: 88px; /* sits directly under the fixed header (.main-nav height) */
-    z-index: 50; /* lower than header (100) so header stays on top */
+    position: relative;
     min-height: 960px;
-    background-image: url('/images/store_1.png');
+    background-image: url('/images/5a0deaf6120d1eb05813de08e6d0745c6e4e208e.png');
     background-size: cover;
     background-position: center;
     padding: 80px 0;
@@ -651,6 +657,10 @@
 
 #section-testimonials {
     background-color: #f8f4f0;
+}
+
+#section-testimonials .section-title {
+    padding-top: 100px;
 }
 .testimonials-grid {
     display: grid;

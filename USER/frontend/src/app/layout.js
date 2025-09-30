@@ -363,9 +363,9 @@ export const Home = () => {
         </div>
 
         <p className="absolute w-[1280px] h-[121px] top-[4505px] left-0 [font-family:'Playfair_Display',Helvetica] font-semibold text-transparent text-4xl text-center tracking-[0] leading-[normal]">
-          <span className="text-black">VISIT OUR </span>
+          <span className="text-black">Visit Our </span>
 
-          <span className="text-[#c5a46d]">STORES</span>
+          <span className="text-[#c5a46d]">Stores</span>
         </p>
 
         <div className="absolute w-[1285px] h-[944px] top-[5525px] left-[-5px]">
@@ -585,7 +585,7 @@ export const Home = () => {
           <img
             className="absolute w-10 h-10 top-[445px] left-[143px] aspect-[1]"
             alt="Whatsapp icon"
-            src="https://c.animaapp.com/xtTIyZcU/img/whatsapp-icon.svg"
+            src="/images/logos_whatsapp-icon.png"
           />
 
           <img
@@ -703,7 +703,7 @@ export const Home = () => {
         <img
           className="fixed w-[45px] h-[45px] top-[741px] left-[1177px] aspect-[0.99]"
           alt="Logos whatsapp icon"
-          src="https://c.animaapp.com/xtTIyZcU/img/logos-whatsapp-icon.svg"
+          src="/images/logos_whatsapp-icon.png"
         />
       </div>
     </div>

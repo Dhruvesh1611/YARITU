@@ -46,7 +46,7 @@ export default function Contact() {
             <h2>Contact Information</h2>
             <div className="info-cards-container">
               <div className="info-card">
-                <Image src="/images/1927_1922.svg" alt="Location icon" className="info-icon" width={24} height={24} />
+                <Image src="/images/location.png" alt="Location icon" className="info-icon" width={24} height={24} />
                 <div className="info-text">
                   <h3>Visit Us</h3>
                   <p>123 Wedding Street</p>
@@ -54,7 +54,7 @@ export default function Contact() {
                 </div>
               </div>
               <div className="info-card">
-                <Image src="/images/1927_1920.svg" alt="Call icon" className="info-icon" width={24} height={24} />
+                <Image src="/images/call.png" alt="Call icon" className="info-icon" width={24} height={24} />
                 <div className="info-text">
                   <h3>Call Us</h3>
                   <p>+91 98765 43210</p>
@@ -62,7 +62,7 @@ export default function Contact() {
                 </div>
               </div>
               <div className="info-card">
-                <Image src="/images/1927_1918.svg" alt="Email icon" className="info-icon" width={24} height={24} />
+                <Image src="/images/email.png" alt="Email icon" className="info-icon" width={24} height={24} />
                 <div className="info-text">
                   <h3>Email Us</h3>
                   <p>info@yaritu.com</p>
@@ -70,7 +70,7 @@ export default function Contact() {
                 </div>
               </div>
               <div className="info-card">
-                <Image src="/images/1927_1915.svg" alt="Time icon" className="info-icon" width={24} height={24} />
+                <Image src="/images/time.png" alt="Time icon" className="info-icon" width={24} height={24} />
                 <div className="info-text">
                   <h3>Business Hours</h3>
                   <p>Mon - Sat: 10:00 AM - 8:00 PM</p>
@@ -89,9 +89,6 @@ export default function Contact() {
             </div>
           </div>
         </div>
-        <a href="#" className="contact-whatsapp-float">
-          <Image src="/images/whatsapp.png" alt="WhatsApp" width={45} height={45} />
-        </a>
       </section>
     </>
   );

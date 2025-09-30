@@ -1,0 +1,234 @@
+
+/* img{
+    max-width: 100%;
+    height: 100%;
+} */
+
+
+/* components/HowItWorks.module.css */
+
+
+.mainContainer {
+    position: relative;
+    background-color: #fdfaf6;
+}
+
+.contentWrapper {
+    display: flex;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* === LEFT COLUMN === */
+.leftStickyColumn {
+    width: 55%;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+}
+
+/* Fullscreen background */
+.fullscreenBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 57vw;
+    margin-left: -35px;
+    height: 100vh;
+    z-index: 1;
+}
+
+/* === UPDATED === */
+/* Background par dark layer ko thoda strong kiya */
+
+
+/* === UPDATED === */
+/* Heading ko page ke center mein laane ke liye */
+/* Agar aap stands bhi nahi chahte to .frameStands aur .stand classes ko CSS se hata sakte hain */
+/* Agar stands rakhne hain to unki position adjust kar sakte hain */
+
+
+/* === CHANGE 2: "HOW YARITU WORKS" HEADING KO CENTER MEIN LAANA HAI === */
+.stickyHeading {
+    position: absolute;
+    top: 15%;
+    /* Aap is value ko adjust kar sakte hain agar zyada neeche/upar chahiye */
+    left: 52.5%;
+    transform: translateX(-50%);
+    z-index: 3;
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 500;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    /* Full width container ke andar center karne ke liye */
+    width: 100%;
+    max-width: 1200px;
+    /* Optional: Agar heading ko ek max width tak limit karna ho */
+    margin: 0 auto;
+    /* Optional: Max width ke saath center karne ke liye */
+}
+
+/* === UPDATED === */
+/* Image ko left column ke center mein laane ke liye */
+
+.imageContainer {
+    position: absolute;
+    top: 60%;
+    left: 57%;
+    transform: translate(-50%, -50%);
+    width: 65%;
+    max-width: 420px;
+    aspect-ratio: 4 / 5;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.imageContainer img, .imageFrame img {
+    max-height: 100% !important;
+    max-width: 100% !important;
+    object-fit: fill !important;
+    display: block;
+    margin: 0 auto;
+}
+
+/* components/HowItWorks.module.css */
+
+/* === CHANGE 1: LEFT IMAGE SE BORDER/FRAME HATANA HAI === */
+/* imageFrame class ko dhoondhen aur uske andar se yeh properties hata dein */
+.imageFrame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 80%;
+    border: 5px solid rgb(0, 0, 0);
+    /* Is line ko hata dein */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    /* \ Is line ko hata dein */
+    transition: opacity 0.8s ease-in-out;
+    /* Agar image container ko thoda padding ya background chahiye to yahan add kar sakte hain */
+}
+
+.visible {
+    opacity: 1;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+/* === RIGHT COLUMN === */
+.rightScrollingColumn {
+    width: 45%;
+    z-index: 10;
+    position: relative;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 80px;
+    width: 100%;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 79px;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background-color: #d4c0a5;
+    z-index: 1;
+}
+
+.timelineItem {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.timelineNumberWrapper {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+}
+
+.timelineDot {
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    border: 2px solid #c9a87c;
+    border-radius: 50%;
+    margin-left: -5px;
+    transition: all 0.4s ease;
+}
+
+.timelineItem.active .timelineDot {
+    background-color: #25384D;
+}
+
+.timelineNumber {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-left: 20px;
+    transition: all 0.4s ease;
+    background-color: rgba(220, 220, 220, 0.5);
+    color: #888;
+}
+
+.timelineItem.active .timelineNumber {
+    background-color: #25384D;
+    color: white;
+    transform: scale(1.1);
+}
+
+/* === UPDATED === */
+/* Timeline ke text ka color theek kiya */
+/* === CHANGE 3: TIMELINE KE FONT COLOR KO WHITE KARNA HAI === */
+.timelineContent {
+    padding-left: 110px;
+    color: white;
+    /* <-- TEXT KA COLOR WHITE KIYA */
+}
+
+.timelineContent .icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: white;
+    /* <-- ICON KA COLOR WHITE KIYA */
+}
+
+.timelineContent h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: rgb(0, 0, 0);
+    /* <-- TITLE KA COLOR WHITE KIYA */
+}
+
+.timelineContent p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 350px;
+    color: #000000;
+    /* <-- DESCRIPTION KA COLOR THODA OFF-WHITE KIYA */
+}

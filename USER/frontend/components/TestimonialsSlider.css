@@ -62,7 +62,7 @@
   height: 12px;
   border-radius: 50%;
   border: none;
-  background-color: rgba(197, 164, 109, 0.3);
+
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -70,7 +70,7 @@
 .dot.active {
   background-color: var(--color-primary);
   transform: scale(1.2);
-  box-shadow: 0 0 10px rgba(197, 164, 109, 0.5);
+
 }
 
 .dot:hover {

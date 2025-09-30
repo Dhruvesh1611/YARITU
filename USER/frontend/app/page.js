@@ -8,6 +8,10 @@ import MultipleOffers from '../components/MultipleOffers';
 import StayClassy from '../components/StayClassy';
 import CelebritySection from '../components/CelebritySection';
 import TestimonialsSlider from '../components/TestimonialsSlider';
+import ImageSlider from '../components/ImageSlider';
+import HowItWorks from '../components/HowItWorks';
+
+
 
 const stores = [
   { id: 1, name: 'Yogichowk, Surat' },
@@ -30,6 +34,9 @@ const stores = [
 export default function Home() {
   const [activeStep, setActiveStep] = useState(1);
   const framedImgRef = useRef(null);
+  const storeObserverRef = useRef(null);
+  const howItObserverRef = useRef(null);
+
   useEffect(() => {
     // Set initial scroll position for sections to show partial images on both sides
     const initializeScrollPositions = () => {
@@ -69,44 +76,96 @@ export default function Home() {
       }
     };
 
-    // Set up scroll animations for store cards
+    // Set up scroll animations for store cards and keep observer ref
     const setupStoreAnimations = () => {
-      const storeCards = document.querySelectorAll('.store-card');
-      
+      const storeCards = document.querySelectorAll('.home-store-card');
+      if (!storeCards || storeCards.length === 0) return;
+
+      // disconnect previous observer if present
+      if (storeObserverRef.current) {
+        try {
+          storeObserverRef.current.disconnect();
+        } catch (e) {}
+        storeObserverRef.current = null;
+      }
+
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
           if (entry.isIntersecting) {
-            // Add delay based on index for staggered effect
-            setTimeout(() => {
-              entry.target.classList.add('animate-in');
-            }, index * 100); // 100ms delay between each card
+            setTimeout(() => entry.target.classList.add('animate-in'), index * 100);
           }
         });
-      }, {
-        threshold: 0.1,
-        rootMargin: '50px'
-      });
+      }, { threshold: 0.1, rootMargin: '50px' });
 
-      storeCards.forEach(card => {
-        observer.observe(card);
-      });
+      storeCards.forEach(card => observer.observe(card));
+      storeObserverRef.current = observer;
 
-      // Cleanup observer
       return () => {
-        storeCards.forEach(card => {
-          observer.unobserve(card);
-        });
+        try {
+          observer.disconnect();
+        } catch (e) {}
       };
+    };
+
+    // Observe timeline items and update framed image when they enter view
+    const setupHowItWorksObserver = () => {
+      const items = document.querySelectorAll('.timeline-item');
+      if (!items || items.length === 0) return;
+
+      // cleanup previous
+      if (howItObserverRef.current) {
+        try { howItObserverRef.current.disconnect(); } catch (e) {}
+        howItObserverRef.current = null;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const index = Array.from(items).indexOf(entry.target);
+            setActiveStep(index + 1);
+          }
+        });
+      }, { root: null, threshold: 0.6 });
+
+      items.forEach(i => observer.observe(i));
+      howItObserverRef.current = observer;
+      return () => { try { observer.disconnect(); } catch (e) {} };
     };
 
     // Delay to ensure DOM is fully loaded
     const timer = setTimeout(() => {
-      initializeScrollPositions();
-      setupStoreAnimations();
+  console.debug('[Home] initializers running');
+  initializeScrollPositions();
+  setupStoreAnimations();
   setupHowItWorksObserver();
     }, 100);
 
-    return () => clearTimeout(timer);
+    // Re-run initializers when app emits route-change (client navigation)
+    const onRouteChange = () => {
+  console.debug('[Home] received app:routeChange, clearing animate-in and re-running inits');
+      // remove any animate-in to allow re-animation
+  const storeCards = document.querySelectorAll('.home-store-card');
+      if (storeCards && storeCards.length) {
+        storeCards.forEach(c => c.classList.remove('animate-in'));
+      }
+      // small delay to let DOM settle then re-run
+      setTimeout(() => {
+        initializeScrollPositions();
+        setupStoreAnimations();
+        setupHowItWorksObserver();
+        // dispatch resize just in case
+        window.dispatchEvent(new Event('resize'));
+      }, 80);
+    };
+
+    window.addEventListener('app:routeChange', onRouteChange);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('app:routeChange', onRouteChange);
+      if (storeObserverRef.current) try { storeObserverRef.current.disconnect(); } catch (e) {}
+      if (howItObserverRef.current) try { howItObserverRef.current.disconnect(); } catch (e) {}
+    };
   }, []);
 
   // Observe timeline items and update framed image when they enter view
@@ -130,36 +189,27 @@ export default function Home() {
     <>
       <section id="section-hero" className="hero-section">
         <div className="hero-content">
-          <Image src="/images/yaritu_logo_white.png" alt="Yaritu Logo" className="hero-logo" width={96} height={96} />
+          {/* <Image src="/images/yaritu_logo_white.png" alt="Yaritu Logo" className="hero-logo" width={96} height={96} /> */}
           <h1 className="hero-title">Where Dreams meet<br />Elegance</h1>
           <p className="hero-subtitle">Discover our exquisite collection of premium attire</p>
           <Link href="/collection" className="hero-button">Explore Collection</Link>
         </div>
-        <a href="https://wa.me/" className="whatsapp-float" target="_blank" rel="noopener noreferrer">
-          <Image src="/images/whatsapp.png" alt="WhatsApp" width={45} height={45} />
-        </a>
+        {/* Global WhatsApp button is provided in app/layout.js */}
       </section>
       <div className="page-content-wrapper">
         <CelebritySection />
+
+        
+          
+        
+        
 
         <section id="section-featured" className="section-container">
           <div className="featured-header">
             <h2 className="section-title">Featured <span className="highlight">Collection</span></h2>
             <p className="section-subtitle">Handpicked designs that define luxury and elegance</p>
           </div>
-          <div className="featured-gallery">
-            <button className="gallery-arrow prev">
-              <Image src="/images/1894_913.svg" alt="Previous" width={18} height={18} />
-            </button>
-            <div className="gallery-items">
-              <Image src="/images/Featured1.png" alt="Featured collection item 1" className="gallery-item" width={330} height={453} />
-              <Image src="/images/Trending1.png" alt="Featured collection item 2" className="gallery-item large" width={380} height={566} />
-              <Image src="/images/Featured3.png" alt="Featured collection item 3" className="gallery-item" width={330} height={453} />
-            </div>
-            <button className="gallery-arrow next">
-              <Image src="/images/1894_918.svg" alt="Next" width={18} height={18} />
-            </button>
-          </div>
+          <ImageSlider />
         </section>
 
         <section id="section-trending" className="section-container">
@@ -179,12 +229,12 @@ export default function Home() {
 
         <StayClassy />
 
-        <section id="section-stores" className="section-container">
+  <section id="home-stores" className="section-container home-stores">
           <h2 className="section-title">VISIT OUR <span className="highlight">STORES</span></h2>
           <div className="stores-grid">
             {stores.map(store => (
-              <div key={store.id} className="store-card">
-                <Image src="/images/store.png" alt={store.name} width={200} height={150} />
+              <div key={store.id} className="home-store-card">
+                <Image src="/images/store_1.png" alt={store.name} width={200} height={150} />
                 <div className="store-name-overlay">
                   <span>{store.name}</span>
                 </div>
@@ -193,55 +243,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="section-how-it-works" className="how-it-works-section">
-          {/* Framed left image that updates with scroll-driven steps (desktop-first) */}
-          <div className="how-it-works-frame" ref={framedImgRef}>
-            {/* map activeStep to image source - adjust paths as needed */}
-            {activeStep === 1 && <Image src="/images/step1.png" alt="Step 1" fill style={{ objectFit: 'cover' }} />}
-            {activeStep === 2 && <Image src="/images/step2.png" alt="Step 2" fill style={{ objectFit: 'cover' }} />}
-            {activeStep === 3 && <Image src="/images/step3.png" alt="Step 3" fill style={{ objectFit: 'cover' }} />}
-            {activeStep === 4 && <Image src="/images/step4.png" alt="Step 4" fill style={{ objectFit: 'cover' }} />}
-          </div>
-          <div className="how-it-works-content">
-            <div className="timeline">
-              <div className="timeline-item">
-                <div className="timeline-number"><span>1</span></div>
-                <div className="timeline-connector"></div>
-                <div className="timeline-desc">
-                  <Image src="/images/HOW YARITU WORKS.png" alt="Select a style icon" width={100} height={100} />
-                  <h3>select a style</h3>
-                  <p>nec viverra vitae eget placerat commodo dignissim, quam enim. felis, Morbi gravida lacus amet, enim. nisl.</p>
-                </div>
-              </div>
-              <div className="timeline-item">
-                <div className="timeline-number"><span>2</span></div>
-                <div className="timeline-connector"></div>
-                <div className="timeline-desc">
-                  <Image src="/images/HOW YARITU WORKS.png" alt="Book your outfit icon" width={100} height={100} />
-                  <h3>Book Your Outfit</h3>
-                  <p>amet, elementum vitae ipsum non, placerat dui maximus placerat Nam turpis ex nisl. dui. nisi elit est.</p>
-                </div>
-              </div>
-              <div className="timeline-item">
-                <div className="timeline-number"><span>3</span></div>
-                <div className="timeline-connector"></div>
-                <div className="timeline-desc">
-                  <Image src="/images/HOW YARITU WORKS.png" alt="Enjoy it icon" width={100} height={100} />
-                  <h3>Enjoy it</h3>
-                  <p>nec viverra vitae eget placerat commodo dignissim, quam enim. felis, Morbi gravida lacus amet, enim. nisl.</p>
-                </div>
-              </div>
-              <div className="timeline-item">
-                <div className="timeline-number"><span>4</span></div>
-                <div className="timeline-desc">
-                  <Image src="/images/HOW YARITU WORKS.png" alt="Return it icon" width={100} height={100} />
-                  <h3>Return it</h3>
-                  <p>non, vitae tortor. commodo Ut lobortis, odio Cras porta Ut eget ipsum laoreet cursus elit Nullam Morbi eu In adipiscing ex felis, lacus, sed sollicitudin. Nam</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+            <HowItWorks />
 
         <section id="section-testimonials" className="section-container">
           <h2 className="section-title">What Our <span className="highlight">Clients Say</span></h2>

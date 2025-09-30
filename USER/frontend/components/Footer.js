@@ -12,7 +12,7 @@ export default function Footer() {
                 <p>Step into a world of elegance and grace with Yaritu’s gallery. Explore trending festival looks, celebrity attire, top-rated outfits, and a variety of collection that reflect the pulse of Indian Fashion.</p>
                 <div className="social-links">
                     <a href="#"><Image src="/images/facebook.png" alt="Facebook" width={40} height={40} /></a>
-                    <a href="#"><Image src="/images/whatsapp.png" alt="WhatsApp" width={40} height={40} /></a>
+                    <a href="#"><Image src="/images/logos_whatsapp-icon.png" alt="WhatsApp" width={40} height={40} /></a>
                     <a href="#"><Image src="/images/instagram.png" alt="Instagram" width={40} height={40} /></a>
                     <a href="#"><Image src="/images/youtube.png" alt="YouTube" width={40} height={40} /></a>
                 </div>

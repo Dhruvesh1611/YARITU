@@ -14,7 +14,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 88px;
+    /* Use the global header height variable so it's easy to keep in sync */
+    height: var(--header-height, 88px);
     max-width: 1400px;
     margin: 0 auto;
     padding-left: 100px;

@@ -1,3 +1,8 @@
+/* Padding for offer heading section */
+.container.reviews-content {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
 .offer-page .offer-hero {
     padding-top: 127px;
     padding-bottom: 64px;
@@ -9,8 +14,8 @@
 }
 .offer-page .offer-hero-title {
     font-family: var(--font-heading);
-    font-size: 64px;
-    font-weight: 600;
+    font-size: 50px;
+    font-weight: 400;
     line-height: 1.2;
     color: var(--color-dark-gray);
     margin-bottom: 16px;
@@ -63,7 +68,7 @@
 .offer-page .store-selector-title {
     font-family: var(--font-heading);
     font-size: 40px;
-    font-weight: 600;
+    font-weight: 400;
     margin-bottom: 40px;
 }
 .offer-page .store-dropdown {
@@ -118,7 +123,7 @@
 .offer-page .offers-header h2 {
     font-family: var(--font-heading);
     font-size: 40px;
-    font-weight: 600;
+    font-weight: 400;
     color: var(--color-black);
 }
 .offer-page .offers-grid {
@@ -250,7 +255,7 @@
 .offer-page .benefits-title {
     font-family: var(--font-heading);
     font-size: 40px;
-    font-weight: 600;
+    font-weight: 400;
     margin-bottom: 15px;
 }
 .offer-page .benefits-subtitle {
@@ -335,7 +340,7 @@
 .offer-page .newsletter-content h2 {
     font-family: var(--font-heading);
     font-size: 40px;
-    font-weight: 600;
+    font-weight: 400;
     color: var(--color-black);
     margin-bottom: 15px;
 }

@@ -19,6 +19,11 @@ export default function RootLayout({ children }) {
         <Header />
         {children}
         <Footer />
+        {/* Global floating WhatsApp button (visible on all pages) */}
+        <a href="https://wa.me/" className="whatsapp-float" target="_blank" rel="noopener noreferrer">
+          {/* Using unified icon from public/images */}
+          <img src="/images/logos_whatsapp-icon.png" alt="WhatsApp" width="50" height="50" />
+        </a>
       </body>
     </html>
   );
