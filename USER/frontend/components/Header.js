@@ -1,8 +1,10 @@
+// components/Header.js
+
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; // <-- Yahan par mistake theek kar di hai
 import Link from 'next/link';
 import Image from 'next/image';
-import './Header.css';
+import styles from './Header.module.css';
 import { usePathname } from 'next/navigation';
 
 export default function Header() {
@@ -18,68 +20,70 @@ export default function Header() {
   };
 
   useEffect(() => {
-    // Close menu on route change
     closeMenu();
   }, [pathname]);
 
   useEffect(() => {
-    // Prevent body scroll when menu is open
     if (menuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
     }
-    // Cleanup function to restore scroll on component unmount
     return () => {
       document.body.style.overflow = 'auto';
     };
   }, [menuOpen]);
 
+  // Helper function to create dynamic class names
+  const navLinkClass = (path) => {
+    return `${styles.navLink} ${pathname === path ? styles.active : ''}`;
+  };
+
   return (
     <>
-      <header className="main-header">
-          <nav className="main-nav">
-              <div className="nav-center">
-                  <div className="nav-group nav-left">
-                      <Link href="/" className={`nav-link ${pathname === '/' ? 'active' : ''}`}>Home</Link>
-                      <Link href="/collection" className={`nav-link ${pathname === '/collection' ? 'active' : ''}`}>Collections</Link>
+      <header className={styles.mainHeader}>
+          <nav className={styles.mainNav}>
+              <div className={styles.navCenter}>
+                  <div className={styles.navGroup}>
+                      <Link href="/" className={navLinkClass('/')}>Home</Link>
+                      <Link href="/collection" className={navLinkClass('/collection')}>Collections</Link>
                   </div>
-                  <Link href="/" className="nav-logo">
+                  <Link href="/" className={styles.navLogo}>
                       <Image src="/images/yaritu_logo_black.png" alt="Yaritu Logo" width={160} height={75} />
                   </Link>
-                  <div className="nav-group nav-right">
-                      <Link href="/about" className={`nav-link ${pathname === '/about' ? 'active' : ''}`}>About</Link>
-                      <Link href="/contact" className={`nav-link ${pathname === '/contact' ? 'active' : ''}`}>Contact</Link>
-                      <Link href="/review" className={`nav-link ${pathname === '/review' ? 'active' : ''}`}>Reviews</Link>
+                  <div className={styles.navGroup}>
+                      <Link href="/about" className={navLinkClass('/about')}>About</Link>
+                      <Link href="/contact" className={navLinkClass('/contact')}>Contact</Link>
+                      <Link href="/review" className={navLinkClass('/review')}>Reviews</Link>
                   </div>
               </div>
-              <Link href="/offer" className="nav-offers">
-                  <Image src="/images/gift.svg" alt="Hot Sale Icon" className="offer-icon" width={37} height={37} />
+              <Link href="/offer" className={styles.navOffers}>
+                  <Image src="/images/gift.svg" alt="Hot Sale Icon" className={styles.offerIcon} width={37} height={37} />
                   <span>OFFERS</span>
               </Link>
 
-              <button className="hamburger" onClick={toggleMenu} aria-label="Toggle menu">
-                  <div className={`hamburger-box ${menuOpen ? 'open' : ''}`}>
-                      <div className="hamburger-inner"></div>
+              <button className={styles.hamburger} onClick={toggleMenu} aria-label="Toggle menu">
+                  <div className={`${styles.hamburgerBox} ${menuOpen ? styles.open : ''}`}>
+                      <div className={styles.hamburgerInner}></div>
                   </div>
               </button>
           </nav>
       </header>
 
-      <div className={`mobile-nav ${menuOpen ? 'open' : ''}`}>
-         <div className="mobile-logo-wrap">
+      <div className={`${styles.mobileNav} ${menuOpen ? styles.open : ''}`}>
+         <div className={styles.mobileLogoWrap}>
            <Link href="/">
              <Image src="/images/yaritu_logo_black.png" alt="Yaritu" width={120} height={56} />
            </Link>
          </div>
-         <Link href="/" className="mobile-nav-link">Home</Link>
-          <Link href="/collection" className="mobile-nav-link">Collections</Link>
-          <Link href="/about" className="mobile-nav-link">About</Link>
-          <Link href="/contact" className="mobile-nav-link">Contact</Link>
-          <Link href="/review" className="mobile-nav-link">Reviews</Link>
-          <Link href="/offer" className="mobile-nav-link">Offers</Link>
+         <Link href="/" className={styles.mobileNavLink}>Home</Link>
+          <Link href="/collection" className={styles.mobileNavLink}>Collections</Link>
+          <Link href="/about" className={styles.mobileNavLink}>About</Link>
+          <Link href="/contact" className={styles.mobileNavLink}>Contact</Link>
+          <Link href="/review" className={styles.mobileNavLink}>Reviews</Link>
+          <Link href="/offer" className={styles.mobileNavLink}>Offers</Link>
       </div>
-      {menuOpen && <div className="overlay" onClick={closeMenu}></div>}
+      {menuOpen && <div className={styles.overlay} onClick={closeMenu}></div>}
     </>
   );
 }

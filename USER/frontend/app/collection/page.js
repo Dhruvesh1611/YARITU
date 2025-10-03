@@ -1,6 +1,6 @@
 'use client';
-import React, { useState, useEffect } from 'react';
-import './collection.css';
+import React, { useState, useEffect, useRef } from 'react';
+import styles from './collection.module.css'; // Corrected the import
 import Image from 'next/image';
 import Pagination from '../../components/Pagination';
 import ProductModal from '../../components/ProductModal';
@@ -19,73 +19,11 @@ const allProducts = [
   { id: 10, name: 'Little Prince Suit', category: 'CHILDREN', type: 'BOYS', occasion: 'BIRTHDAY', image: 'https://placehold.co/300x349/2a2a2a/ffffff?text=Boys+Suit', description: 'children • boys' },
   { id: 11, name: 'Princess Pink Gown', category: 'CHILDREN', type: 'GIRLS', occasion: 'BIRTHDAY', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Girls+Gown', description: 'children • girls' },
   { id: 12, name: 'Floral Indo-Western', category: 'MEN', type: 'INDO WESTERN', occasion: 'SANGEET', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Indo-Western', description: 'men • indo western' },
-  { id: 13, name: 'Velvet Tuxedo Blazer', category: 'MEN', type: 'BLAZER', occasion: 'COCKTAIL PARTY', image: 'https://placehold.co/300x349/25334d/ffffff?text=Blazer', description: 'men • blazer' },
-  { id: 14, name: 'Emerald Green Gown', category: 'WOMEN', type: 'GOWN', occasion: 'PRE WEDDING SHOOT', image: 'https://placehold.co/300x349/25334d/ffffff?text=Gown', description: 'women • gown' },
-  { id: 15, name: 'Golden Silk Lehenga', category: 'WOMEN', type: 'LEHENGA', occasion: 'SANGEET', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Lehenga', description: 'women • lehenga' },
-  { id: 16, name: 'Ivory Indo-Western', category: 'WOMEN', type: 'INDO WESTERN', occasion: 'WEDDING', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Indo-Western', description: 'women • indo western' },
-  { id: 17, name: 'Festive Kurta Set', category: 'CHILDREN', type: 'BOYS', occasion: 'SANGEET', image: 'https://placehold.co/300x349/2a2a2a/ffffff?text=Boys+Kurta', description: 'children • boys' },
-  { id: 18, name: 'Sparkle Party Frock', category: 'CHILDREN', type: 'GIRLS', occasion: 'BIRTHDAY', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Girls+Frock', description: 'children • girls' },
-  { id: 19, name: 'Royal Gold Sherwani', category: 'MEN', type: 'SHERVANI', occasion: 'WEDDING', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Sherwani', description: 'men • sherwani' },
-  { id: 20, name: 'Classic Black Suit', category: 'MEN', type: 'SUIT', occasion: 'COCKTAIL PARTY', image: 'https://placehold.co/300x349/2a2a2a/ffffff?text=Suit', description: 'men • suit' },
-  { id: 21, name: 'Modern Indo-Western', category: 'MEN', type: 'INDO WESTERN', occasion: 'SANGEET', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Indo-Western', description: 'men • indo western' },
-  { id: 22, name: 'Navy Formal Blazer', category: 'MEN', type: 'BLAZER', occasion: 'COCKTAIL PARTY', image: 'https://placehold.co/300x349/25334d/ffffff?text=Blazer', description: 'men • blazer' },
-  { id: 23, name: 'Elegant Wedding Sherwani', category: 'MEN', type: 'SHERVANI', occasion: 'WEDDING', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Sherwani', description: 'men • sherwani' },
-  { id: 24, name: 'Three-Piece Suit', category: 'MEN', type: 'SUIT', occasion: 'PRE WEDDING SHOOT', image: 'https://placehold.co/300x349/2a2a2a/ffffff?text=Suit', description: 'men • suit' },
-  { id: 25, name: 'Crimson Red Lehenga', category: 'WOMEN', type: 'LEHENGA', occasion: 'WEDDING', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Lehenga', description: 'women • lehenga' },
-  { id: 26, name: 'Midnight Blue Gown', category: 'WOMEN', type: 'GOWN', occasion: 'COCKTAIL PARTY', image: 'https://placehold.co/300x349/25334d/ffffff?text=Gown', description: 'women • gown' },
-  { id: 27, name: 'Pastel Saree', category: 'WOMEN', type: 'SAREE', occasion: 'SANGEET', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Saree', description: 'women • saree' },
-  { id: 28, name: 'Little Prince Suit', category: 'CHILDREN', type: 'BOYS', occasion: 'BIRTHDAY', image: 'https://placehold.co/300x349/2a2a2a/ffffff?text=Boys+Suit', description: 'children • boys' },
-  { id: 29, name: 'Princess Pink Gown', category: 'CHILDREN', type: 'GIRLS', occasion: 'BIRTHDAY', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Girls+Gown', description: 'children • girls' },
-  { id: 30, name: 'Floral Indo-Western', category: 'MEN', type: 'INDO WESTERN', occasion: 'SANGEET', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Indo-Western', description: 'men • indo western' },
-  { id: 31, name: 'Velvet Tuxedo Blazer', category: 'MEN', type: 'BLAZER', occasion: 'COCKTAIL PARTY', image: 'https://placehold.co/300x349/25334d/ffffff?text=Blazer', description: 'men • blazer' },
-  { id: 32, name: 'Emerald Green Gown', category: 'WOMEN', type: 'GOWN', occasion: 'PRE WEDDING SHOOT', image: 'https://placehold.co/300x349/25334d/ffffff?text=Gown', description: 'women • gown' },
-  { id: 33, name: 'Golden Silk Lehenga', category: 'WOMEN', type: 'LEHENGA', occasion: 'SANGEET', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Lehenga', description: 'women • lehenga' },
-  { id: 34, name: 'Ivory Indo-Western', category: 'WOMEN', type: 'INDO WESTERN', occasion: 'WEDDING', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Indo-Western', description: 'women • indo western' },
-  { id: 35, name: 'Festive Kurta Set', category: 'CHILDREN', type: 'BOYS', occasion: 'SANGEET', image: 'https://placehold.co/300x349/2a2a2a/ffffff?text=Boys+Kurta', description: 'children • boys' },
-  { id: 36, name: 'Sparkle Party Frock', category: 'CHILDREN', type: 'GIRLS', occasion: 'BIRTHDAY', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Girls+Frock', description: 'children • girls' },
-  { id: 37, name: 'Crimson Red Lehenga', category: 'WOMEN', type: 'LEHENGA', occasion: 'WEDDING', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Lehenga', description: 'women • lehenga' },
-  { id: 88, name: 'Midnight Blue Gown', category: 'WOMEN', type: 'GOWN', occasion: 'COCKTAIL PARTY', image: 'https://placehold.co/300x349/25334d/ffffff?text=Gown', description: 'women • gown' },
-  { id: 39, name: 'Pastel Saree', category: 'WOMEN', type: 'SAREE', occasion: 'SANGEET', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Saree', description: 'women • saree' },
-  { id: 40, name: 'Little Prince Suit', category: 'CHILDREN', type: 'BOYS', occasion: 'BIRTHDAY', image: 'https://placehold.co/300x349/2a2a2a/ffffff?text=Boys+Suit', description: 'children • boys' },
-  { id: 41, name: 'Princess Pink Gown', category: 'CHILDREN', type: 'GIRLS', occasion: 'BIRTHDAY', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Girls+Gown', description: 'children • girls' },
-  { id: 42, name: 'Floral Indo-Western', category: 'MEN', type: 'INDO WESTERN', occasion: 'SANGEET', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Indo-Western', description: 'men • indo western' },
-  { id: 43, name: 'Velvet Tuxedo Blazer', category: 'MEN', type: 'BLAZER', occasion: 'COCKTAIL PARTY', image: 'https://placehold.co/300x349/25334d/ffffff?text=Blazer', description: 'men • blazer' },
-  { id: 44, name: 'Emerald Green Gown', category: 'WOMEN', type: 'GOWN', occasion: 'PRE WEDDING SHOOT', image: 'https://placehold.co/300x349/25334d/ffffff?text=Gown', description: 'women • gown' },
-  { id: 45, name: 'Golden Silk Lehenga', category: 'WOMEN', type: 'LEHENGA', occasion: 'SANGEET', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Lehenga', description: 'women • lehenga' },
-  { id: 46, name: 'Ivory Indo-Western', category: 'WOMEN', type: 'INDO WESTERN', occasion: 'WEDDING', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Indo-Western', description: 'women • indo western' },
-  { id: 47, name: 'Festive Kurta Set', category: 'CHILDREN', type: 'BOYS', occasion: 'SANGEET', image: 'https://placehold.co/300x349/2a2a2a/ffffff?text=Boys+Kurta', description: 'children • boys' },
-  { id: 48, name: 'Sparkle Party Frock', category: 'CHILDREN', type: 'GIRLS', occasion: 'BIRTHDAY', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Girls+Frock', description: 'children • girls' },
-  { id: 49, name: 'Royal Gold Sherwani', category: 'MEN', type: 'SHERVANI', occasion: 'WEDDING', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Sherwani', description: 'men • sherwani' },
-  { id: 50, name: 'Classic Black Suit', category: 'MEN', type: 'SUIT', occasion: 'COCKTAIL PARTY', image: 'https://placehold.co/300x349/2a2a2a/ffffff?text=Suit', description: 'men • suit' },
-  { id: 51, name: 'Modern Indo-Western', category: 'MEN', type: 'INDO WESTERN', occasion: 'SANGEET', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Indo-Western', description: 'men • indo western' },
-  { id: 52, name: 'Navy Formal Blazer', category: 'MEN', type: 'BLAZER', occasion: 'COCKTAIL PARTY', image: 'https://placehold.co/300x349/25334d/ffffff?text=Blazer', description: 'men • blazer' },
-  { id: 53, name: 'Elegant Wedding Sherwani', category: 'MEN', type: 'SHERVANI', occasion: 'WEDDING', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Sherwani', description: 'men • sherwani' },
-  { id: 54, name: 'Three-Piece Suit', category: 'MEN', type: 'SUIT', occasion: 'PRE WEDDING SHOOT', image: 'https://placehold.co/300x349/2a2a2a/ffffff?text=Suit', description: 'men • suit' },
-  { id: 55, name: 'Crimson Red Lehenga', category: 'WOMEN', type: 'LEHENGA', occasion: 'WEDDING', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Lehenga', description: 'women • lehenga' },
-  { id: 56, name: 'Midnight Blue Gown', category: 'WOMEN', type: 'GOWN', occasion: 'COCKTAIL PARTY', image: 'https://placehold.co/300x349/25334d/ffffff?text=Gown', description: 'women • gown' },
-  { id: 57, name: 'Pastel Saree', category: 'WOMEN', type: 'SAREE', occasion: 'SANGEET', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Saree', description: 'women • saree' },
-  { id: 58, name: 'Little Prince Suit', category: 'CHILDREN', type: 'BOYS', occasion: 'BIRTHDAY', image: 'https://placehold.co/300x349/2a2a2a/ffffff?text=Boys+Suit', description: 'children • boys' },
-  { id: 59, name: 'Princess Pink Gown', category: 'CHILDREN', type: 'GIRLS', occasion: 'BIRTHDAY', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Girls+Gown', description: 'children • girls' },
-  { id: 60, name: 'Floral Indo-Western', category: 'MEN', type: 'INDO WESTERN', occasion: 'SANGEET', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Indo-Western', description: 'men • indo western' },
-  { id: 61, name: 'Velvet Tuxedo Blazer', category: 'MEN', type: 'BLAZER', occasion: 'COCKTAIL PARTY', image: 'https://placehold.co/300x349/25334d/ffffff?text=Blazer', description: 'men • blazer' },
-  { id: 62, name: 'Emerald Green Gown', category: 'WOMEN', type: 'GOWN', occasion: 'PRE WEDDING SHOOT', image: 'https://placehold.co/300x349/25334d/ffffff?text=Gown', description: 'women • gown' },
-  { id: 63, name: 'Golden Silk Lehenga', category: 'WOMEN', type: 'LEHENGA', occasion: 'SANGEET', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Lehenga', description: 'women • lehenga' },
-  { id: 64, name: 'Ivory Indo-Western', category: 'WOMEN', type: 'INDO WESTERN', occasion: 'WEDDING', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Indo-Western', description: 'women • indo western' },
-  { id: 65, name: 'Festive Kurta Set', category: 'CHILDREN', type: 'BOYS', occasion: 'SANGEET', image: 'https://placehold.co/300x349/2a2a2a/ffffff?text=Boys+Kurta', description: 'children • boys' },
-  { id: 66, name: 'Sparkle Party Frock', category: 'CHILDREN', type: 'GIRLS', occasion: 'BIRTHDAY', image: 'https://placehold.co/300x349/c5a46d/25334d?text=Girls+Frock', description: 'children • girls' },
-  // Add more products as needed
-  // Add more products as needed
 ];
 
 const PRODUCTS_PER_PAGE = 8;
 
 export default function Collection() {
-  // Track client mount to avoid reading window during server render
-  const [isClient, setIsClient] = useState(false);
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
   const [activeCategory, setActiveCategory] = useState('MEN');
   const [activeType, setActiveType] = useState(null);
   const [activeSubcategory, setActiveSubcategory] = useState(null);
@@ -93,60 +31,50 @@ export default function Collection() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [viewMode, setViewMode] = useState('grid'); // 'grid' (2 per row) or 'single' (1 per row)
+  const [viewMode, setViewMode] = useState('grid');
+  const [openDropdown, setOpenDropdown] = useState(null);
+
+  // Using Refs for direct DOM access is better than querySelector
+  const collectionTitleRef = useRef(null);
+  const collectionContentRef = useRef(null);
 
   useEffect(() => {
     let products = allProducts.filter(p => p.category === activeCategory);
-
-    // If a subcategory is selected (e.g., BOYS or GIRLS under CHILDREN), prefer
-    // matching product.type or description for that subcategory when filtering.
     if (activeSubcategory) {
       const sub = activeSubcategory.toUpperCase();
-      products = products.filter(p => {
-        const desc = (p.description || '').toUpperCase();
-        const type = (p.type || '').toUpperCase();
-        return type === sub || desc.includes(sub);
-      });
+      products = products.filter(p => p.type.toUpperCase() === sub || p.description.toUpperCase().includes(sub));
     }
-
     if (activeType) {
       const t = activeType.toUpperCase();
-      products = products.filter(p => {
-        const type = (p.type || '').toUpperCase();
-        const desc = (p.description || '').toUpperCase();
-        return type === t || desc.includes(t) || (p.name || '').toUpperCase().includes(t);
-      });
+      products = products.filter(p => p.type.toUpperCase() === t || p.description.toUpperCase().includes(t) || p.name.toUpperCase().includes(t));
     } else if (activeOccasion) {
       products = products.filter(p => p.occasion === activeOccasion);
     }
     setFilteredProducts(products);
-    setCurrentPage(1); // Reset to first page on filter change
+    setCurrentPage(1);
   }, [activeCategory, activeType, activeOccasion, activeSubcategory]);
 
   useEffect(() => {
-    if (selectedProduct) {
-      document.body.style.overflow = 'hidden';
-    } else {
+    document.body.style.overflow = selectedProduct ? 'hidden' : 'auto';
+    return () => {
       document.body.style.overflow = 'auto';
-    }
+    };
   }, [selectedProduct]);
 
-  // Pagination logic
   const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE);
-  const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
-  const endIndex = startIndex + PRODUCTS_PER_PAGE;
-  const currentProducts = filteredProducts.slice(startIndex, endIndex);
+  const currentProducts = filteredProducts.slice((currentPage - 1) * PRODUCTS_PER_PAGE, currentPage * PRODUCTS_PER_PAGE);
 
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
+  const handlePageChange = (page) => setCurrentPage(page);
+  const handleProductClick = (product) => setSelectedProduct(product);
+  const handleCloseModal = () => setSelectedProduct(null);
 
-  const handleProductClick = (product) => {
-    setSelectedProduct(product);
-  };
-
-  const handleCloseModal = () => {
-    setSelectedProduct(null);
+  const scrollToCollectionTitle = () => {
+    setTimeout(() => {
+      if (collectionTitleRef.current) {
+        const y = collectionTitleRef.current.getBoundingClientRect().top + window.pageYOffset - 24;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    }, 60);
   };
 
   const handleCategoryClick = (category) => {
@@ -154,140 +82,51 @@ export default function Collection() {
     setActiveType(null);
     setActiveSubcategory(null);
     setActiveOccasion(null);
+    setOpenDropdown(null);
+    scrollToCollectionTitle();
   };
-
-  // Mobile dropdown open state (category key or null)
-  const [openDropdown, setOpenDropdown] = useState(null);
-
-  const toggleDropdown = (category) => {
-    // Guard with isClient so server render remains deterministic
-    if (isClient && typeof window !== 'undefined' && window.innerWidth > 768) {
-      // Desktop: do NOT change the active category or layout on click.
-      // Keep hover behavior for showing the two-column dropdown. Clicking
-      // the button should only toggle the 'open' state for accessibility
-      // or keyboard users, not change the product layout.
-      setOpenDropdown(prev => (prev === category ? null : category));
-      return;
-    }
-
-    // Mobile behavior: first click opens the dropdown panel.
-    // If the same category is clicked again while open, treat as a selection
-    // and scroll to the collection title.
-    if (openDropdown === category) {
-      // Second click: set the category and scroll to results
-      setOpenDropdown(null);
-      setActiveCategory(category);
-      setActiveType(null);
-      setActiveOccasion(null);
-      // smooth scroll to collection title on client
-      if (isClient) {
-        const title = document.querySelector('.collection-title');
-        if (title) {
-          const y = title.getBoundingClientRect().top + window.pageYOffset - 24;
-          window.scrollTo({ top: y, behavior: 'smooth' });
-        }
-      }
-      return;
-    }
-
-    // Otherwise open the dropdown for this category (first click)
-    setOpenDropdown(category);
-  };
-
-  // When a mobile dropdown is open, add a class to collection-content to push it down
-  useEffect(() => {
-    const el = document.querySelector('.collection-content');
-    if (!el) return;
-    if (openDropdown) {
-      el.classList.add('dropdown-active');
-    } else {
-      el.classList.remove('dropdown-active');
-    }
-    // cleanup on unmount
-    return () => el.classList.remove('dropdown-active');
-  }, [openDropdown]);
 
   const handleTypeClick = (category, type, subcategory = null) => {
     setActiveCategory(category);
     setActiveType(type);
     setActiveSubcategory(subcategory);
-    setActiveOccasion(null); // Reset occasion filter
-    // Close any open mobile dropdown
+    setActiveOccasion(null);
     setOpenDropdown(null);
-    // ensure collection content is in view on selection
     scrollToCollectionTitle();
   };
 
   const handleOccasionClick = (category, occasion, subcategory = null) => {
     setActiveCategory(category);
     setActiveOccasion(occasion);
-    setActiveType(null); // Reset type filter
+    setActiveType(null);
     setActiveSubcategory(subcategory);
-    // Close any open mobile dropdown
     setOpenDropdown(null);
-    // ensure collection content is in view on selection
     scrollToCollectionTitle();
   };
 
-  // Client-only scroll helper
-  const scrollToCollectionTitle = () => {
-    if (!isClient) return;
-    setTimeout(() => {
-      const title = document.querySelector('.collection-title');
-      if (title) {
-        const y = title.getBoundingClientRect().top + window.pageYOffset - 24; // small offset
-        window.scrollTo({ top: y, behavior: 'smooth' });
-      }
-    }, 60);
-  };
-
   const getBreadcrumbs = () => {
-    // If we have a subcategory (e.g., BOYS / GIRLS under CHILDREN), show that first
-      if (activeSubcategory && activeType) {
-        return `${activeCategory} > ${activeSubcategory.toUpperCase()} Collection > ${activeType.toUpperCase()}`;
-      }
-      if (activeSubcategory && activeOccasion) {
-        return `${activeCategory} > ${activeSubcategory.toUpperCase()} Collection > ${activeOccasion.toUpperCase()}`;
-      }
-
-    // Fallbacks for MEN/WOMEN where we only have a type or occasion
-    if (activeType) {
-      return `${activeCategory} > ${activeType.toUpperCase()}`;
-    }
-    if (activeOccasion) {
-      return `${activeCategory} > ${activeOccasion.toUpperCase()}`;
-    }
-    return activeCategory ? activeCategory.toUpperCase() : activeCategory;
+    const parts = [activeCategory];
+    if (activeSubcategory) parts.push(activeSubcategory);
+    if (activeType) parts.push(activeType);
+    else if (activeOccasion) parts.push(activeOccasion);
+    return parts.join(' > ').toUpperCase();
   };
 
   return (
     <main>
-      <section id="collection" className="collection-section">
-        <div className="container">
-          <h1 className="section-title">Our <span className="highlight">Collection</span></h1>
-          <hr className="divider" />
+      <section id="collection" className={styles['collection-section']}>
+        <div className="container"> {/* Assuming .container is a global style */}
+          <h1 className={styles.pageTitle}>Our <span className={styles.highlight}>Collection</span></h1>
+          <hr className={styles.divider} />
 
-          <div className={`category-buttons ${openDropdown ? 'dropdown-open' : ''}`}>
+          <div className={`${styles['category-buttons']} ${openDropdown ? styles['dropdown-open'] : ''}`}>
             {/* MEN */}
-            <div className={`category-button-container ${openDropdown === 'MEN' ? 'open' : ''}`}>
-              <button onClick={() => {
-                handleCategoryClick('MEN');
-                setOpenDropdown(null);
-                // Scroll to collection title
-                setTimeout(() => {
-                  const title = document.querySelector('.collection-title');
-                  if (title) {
-                    const y = title.getBoundingClientRect().top + window.pageYOffset - 24;
-                    window.scrollTo({ top: y, behavior: 'smooth' });
-                  }
-                }, 60);
-              }} className="category-button">
-                <Image src="/images/2195_79.svg" alt="Men category background glow" className="btn-glow" width={252} height={50} />
-                <div className="btn-bg"></div>
-                <span className="btn-text">MEN</span>
+            <div className={`${styles['category-button-container']} ${openDropdown === 'MEN' ? styles.open : ''}`}>
+              <button onClick={() => handleCategoryClick('MEN')} className={styles.categoryButton}>
+                MEN
               </button>
-              <div className="dropdown-menu">
-                <div className="dropdown-column">
+              <div className={styles['dropdown-menu']}>
+                <div className={styles['dropdown-column']}>
                   <h4>RENT BY TYPE</h4>
                   <ul>
                     <li><a href="#" onClick={(e) => { e.preventDefault(); handleTypeClick('MEN', 'SHERVANI'); }}>SHERVANI</a></li>
@@ -296,7 +135,7 @@ export default function Collection() {
                     <li><a href="#" onClick={(e) => { e.preventDefault(); handleTypeClick('MEN', 'BLAZER'); }}>BLAZER</a></li>
                   </ul>
                 </div>
-                <div className="dropdown-column">
+                <div className={styles['dropdown-column']}>
                   <h4>RENT BY OCATION</h4>
                   <ul>
                     <li><a href="#" onClick={(e) => { e.preventDefault(); handleOccasionClick('MEN', 'WEDDING'); }}>WEDDING</a></li>
@@ -309,24 +148,12 @@ export default function Collection() {
             </div>
 
             {/* WOMEN */}
-            <div className={`category-button-container ${openDropdown === 'WOMEN' ? 'open' : ''}`}>
-              <button onClick={() => {
-                handleCategoryClick('WOMEN');
-                setOpenDropdown(null);
-                setTimeout(() => {
-                  const title = document.querySelector('.collection-title');
-                  if (title) {
-                    const y = title.getBoundingClientRect().top + window.pageYOffset - 24;
-                    window.scrollTo({ top: y, behavior: 'smooth' });
-                  }
-                }, 60);
-              }} className="category-button">
-                <Image src="/images/2195_84.svg" alt="Women category background glow" className="btn-glow" width={252} height={50} />
-                <div className="btn-bg"></div>
-                <span className="btn-text">WOMEN</span>
+            <div className={`${styles['category-button-container']} ${openDropdown === 'WOMEN' ? styles.open : ''}`}>
+              <button onClick={() => handleCategoryClick('WOMEN')} className={styles.categoryButton}>
+                WOMEN
               </button>
-              <div className="dropdown-menu">
-                <div className="dropdown-column">
+              <div className={styles['dropdown-menu']}>
+                <div className={styles['dropdown-column']}>
                   <h4>RENT BY TYPE</h4>
                   <ul>
                     <li><a href="#" onClick={(e) => { e.preventDefault(); handleTypeClick('WOMEN', 'LEHENGA'); }}>LEHENGA</a></li>
@@ -335,7 +162,7 @@ export default function Collection() {
                     <li><a href="#" onClick={(e) => { e.preventDefault(); handleTypeClick('WOMEN', 'SAREE'); }}>SAREE</a></li>
                   </ul>
                 </div>
-                <div className="dropdown-column">
+                <div className={styles['dropdown-column']}>
                   <h4>RENT BY OCATION</h4>
                   <ul>
                     <li><a href="#" onClick={(e) => { e.preventDefault(); handleOccasionClick('WOMEN', 'WEDDING'); }}>WEDDING</a></li>
@@ -348,24 +175,12 @@ export default function Collection() {
             </div>
 
             {/* CHILDREN */}
-            <div className={`category-button-container ${openDropdown === 'CHILDREN' ? 'open' : ''}`}>
-              <button onClick={() => {
-                handleCategoryClick('CHILDREN');
-                setOpenDropdown(null);
-                setTimeout(() => {
-                  const title = document.querySelector('.collection-title');
-                  if (title) {
-                    const y = title.getBoundingClientRect().top + window.pageYOffset - 24;
-                    window.scrollTo({ top: y, behavior: 'smooth' });
-                  }
-                }, 60);
-              }} className="category-button">
-                <Image src="/images/2195_89.svg" alt="Children category background glow" className="btn-glow" width={252} height={50} />
-                <div className="btn-bg"></div>
-                <span className="btn-text">CHILDREN</span>
+            <div className={`${styles['category-button-container']} ${openDropdown === 'CHILDREN' ? styles.open : ''}`}>
+              <button onClick={() => handleCategoryClick('CHILDREN')} className={styles.categoryButton}>
+                CHILDREN
               </button>
-              <div className="dropdown-menu">
-                <div className="dropdown-column">
+              <div className={styles['dropdown-menu']}>
+                <div className={styles['dropdown-column']}>
                   <h4>BOYS COLLECTION</h4>
                   <ul>
                     <li><a href="#" onClick={(e) => { e.preventDefault(); handleTypeClick('CHILDREN', 'SUIT', 'BOYS'); }}>SUIT</a></li>
@@ -374,7 +189,7 @@ export default function Collection() {
                     <li><a href="#" onClick={(e) => { e.preventDefault(); handleTypeClick('CHILDREN', 'DHOTI', 'BOYS'); }}>DHOTI</a></li>
                   </ul>
                 </div>
-                <div className="dropdown-column">
+                <div className={styles['dropdown-column']}>
                   <h4>GIRLS COLLECTION</h4>
                   <ul>
                     <li><a href="#" onClick={(e) => { e.preventDefault(); handleTypeClick('CHILDREN', 'FROCK', 'GIRLS'); }}>FROCK</a></li>
@@ -387,63 +202,34 @@ export default function Collection() {
             </div>
           </div>
 
-          <div className="collection-content">
-            <p className="breadcrumbs">{getBreadcrumbs()}</p>
-            <h2 className="collection-title">Royal Collection</h2>
-            <p className="collection-subtitle">Explore our finest selection.</p>
+          <div ref={collectionContentRef} className={`${styles['collection-content']} ${openDropdown ? styles['dropdown-active'] : ''}`}>
+            <p className={styles.breadcrumbs}>{getBreadcrumbs()}</p>
+            <h2 ref={collectionTitleRef} className={styles['collection-title']}>Royal Collection</h2>
+            <p className={styles['collection-subtitle']}>Explore our finest selection.</p>
 
-            {/* View Toggle Buttons */}
-            <div className="view-toggle-container">
-              <button 
-                className={`view-toggle-btn ${viewMode === 'single' ? 'active' : ''}`}
-                onClick={() => setViewMode('single')}
-                title="Single column view"
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="3" y="3" width="18" height="4" rx="1" stroke="currentColor" strokeWidth="2"/>
-                  <rect x="3" y="10" width="18" height="4" rx="1" stroke="currentColor" strokeWidth="2"/>
-                  <rect x="3" y="17" width="18" height="4" rx="1" stroke="currentColor" strokeWidth="2"/>
-                </svg>
+            <div className={styles['view-toggle-container']}>
+              <button className={`${styles['view-toggle-btn']} ${viewMode === 'single' ? styles.active : ''}`} onClick={() => setViewMode('single')}>
+                {/* SVG for single view */}
               </button>
-              <button 
-                className={`view-toggle-btn ${viewMode === 'grid' ? 'active' : ''}`}
-                onClick={() => setViewMode('grid')}
-                title="Grid view"
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="2"/>
-                  <rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="2"/>
-                  <rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="2"/>
-                  <rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="2"/>
-                </svg>
+              <button className={`${styles['view-toggle-btn']} ${viewMode === 'grid' ? styles.active : ''}`} onClick={() => setViewMode('grid')}>
+                {/* SVG for grid view */}
               </button>
             </div>
 
-            <div className={`product-grid ${viewMode === 'single' ? 'single-column' : 'grid-view'}`}>
-              {currentProducts.length > 0 ? (
-                currentProducts.map(product => (
-                  <article className="product-card" key={product.id} onClick={() => handleProductClick(product)}>
-                    <Image src={product.image} alt={product.name} className="product-image" width={300} height={349} unoptimized={true} />
-                    <div className="card-info">
-                      <p>{product.name}<br />{product.description}</p>
-                    </div>
-                  </article>
-                ))
-              ) : (
-                <p>No products found for this selection.</p>
-              )}
+            <div className={`${styles['product-grid']} ${viewMode === 'single' ? styles['single-column'] : styles['grid-view']}`}>
+              {currentProducts.map(product => (
+                <article className={styles['product-card']} key={product.id} onClick={() => handleProductClick(product)}>
+                  <Image src={product.image} alt={product.name} className={styles['product-image']} width={300} height={349} unoptimized={true} />
+                  <div className={styles['card-info']}>
+                    <p>{product.name}<br />{product.description}</p>
+                  </div>
+                </article>
+              ))}
             </div>
-            {totalPages > 1 && (
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={handlePageChange}
-              />
-            )}
+            {totalPages > 1 && <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />}
           </div>
         </div>
       </section>
-    {/* Global WhatsApp button is provided in app/layout.js */}
       <ProductModal product={selectedProduct} onClose={handleCloseModal} />
     </main>
   );

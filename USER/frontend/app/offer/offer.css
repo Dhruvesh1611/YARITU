@@ -1,7 +1,31 @@
-/* Padding for offer heading section */
-.container.reviews-content {
-    padding-top: 40px;
+/* Padding for offer heading section - scoped to offer page only */
+.offer-page .container.reviews-content {
+    padding-top: 80px;
     padding-bottom: 40px;
+}
+
+/* Reset any global side-effect (optional safety) */
+.container.reviews-content:not(.offer-page .container.reviews-content) {
+    padding-top: 0px;
+}
+
+/* Override review page styles for offer page headings */
+.offer-page .reviews-title {
+    font-family: var(--font-heading);
+    font-size: 50px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--color-dark-gray);
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.offer-page .reviews-subtitle {
+    font-family: var(--font-body);
+    font-size: 21px;
+    color: var(--color-text-gray);
+    line-height: 1.6;
+    text-align: center;
 }
 .offer-page .offer-hero {
     padding-top: 127px;
@@ -67,29 +91,92 @@
 }
 .offer-page .store-selector-title {
     font-family: var(--font-heading);
-    font-size: 40px;
+    font-size: 32px;
     font-weight: 400;
     margin-bottom: 40px;
 }
+
 .offer-page .store-dropdown {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     background-color: var(--color-white);
     border: 1px solid var(--color-dark-blue);
     border-radius: 20px;
     padding: 16px 20px;
-    width: 270px;
+    width: 100%;
+    max-width: 400px;
     cursor: pointer;
+    font-size: 18px;
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
 }
-.offer-page .store-dropdown span {
-    font-family: Arial, sans-serif;
+
+.offer-page .store-dropdown:hover {
+    border-color: #c5a46d;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.offer-page .store-dropdown:focus {
+    outline: none;
+    border-color: #c5a46d;
+    box-shadow: 0 0 0 3px rgba(197, 164, 109, 0.2);
+}
+
+/* Selected Store Information */
+.offer-page .selected-store-info {
+    background-color: var(--color-white);
+    padding: 24px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #c5a46d;
+}
+
+.offer-page .selected-store-info h3 {
+    font-family: var(--font-heading);
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--color-dark-blue);
+    margin-bottom: 12px;
+}
+
+.offer-page .selected-store-info .store-address {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--color-text-gray);
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.offer-page .selected-store-info .store-phone {
+    font-family: var(--font-body);
     font-size: 16px;
-    color: var(--color-dark-gray);
+    font-weight: 600;
+    color: #c5a46d;
+    margin: 0;
 }
-.offer-page .store-dropdown img {
-    width: 35px;
-    height: 35px;
+
+/* Store Photo Styling */
+.offer-page .store-selector-image {
+    flex: 1;
+    max-width: 690px;
+    height: 400px; /* Fixed height for consistency */
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    position: relative; /* For absolute positioning of image */
+}
+
+.offer-page .store-photo {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    object-fit: cover; /* Ensures consistent sizing while maintaining aspect ratio */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: absolute; /* For precise control */
+    top: 0;
+    left: 0;
+}
+
+.offer-page .store-photo:hover {
+    transform: scale(1.02);
 }
 
 @media (max-width: 1024px) {
@@ -103,6 +190,69 @@
     }
     .offer-page .store-dropdown {
         margin: 0 auto;
+        max-width: 350px;
+    }
+    .offer-page .selected-store-info {
+        text-align: left;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    .offer-page .store-selector-image {
+        max-width: 100%;
+        height: 300px; /* Responsive height for tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .offer-page .store-selector-container {
+        padding: 0 20px;
+        gap: 30px;
+        flex-direction: column;
+    }
+    .offer-page .store-selector-content {
+        padding: 0;
+    }
+    .offer-page .store-dropdown {
+        max-width: 100%;
+        font-size: 16px;
+        padding: 14px 18px;
+    }
+    .offer-page .selected-store-info {
+        padding: 20px;
+        max-width: 100%;
+    }
+    .offer-page .selected-store-info h3 {
+        font-size: 20px;
+    }
+    .offer-page .selected-store-info .store-address {
+        font-size: 13px;
+    }
+    .offer-page .selected-store-info .store-phone {
+        font-size: 15px;
+    }
+    .offer-page .store-selector-image {
+        height: 300px !important; /* Force fixed height */
+        width: 90vw !important; /* Force fixed width */
+        max-width: 90vw !important; /* Ensure max width */
+        min-height: 300px !important; /* Ensure minimum height */
+        margin: 0 auto; /* Center the image */
+        border-radius: 15px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        overflow: hidden; /* Ensure content doesn't overflow */
+        position: relative; /* For absolute positioning of image */
+    }
+    .offer-page .store-photo {
+        border-radius: 15px;
+        object-fit: cover !important; /* Force cover to maintain aspect ratio */
+        width: 100% !important; /* Force full width */
+        height: 100% !important; /* Force full height */
+        position: absolute; /* Absolute positioning for precise control */
+        top: 0;
+        left: 0;
+        display: block; /* Ensure block display */
+    }
+    .offer-page .store-photo:hover {
+        transform: none; /* Disable hover effects on mobile */
     }
 }
 

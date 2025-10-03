@@ -232,3 +232,186 @@
     color: #000000;
     /* <-- DESCRIPTION KA COLOR THODA OFF-WHITE KIYA */
 }
+
+/* === MOBILE RESPONSIVE STYLES === */
+@media (max-width: 768px) {
+    .mainContainer {
+        padding: 0;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .contentWrapper {
+        flex-direction: column;
+        height: 100vh;
+        max-width: 100%;
+        margin: 0;
+    }
+
+    /* === MOBILE LEFT COLUMN (TOP HALF) === */
+    .leftStickyColumn {
+        width: 100%;
+        height: 50vh;
+        position: relative;
+        top: 0;
+    }
+
+    .fullscreenBackground {
+        width: 100vw;
+        height: 50vh;
+        margin-left: 0;
+    }
+
+    .stickyHeading {
+        top: 8%;
+        left: 50%;
+        font-size: 1.8rem;
+        width: 90%;
+        max-width: none;
+    }
+
+    .imageContainer {
+        top: 50%;
+        left: 50%;
+        width: 40%;
+        max-width: 200px;
+        aspect-ratio: 4 / 5;
+    }
+
+    /* === MOBILE RIGHT COLUMN (BOTTOM HALF) === */
+    .rightScrollingColumn {
+        width: 100%;
+        height: 50vh;
+        background: #fdfaf6;
+        padding: 20px 0;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    .timeline {
+        display: flex;
+        flex-direction: row;
+        padding-left: 0;
+        width: max-content;
+        height: 100%;
+        align-items: center;
+        gap: 40px;
+        padding: 0 20px;
+    }
+
+    .timeline::before {
+        display: none;
+    }
+
+    .timelineItem {
+        min-height: auto;
+        width: 280px;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        position: relative;
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        margin: 10px 0;
+    }
+
+    .timelineNumberWrapper {
+        position: static;
+        transform: none;
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        justify-content: flex-start;
+    }
+
+    .timelineDot {
+        display: none;
+    }
+
+    .timelineNumber {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+        margin-left: 0;
+        margin-right: 15px;
+        background-color: #25384D;
+        color: white;
+        flex-shrink: 0;
+    }
+
+    .timelineContent {
+        padding-left: 0;
+        color: #333;
+    }
+
+    .timelineContent .icon {
+        display: none;
+    }
+
+    .timelineContent h3 {
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+        color: #25384D;
+        line-height: 1.3;
+    }
+
+    .timelineContent p {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        max-width: none;
+        color: #666;
+        margin: 0;
+    }
+
+    /* Custom scrollbar for mobile */
+    .rightScrollingColumn::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .rightScrollingColumn::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 3px;
+    }
+
+    .rightScrollingColumn::-webkit-scrollbar-thumb {
+        background: #c9a87c;
+        border-radius: 3px;
+    }
+
+    .rightScrollingColumn::-webkit-scrollbar-thumb:hover {
+        background: #b8956b;
+    }
+
+    /* Smooth scrolling and better touch experience */
+    .rightScrollingColumn {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Initial scroll position hint */
+    .timeline::after {
+        content: '';
+        width: 20px;
+        height: 1px;
+        flex-shrink: 0;
+    }
+
+    /* Active state for mobile cards */
+    .timelineItem.active {
+        transform: scale(1.02);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        border: 2px solid #c9a87c;
+    }
+
+    .timelineItem.active .timelineNumber {
+        background-color: #c9a87c;
+        transform: scale(1.1);
+    }
+
+    .timelineItem.active .timelineContent h3 {
+        color: #c9a87c;
+    }
+}

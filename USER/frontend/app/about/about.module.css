@@ -1,93 +1,88 @@
+/* about.module.css */
 
-
-
-
-
-.hero-story-section {
-  padding: 127px 40px 64px;
+.heroStorySection {
+  padding: 20px 40px 64px;
   text-align: center;
   background-color: var(--color-background);
 }
-.hero-story-section h1 {
+.heroStorySection h1 {
   font-family: var(--font-heading);
-  font-size: 60px;
-  font-weight: 400;
+  font-size: 50px;
+  font-weight: 600;
   line-height: 1.2;
   color: var(--color-text-dark);
   margin: 0 0 16px;
 }
-.hero-story-section p {
+.heroStorySection p {
   font-size: 21px;
   line-height: 1.6;
   color: var(--color-text-light);
   margin: 0;
 }
-@media (max-width: 768px) {
-  .hero-story-section {
-    padding: 80px 20px 40px;
-  }
-  .hero-story-section h1 {
-    font-size: 48px;
-  }
-  .hero-story-section p {
-    font-size: 18px;
-  }
-}
 
-/* CSS from section:about-us */
-.about-us-section {
+.aboutUsSection {
   padding: 80px 0;
   background-color: var(--color-background);
 }
-.about-us-container {
+.aboutUsContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 64px;
   align-items: center;
 }
-.about-us-content h2 {
+.aboutUsContent h2 {
   font-family: 'Lato', sans-serif;
   font-size: 40px;
   font-weight: 500;
   color: var(--color-text-dark);
   margin: 0 0 32px;
 }
-.about-us-content p {
+.aboutUsContent p {
   font-size: 17.6px;
   line-height: 1.8;
   margin-bottom: 24px;
 }
-.cta-button {
+.ctaButton {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background-color: var(--color-dark);
-  color: var(--color-background);
+  /* Change these two lines: */
+  background-color: #25334D; /* Example: Dark blue, adjust to your brand's dark color */
+  color: #FFFFFF; /* Example: White, adjust to your brand's light color */
+  /* --- */
   padding: 15px 40px;
   border-radius: 10px;
   text-decoration: none;
   font-weight: 600;
   font-size: 17.6px;
   margin-top: 24px;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Optional: smooth transition */
 }
-.cta-button img {
+
+/* Optional: Add hover effect */
+.ctaButton:hover {
+    background-color: #1a2533; /* Slightly darker on hover */
+    color: #f0f0f0;
+}
+
+.ctaButton img {
   width: 20px;
   height: auto;
 }
-.about-us-image-wrapper {
+.aboutUsImageWrapper {
   position: relative;
   width: 100%;
   max-width: 548px;
   margin: 0 auto;
 }
-.about-us-image-wrapper .main-image {
+.mainImage {
   width: 100%;
   height: auto;
   border-radius: 10px;
   box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.1);
   display: block;
 }
-.overlay-shape-1 {
+.overlayShape1 {
   position: absolute;
   width: 100px;
   height: 100px;
@@ -97,7 +92,7 @@
   left: -20px;
   z-index: -1;
 }
-.overlay-shape-2 {
+.overlayShape2 {
   position: absolute;
   width: 120px;
   height: 120px;
@@ -107,213 +102,145 @@
   right: -40px;
   z-index: -1;
 }
-.about-whatsapp-float {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  width: 45px;
-  height: 45px;
-}
-.about-whatsapp-float img {
-  width: 100%;
-  height: 100%;
-}
 
-@media (max-width: 1024px) {
-  .about-us-container {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-  .about-us-image-wrapper {
-    order: -1;
-  }
-}
-
-/* CSS from section:achievements */
-.achievements-section {
+.achievementsSection {
   padding: 80px 40px;
-  background-color: var(--color-background-alt);
+  background-color: #eaeaea; /* var(--color-background-alt) */
 }
-.achievements-header {
+.achievementsHeader {
   text-align: center;
   margin-bottom: 48px;
 }
-.achievements-header h2 {
+.achievementsHeader h2 {
   font-family: var(--font-heading);
   font-size: 40px;
   font-weight: 400;
   color: var(--color-text-dark);
   margin: 0 0 15px;
 }
-.achievements-header p {
+.achievementsHeader p {
   font-size: 19.2px;
   line-height: 1.6;
   color: var(--color-text-light);
   margin: 0;
 }
-.achievements-grid {
+.achievementsGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 32px;
 }
-.achievement-item {
+.achievementItem {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
 }
-.achievement-item img {
+.achievementItem img {
   height: 40px;
   width: auto;
   margin-bottom: 16px;
 }
-.achievement-item h3 {
+.achievementItem h3 {
   font-family: var(--font-heading);
   font-size: 40px;
   font-weight: 700;
   color: var(--color-primary);
   margin: 0 0 8px;
 }
-.achievement-item p {
+.achievementItem p {
   font-size: 17.6px;
   color: var(--color-dark);
   margin: 0;
 }
-@media (max-width: 1024px) {
-  .achievements-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
-  }
-}
-@media (max-width: 768px) {
-  .achievements-section {
-    padding: 60px 20px;
-  }
-  .achievements-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-  .achievements-header h2 {
-    font-size: 32px;
-  }
-  .achievements-header p {
-    font-size: 16px;
-  }
-}
 
-/* CSS from section:mission */
-.mission-section {
+.missionSection {
   padding: 80px 40px;
   background-color: var(--color-background);
   text-align: center;
 }
-.mission-section .container {
+.missionSection .container {
   max-width: 810px;
   margin: 0 auto;
 }
-.mission-section h2 {
+.missionSection h2 {
   font-family: var(--font-heading);
   font-size: 40px;
   font-weight: 600;
   color: var(--color-text-dark);
   margin: 0 0 30px;
 }
-.mission-section p {
+.missionSection p {
   font-size: 20px;
   line-height: 1.6;
   color: var(--color-text-light);
   margin: 0;
 }
-@media (max-width: 768px) {
-  .mission-section {
-    padding: 60px 20px;
-  }
-  .mission-section h2 {
-    font-size: 32px;
-  }
-  .mission-section p {
-    font-size: 18px;
-  }
-}
 
-/* CSS from section:vision */
-.vision-section {
+.visionSection {
   padding: 80px 40px;
-  background-color: var(--color-background-alt-2);
+  background-color: #f8f4f0; /* var(--color-background-alt-2) */
   text-align: center;
 }
-.vision-section .container {
+.visionSection .container {
   max-width: 810px;
   margin: 0 auto;
 }
-.vision-section h2 {
+.visionSection h2 {
   font-family: var(--font-heading);
   font-size: 40px;
   font-weight: 600;
   color: var(--color-text-dark);
   margin: 0 0 30px;
 }
-.vision-section p {
+.visionSection p {
   font-size: 20px;
   line-height: 1.6;
   color: var(--color-text-light);
   margin: 0;
 }
-@media (max-width: 768px) {
-  .vision-section {
-    padding: 60px 20px;
-  }
-  .vision-section h2 {
-    font-size: 32px;
-  }
-  .vision-section p {
-    font-size: 18px;
-  }
-}
 
-/* CSS from section:stores */
-.stores-section {
+.storesSection, .aboutStores {
   padding: 80px 40px;
-  background-color: var(--color-background-alt-3);
+  background-color: #eae5e5; /* var(--color-background-alt-3) */
 }
-.stores-header {
+.storesHeader {
   text-align: center;
   margin-bottom: 60px;
 }
-.stores-header h2 {
+.storesHeader h2 {
   font-family: var(--font-heading);
   font-size: 40px;
   font-weight: 600;
   color: var(--color-text-dark);
   margin: 0 0 15px;
 }
-.stores-header p {
+.storesHeader p {
   font-size: 19.2px;
   line-height: 1.6;
   color: var(--color-text-light);
   margin: 0;
 }
-.stores-grid {
+.storesGrid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 30px;
   max-width: 1160px;
-  
+  margin: 0 auto;
 }
-.store-card {
+.aboutStoreCard {
   display: flex;
   background: linear-gradient(270deg, #ffffff 0%, #dddddd 121.18%);
   border-radius: 20px;
   overflow: hidden;
   min-height: 390px;
 }
-.store-card.card-reverse {
+.cardReverse {
   flex-direction: row-reverse;
 }
-.store-details, .store-image {
+.storeDetails, .storeImage {
   flex: 1;
 }
-.store-details {
+.storeDetails {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -321,25 +248,25 @@
   text-align: center;
   padding: 40px;
 }
-.store-details h3 {
+.storeDetails h3 {
   font-family: var(--font-heading);
   font-size: 24px;
   font-weight: 600;
   color: var(--color-text-dark);
   margin: 0 0 16px;
 }
-.store-details .address {
+.address {
   font-size: 16px;
   color: var(--color-text-light);
   margin: 0 0 12px;
 }
-.store-details .phone {
+.phone {
   font-size: 16px;
   font-weight: 600;
   color: var(--color-primary);
   margin: 0 0 24px;
 }
-.store-button {
+.storeButton {
   background-color: var(--color-text-dark);
   color: var(--color-background);
   border-radius: 25px;
@@ -349,25 +276,67 @@
   font-weight: 700;
   font-size: 13.3px;
 }
- img {
+.storeImage img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
+
+/* Media Queries */
 @media (max-width: 1024px) {
-  .store-card, .store-card.card-reverse {
+  .aboutUsContainer {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .aboutUsImageWrapper {
+    order: -1;
+  }
+  .achievementsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+  .aboutStoreCard, .cardReverse {
     flex-direction: column;
   }
-  .store-image {
-    height: auto;
-    width: 350px;
+  .storeImage {
+    height: 350px;
+    width: 100%;
   }
 }
+
 @media (max-width: 768px) {
-  .stores-section {
+  .heroStorySection {
+    padding: 80px 20px 40px;
+  }
+  .heroStorySection h1 {
+    font-size: 48px;
+  }
+  .heroStorySection p {
+    font-size: 18px;
+  }
+  .achievementsSection {
     padding: 60px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  }
+  .achievementsGrid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .achievementsHeader h2 {
+    font-size: 32px;
+  }
+  .achievementsHeader p {
+    font-size: 16px;
+  }
+  .missionSection, .visionSection {
+    padding: 60px 20px;
+  }
+  .missionSection h2, .visionSection h2 {
+    font-size: 32px;
+  }
+  .missionSection p, .visionSection p {
+    font-size: 18px;
+  }
+  .storesSection {
+    padding: 60px 20px;
   }
 }

@@ -1,4 +1,6 @@
-.main-header {
+/* Header.module.css */
+
+.mainHeader {
     width: 100%;
     margin: 0 auto;
     padding: 0 20px;
@@ -10,32 +12,31 @@
     right: 0;
     z-index: 100;
 }
-.main-nav {
+.mainNav {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Use the global header height variable so it's easy to keep in sync */
     height: var(--header-height, 88px);
     max-width: 1400px;
     margin: 0 auto;
     padding-left: 100px;
     position: relative;
 }
-.nav-center {
+.navCenter {
     display: flex;
     align-items: center;
     gap: 32px;
 }
-.nav-group {
+.navGroup {
     display: flex;
     gap: 32px;
     align-items: center;
 }
-.nav-logo img {
+.navLogo img {
     height: 75px;
     width: auto;
 }
-.nav-link {
+.navLink {
     font-family: 'Poiret One', sans-serif;
     font-size: 21px;
     color: #2a2a2a;
@@ -43,7 +44,7 @@
     position: relative;
     padding-bottom: 5px;
 }
-.nav-link.active::after {
+.navLink.active::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -52,7 +53,7 @@
     height: 1px;
     background-color: #000000;
 }
-.nav-offers {
+.navOffers {
     position: absolute;
     right: 20px;
     display: flex;
@@ -63,12 +64,11 @@
     font-size: 21px;
     color: #000000;
 }
-.offer-icon {
+.offerIcon {
     width: 37px;
     height: 37px;
 }
 
-/* Hamburger and Mobile Nav */
 .hamburger {
     display: none;
     position: absolute;
@@ -80,59 +80,49 @@
     border: none;
     cursor: pointer;
 }
-
-.hamburger-box {
+.hamburgerBox {
     width: 30px;
     height: 24px;
     display: inline-block;
     position: relative;
 }
-
-.hamburger-inner,
-.hamburger-inner::before,
-.hamburger-inner::after {
+.hamburgerInner,
+.hamburgerInner::before,
+.hamburgerInner::after {
     width: 30px;
     height: 2px;
     background-color: #000;
     position: absolute;
     transition: transform 0.2s ease-in-out;
 }
-
-.hamburger-inner {
+.hamburgerInner {
     top: 50%;
     transform: translateY(-50%);
 }
-
-.hamburger-inner::before,
-.hamburger-inner::after {
+.hamburgerInner::before,
+.hamburgerInner::after {
     content: '';
     display: block;
 }
-
-.hamburger-inner::before {
+.hamburgerInner::before {
     top: -10px;
 }
-
-.hamburger-inner::after {
+.hamburgerInner::after {
     bottom: -10px;
 }
-
-.hamburger-box.open .hamburger-inner {
+.hamburgerBox.open .hamburgerInner {
     transform: rotate(45deg);
 }
-
-.hamburger-box.open .hamburger-inner::before {
+.hamburgerBox.open .hamburgerInner::before {
     top: 0;
     transform: rotate(90deg);
 }
-
-.hamburger-box.open .hamburger-inner::after {
+.hamburgerBox.open .hamburgerInner::after {
     bottom: 0;
     transform: rotate(90deg);
 }
 
-
-.mobile-nav {
+.mobileNav {
     display: flex;
     position: fixed;
     top: 0;
@@ -143,14 +133,12 @@
     flex-direction: column;
     align-items: center;
     gap: .5rem;
-    z-index: 102; /* Higher than header and overlay */
+    z-index: 102;
     transform: translateX(100%);
     transition: transform 0.3s ease-in-out;
     box-shadow: -5px 0 15px rgba(0,0,0,0.1);
 }
-
-/* Mobile logo at the top of the slide-in menu */
-.mobile-logo-wrap {
+.mobileLogoWrap {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -159,28 +147,21 @@
     border-bottom: 1px solid rgba(0,0,0,0.06);
     background: linear-gradient(180deg, rgba(0,0,0,0.02), transparent);
 }
-
-/* Slight separators between links for clarity and larger tap targets */
-.mobile-nav-link + .mobile-nav-link {
-    border-top: 1px solid rgba(0,0,0,0.04);
-}
-
-.mobile-nav-link {
+.mobileNavLink {
     padding: 16px 20px;
     font-size: 18px;
-}
-
-.mobile-nav.open {
-    transform: translateX(0);
-}
-
-.mobile-nav-link {
     font-family: 'Poiret One', sans-serif;
-    font-size: 24px;
     color: #2a2a2a;
     text-decoration: none;
+    width: 100%;
+    text-align: center;
 }
-
+.mobileNavLink + .mobileNavLink {
+    border-top: 1px solid rgba(0,0,0,0.04);
+}
+.mobileNav.open {
+    transform: translateX(0);
+}
 .overlay {
     position: fixed;
     top: 0;
@@ -191,30 +172,28 @@
     z-index: 100;
 }
 
-
 @media (max-width: 992px) {
-    .nav-center {
+    .navCenter {
         justify-content: center;
         width: 100%;
     }
-    .nav-group, .nav-offers {
+    .navGroup, .navOffers {
         display: none;
     }
     .hamburger {
         display: block;
     }
-    .main-nav {
+    .mainNav {
         justify-content: space-between;
     }
-    .nav-logo {
+    .navLogo {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
     }
 }
-
 @media (max-width: 480px) {
-    .nav-logo img {
+    .navLogo img {
         height: 60px;
     }
 }

@@ -1,5 +1,5 @@
 .collection-section {
-  padding-top: 130px;
+  padding-top: 80px;
   padding-bottom: 80px;
 }
 
@@ -187,6 +187,84 @@
   font-size: 40px;
   margin-bottom: 12px;
 }
+
+
+
+
+
+
+
+
+/* collection.module.css mein yeh code add karein */
+
+.pageTitle {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 50px;
+  color: #000000;
+  margin-bottom: 16px;
+  text-align: center; /* Yeh title ko center mein kar dega */
+}
+
+.highlight {
+  color: var(--color-highlight);
+}
+
+/* Naye Button Styles */
+.categoryButton {
+  background-color: #25334d; /* Dark blue background */
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 1px;
+  border: none;
+  border-radius: 50px; /* Pill shape */
+  padding: 14px 40px;
+  cursor: pointer;
+  position: relative; /* Shiny effect ke liye zaroori */
+  overflow: hidden; /* Shiny effect ko button ke andar rakhega */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease;
+}
+
+.categoryButton:hover {
+  transform: translateY(-2px); /* Halki si hover effect */
+}
+
+/* Button par shiny effect ke liye */
+.categoryButton::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom, 
+    rgba(255, 255, 255, 0.3) 0%, 
+    rgba(255, 255, 255, 0.1) 50%, 
+    transparent 70%
+  );
+  transform: rotate(25deg);
+}
+
+/* Yeh purane button styles ko override karega */
+.btnGlow, .btnBg, .btnText {
+ display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 .collection-subtitle {
   font-size: 16px;

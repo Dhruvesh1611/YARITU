@@ -33,11 +33,35 @@ const stores = [
 
 export default function Home() {
   const [activeStep, setActiveStep] = useState(1);
+  const [currentHeroImage, setCurrentHeroImage] = useState(0);
+  const [isHeroPaused, setIsHeroPaused] = useState(false);
   const framedImgRef = useRef(null);
   const storeObserverRef = useRef(null);
   const howItObserverRef = useRef(null);
+  const heroIntervalRef = useRef(null);
+
+  // Hero images array
+  const heroImages = [
+    '/images/hero1.png',
+    '/images/hero2.png',
+    '/images/offer1.png'
+  ];
 
   useEffect(() => {
+    // Hero image carousel functionality
+    const startHeroCarousel = () => {
+      if (heroIntervalRef.current) {
+        clearInterval(heroIntervalRef.current);
+      }
+      if (!isHeroPaused) {
+        heroIntervalRef.current = setInterval(() => {
+          setCurrentHeroImage(prev => (prev + 1) % heroImages.length);
+        }, 3000); // Change image every 3 seconds
+      }
+    };
+
+    startHeroCarousel();
+
     // Set initial scroll position for sections to show partial images on both sides
     const initializeScrollPositions = () => {
       // Initialize trending section
@@ -162,9 +186,29 @@ export default function Home() {
 
     return () => {
       clearTimeout(timer);
+      if (heroIntervalRef.current) {
+        clearInterval(heroIntervalRef.current);
+      }
       window.removeEventListener('app:routeChange', onRouteChange);
       if (storeObserverRef.current) try { storeObserverRef.current.disconnect(); } catch (e) {}
       if (howItObserverRef.current) try { howItObserverRef.current.disconnect(); } catch (e) {}
+    };
+  }, [isHeroPaused]);
+
+  // Effect to restart carousel when pause state changes
+  useEffect(() => {
+    if (heroIntervalRef.current) {
+      clearInterval(heroIntervalRef.current);
+    }
+    if (!isHeroPaused) {
+      heroIntervalRef.current = setInterval(() => {
+        setCurrentHeroImage(prev => (prev + 1) % heroImages.length);
+      }, 3000);
+    }
+    return () => {
+      if (heroIntervalRef.current) {
+        clearInterval(heroIntervalRef.current);
+      }
     };
   }, []);
 
@@ -187,13 +231,32 @@ export default function Home() {
 
   return (
     <>
-      <section id="section-hero" className="hero-section">
+      <section 
+        id="section-hero" 
+        className="hero-section" 
+        style={{backgroundImage: `url(${heroImages[currentHeroImage]})`}}
+        onMouseEnter={() => setIsHeroPaused(true)}
+        onMouseLeave={() => setIsHeroPaused(false)}
+      >
         <div className="hero-content">
           {/* <Image src="/images/yaritu_logo_white.png" alt="Yaritu Logo" className="hero-logo" width={96} height={96} /> */}
           <h1 className="hero-title">Where Dreams meet<br />Elegance</h1>
           <p className="hero-subtitle">Discover our exquisite collection of premium attire</p>
           <Link href="/collection" className="hero-button">Explore Collection</Link>
         </div>
+        
+        {/* Hero Carousel Dots */}
+        <div className="hero-dots">
+          {heroImages.map((_, index) => (
+            <button
+              key={index}
+              className={`hero-dot ${index === currentHeroImage ? 'active' : ''}`}
+              onClick={() => setCurrentHeroImage(index)}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+        
         {/* Global WhatsApp button is provided in app/layout.js */}
       </section>
       <div className="page-content-wrapper">
@@ -230,7 +293,7 @@ export default function Home() {
         <StayClassy />
 
   <section id="home-stores" className="section-container home-stores">
-          <h2 className="section-title">VISIT OUR <span className="highlight">STORES</span></h2>
+          <h2 className="section-title">Visit Our <span className="highlight">Stores</span></h2>
           <div className="stores-grid">
             {stores.map(store => (
               <div key={store.id} className="home-store-card">

@@ -67,12 +67,70 @@ function VideoReview({ src, className, width, height, isPlaying, onPlay, thumbna
 
 export default function Review() {
   const [playingIdx, setPlayingIdx] = useState(null);
+  const clientReviews = [
+    {
+      id: 1,
+      image: '/images/Rectangle 4.png',
+      alt: 'Client wearing bridal outfit',
+      text: "The craftsmanship and fabric quality exceeded my expectations. The outfit made my pre-wedding shoot truly memorable!",
+      name: 'Aditi Salvi'
+    },
+    {
+      id: 2,
+      image: '/images/Rectangle 4.png',
+      alt: 'Client couple ethnic',
+      text: "We were new to ethnic styling but the staff guided us patiently. Fit was perfect and styling premium.",
+      name: 'David Santucci'
+    },
+    {
+      id: 3,
+      image: '/images/Rectangle 4.png',
+      alt: 'Bridal portrait',
+      text: "Warm hospitality and elite collection. Every outfit felt unique and expressive.",
+      name: 'Shivani Satpute'
+    },
+    {
+      id: 4,
+      image: '/images/Rectangle 4.png',
+      alt: 'Ethnic twirl pose',
+      text: "Loved the vibrant palette and fall of the fabric. Got so many compliments!",
+      name: 'Samruddhi Bora'
+    },
+    {
+      id: 5,
+      image: '/images/Rectangle 4.png',
+      alt: 'Outdoor portrait',
+      text: "Impressed by finishing and timely delivery. Highly recommended for curated luxury wear.",
+      name: 'Rohan Khanna'
+    },
+    {
+      id: 6,
+      image: '/images/Rectangle 4.png',
+      alt: 'Engagement look',
+      text: "Perfect balance of tradition and modern detailing. Styling session was super helpful.",
+      name: 'Meera Shah'
+    },
+    {
+      id: 7,
+      image: '/images/Rectangle 4.png',
+      alt: 'Pastel ensemble',
+      text: "Elegant silhouettes and refined embroidery work. The drape was immaculate.",
+      name: 'Neha Verma'
+    },
+    {
+      id: 8,
+      image: '/images/Rectangle 4.png',
+      alt: 'Wedding celebration pose',
+      text: "Fabrics felt luxurious and movement was effortless. My go-to brand now.",
+      name: 'Arjun Malhotra'
+    }
+  ];
   return (
     <>
       <section id="reviews">
         <div className="reviews-background">
           <div className="container reviews-content">
-            <h2 className="reviews-title">Customer <span className="highlight">review</span></h2>
+            <h2 className="reviews-title">Customer <span className="highlight">Reviews</span></h2>
             <p className="reviews-subtitle">Real experiences from our satisfied customers</p>
             <div className="review-gallery">
               {[1,2,3,4,5].map((num, idx) => (
@@ -96,10 +154,14 @@ export default function Review() {
         <div className="container">
           <h2 className="testimonials-title">What Our <span className="highlight">Clients Say</span></h2>
           <div className="testimonial-grid">
-            {[...Array(8)].map((_, i) => (
-              <div className="testimonial-card" key={i}>
-                <div className="card-content">
-                  {i === 0 && <p className="card-text">text</p>}
+            {clientReviews.map(review => (
+              <div className="testimonial-card" key={review.id}>
+                <div className="card-content client-review-card">
+                  <div className="client-photo-wrap">
+                    <Image src={review.image} alt={review.alt} width={420} height={540} className="client-photo" />
+                  </div>
+                  <p className="client-review-text">{review.text}</p>
+                  <p className="client-signature">~ {review.name}</p>
                 </div>
               </div>
             ))}

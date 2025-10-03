@@ -1,10 +1,13 @@
 // components/ImageSlider.jsx
 
+"use client";
+
 import { useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './ImageSlider.module.css';
 
+// Aap yahan apni images daal sakte hain
 const images = [
   { src: '/images/offer1.png', alt: 'Image 1' },
   { src: '/images/offer2.png', alt: 'Image 2' },
@@ -13,45 +16,42 @@ const images = [
   { src: '/images/offer5.png', alt: 'Image 5' },
 ];
 
-// YEH SAHI VARIANTS HAIN
 const variants = {
-  left: {
-    x: '-70%', // Left card ko left mein rakhega
-    scale: 0.8,
-    opacity: 0.6,
-    zIndex: 2,
-  },
-  center: {
-    x: '0%',
-    scale: 1,
-    opacity: 1,
-    zIndex: 3,
-  },
-  right: {
-    x: '70%', // Right card ko right mein rakhega
-    scale: 0.8,
-    opacity: 0.6,
-    zIndex: 2,
-  },
+  left: { x: '-70%', scale: 0.8, opacity: 0.6, zIndex: 2 },
+  center: { x: '0%', scale: 1, opacity: 1, zIndex: 3 },
+  right: { x: '70%', scale: 0.8, opacity: 0.6, zIndex: 2 },
 };
 
 const ImageSlider = () => {
   const [centerIndex, setCenterIndex] = useState(0);
-  const total = images.length;
+  const totalImages = images.length;
 
-  const getVisibleImages = () => {
-    const left = images[(centerIndex - 1+ total) % total];
-    const center = images[centerIndex];
-    const right = images[(centerIndex + 1) % total];
-    return [left, center, right];
+  // Previous button ka logic bilkul sahi hai
+  // Is function ko replace karein
+  const goToPrevious = () => {
+    console.log("--- Left Arrow Clicked! ---"); // Step A: Check if function is running
+    setCenterIndex((prevIndex) => {
+      console.log("Current (old) index was:", prevIndex); // Step B: Check old index
+      const newIndex = (prevIndex - 1 + totalImages) % totalImages;
+      console.log("Calculated (new) index is:", newIndex); // Step C: Check new calculated index
+      return newIndex;
+    });
   };
 
-  const goToNext = () => setCenterIndex((prev) => (prev + 1) % total);
-  
-  // Yeh bhi theek kar diya hai
-  const goToPrevious = () => setCenterIndex((prev) => (prev + total - 1) % total);
+  // Next button ka logic bhi bilkul sahi hai
+  const goToNext = () => {
+    setCenterIndex((prevIndex) => (prevIndex + 1) % totalImages);
+  };
 
-  const visibleImages = getVisibleImages();
+  const leftIndex = (centerIndex - 1 + totalImages) % totalImages;
+  const rightIndex = (centerIndex + 1) % totalImages;
+
+  // Sirf 3 images render karenge: left, center, aur right
+  const visibleImages = [
+    { ...images[leftIndex], position: 'left' },
+    { ...images[centerIndex], position: 'center' },
+    { ...images[rightIndex], position: 'right' },
+  ];
 
   return (
     <div className={styles.carouselContainer}>
@@ -61,13 +61,13 @@ const ImageSlider = () => {
 
       <div className={styles.imageWrapper}>
         <AnimatePresence>
-          {visibleImages.map((image, idx) => (
+          {visibleImages.map((image) => (
             <motion.div
-              key={image.src}
+              key={image.src} // Key hamesha unique honi chahiye
               className={styles.imageCard}
               variants={variants}
-              initial={false}
-              animate={idx === 0 ? 'left' : idx === 1 ? 'center' : 'right'}
+              initial={false} // Initial animation disable karein
+              animate={image.position} // 'left', 'center', ya 'right'
               transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
             >
               <Image

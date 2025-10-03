@@ -31,8 +31,18 @@ const stepsData = [
 const HowItWorks = () => {
   const [activeStep, setActiveStep] = useState(0);
   const stepRefs = useRef([]);
+  const timelineRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // Check if mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -43,8 +53,9 @@ const HowItWorks = () => {
         });
       },
       {
-        rootMargin: '-50% 0px -50% 0px', // Jab step screen ke vertical center mein aaye
-        threshold: 0,
+        root: isMobile ? timelineRef.current : null,
+        rootMargin: isMobile ? '-40% 0px -40% 0px' : '-50% 0px -50% 0px',
+        threshold: isMobile ? 0.6 : 0,
       }
     );
 
@@ -54,11 +65,30 @@ const HowItWorks = () => {
     });
 
     return () => {
+      window.removeEventListener('resize', checkMobile);
       currentRefs.forEach((ref) => {
         if (ref) observer.unobserve(ref);
       });
     };
-  }, []);
+  }, [isMobile]);
+
+  // Auto scroll to center active step on mobile
+  useEffect(() => {
+    if (isMobile && timelineRef.current && stepRefs.current[activeStep]) {
+      const timeline = timelineRef.current;
+      const activeElement = stepRefs.current[activeStep];
+      
+      const timelineRect = timeline.getBoundingClientRect();
+      const activeRect = activeElement.getBoundingClientRect();
+      
+      const scrollLeft = timeline.scrollLeft + (activeRect.left - timelineRect.left) - (timelineRect.width / 2) + (activeRect.width / 2);
+      
+      timeline.scrollTo({
+        left: scrollLeft,
+        behavior: 'smooth'
+      });
+    }
+  }, [activeStep, isMobile]);
 
   return (
     <div className={styles.mainContainer}>
@@ -101,7 +131,7 @@ const HowItWorks = () => {
         </div>
 
         {/* === RIGHT (SCROLLING) COLUMN === */}
-        <div className={styles.rightScrollingColumn}>
+        <div className={styles.rightScrollingColumn} ref={timelineRef}>
           <div className={styles.timeline}>
             {stepsData.map((step, index) => (
               <div
