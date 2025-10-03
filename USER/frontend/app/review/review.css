@@ -135,11 +135,10 @@
   position: relative;
   aspect-ratio: 7 / 10;
   background: #f2f0ed;
+  min-height: 400px;
 }
 
 .client-photo {
-  width: 100%;
-  height: 100%;
   object-fit: cover;
   display: block;
 }

@@ -58,7 +58,7 @@ export default function Header() {
                   </div>
               </div>
               <Link href="/offer" className={styles.navOffers}>
-                  <Image src="/images/gift.svg" alt="Hot Sale Icon" className={styles.offerIcon} width={37} height={37} />
+                  <Image src="/images/gift.svg" alt="Hot Sale Icon" className={styles.offerIcon} width={30} height={30} />
                   <span>OFFERS</span>
               </Link>
 
@@ -73,7 +73,7 @@ export default function Header() {
       <div className={`${styles.mobileNav} ${menuOpen ? styles.open : ''}`}>
          <div className={styles.mobileLogoWrap}>
            <Link href="/">
-             <Image src="/images/yaritu_logo_black.png" alt="Yaritu" width={120} height={56} />
+             <Image src="/images/yaritu_logo_black.png" alt="Yaritu" width={90} height={66} />
            </Link>
          </div>
          <Link href="/" className={styles.mobileNavLink}>Home</Link>

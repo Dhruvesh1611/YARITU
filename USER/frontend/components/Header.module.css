@@ -61,12 +61,12 @@
     align-items: center;
     text-decoration: none;
     font-family: 'Cinzel', serif;
-    font-size: 21px;
+    font-size: 18px;
     color: #000000;
 }
 .offerIcon {
-    width: 37px;
-    height: 37px;
+    width: 30px;
+    height: 30px;
 }
 
 .hamburger {
@@ -151,7 +151,9 @@
     padding: 16px 20px;
     font-size: 18px;
     font-family: 'Poiret One', sans-serif;
-    color: #2a2a2a;
+    color: #000000;
+    font-weight: 900;
+    
     text-decoration: none;
     width: 100%;
     text-align: center;

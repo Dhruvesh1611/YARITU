@@ -1,162 +1,162 @@
-
-/* img{
-    max-width: 100%;
-    height: 100%;
-} */
-
-
 /* components/HowItWorks.module.css */
 
-
+/* --- GENERAL STYLES --- */
 .mainContainer {
     position: relative;
-    background-color: #fdfaf6;
+    /* Image background color se exact match */
+    background-color: #fdfaf6; 
+    padding: 80px 0;
 }
+
+.mainHeading {
+    text-align: center;
+    font-family: 'Playfair Display', serif; 
+    font-size: 3rem;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 60px;
+    position: relative;
+    /* 'HOW YARITU WORKS' text */
+}
+
+/* Image mein koi under-line nahi hai, isliye ise hata denge (comment out) */
+/* .mainHeading::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: #c9a87c; 
+} */
 
 .contentWrapper {
     display: flex;
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
-/* === LEFT COLUMN === */
-.leftStickyColumn {
-    width: 55%;
-    height: 100vh;
-    position: sticky;
-    top: 0;
-}
-
-/* Fullscreen background */
-.fullscreenBackground {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 57vw;
-    margin-left: -35px;
-    height: 100vh;
-    z-index: 1;
-}
-
-/* === UPDATED === */
-/* Background par dark layer ko thoda strong kiya */
-
-
-/* === UPDATED === */
-/* Heading ko page ke center mein laane ke liye */
-/* Agar aap stands bhi nahi chahte to .frameStands aur .stand classes ko CSS se hata sakte hain */
-/* Agar stands rakhne hain to unki position adjust kar sakte hain */
-
-
-/* === CHANGE 2: "HOW YARITU WORKS" HEADING KO CENTER MEIN LAANA HAI === */
-.stickyHeading {
-    position: absolute;
-    top: 15%;
-    /* Aap is value ko adjust kar sakte hain agar zyada neeche/upar chahiye */
-    left: 52.5%;
-    transform: translateX(-50%);
-    z-index: 3;
-    color: white;
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem;
-    font-weight: 500;
-    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
-    text-align: center;
-    /* Full width container ke andar center karne ke liye */
-    width: 100%;
     max-width: 1200px;
-    /* Optional: Agar heading ko ek max width tak limit karna ho */
     margin: 0 auto;
-    /* Optional: Max width ke saath center karne ke liye */
+    align-items: flex-start;
 }
 
-/* === UPDATED === */
-/* Image ko left column ke center mein laane ke liye */
-
-.imageContainer {
-    position: absolute;
-    top: 60%;
-    left: 57%;
-    transform: translate(-50%, -50%);
-    width: 65%;
-    max-width: 420px;
-    aspect-ratio: 4 / 5;
-    z-index: 2;
+/* --- LEFT COLUMN (STICKY IMAGE) --- */
+.leftStickyColumn {
+    width: 50%;
+    height: 100vh; 
+    position: sticky;
+    top: 88px; /* Height of the navbar */
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 
-.imageContainer img, .imageFrame img {
-    max-height: 100% !important;
-    max-width: 100% !important;
-    object-fit: fill !important;
-    display: block;
-    margin: 0 auto;
+.imageContainer {
+    position: relative;
+    /* Image ka overall size aur aspect ratio */
+    width: 90%; 
+    max-width: 500px; 
+    aspect-ratio: 4 / 3.5; /* Image mein thoda rectangular shape hai */
+    /* Image ko thoda right mein shift kiya for better visual match */
+    transform: translateX(20px); 
 }
 
-/* components/HowItWorks.module.css */
+.imageFrameWrapper {
+    position: relative;
+    /* Image mein white frame border hai */
+    width: 100%;
+    height: 100%;
+    border: 5px solid white; /* White border */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05); /* Bahut halka shadow */
+    border-radius: 0; /* Image mein sharp corners hain */
+    overflow: hidden;
+}
 
-/* === CHANGE 1: LEFT IMAGE SE BORDER/FRAME HATANA HAI === */
-/* imageFrame class ko dhoondhen aur uske andar se yeh properties hata dein */
 .imageFrame {
     position: absolute;
     top: 0;
     left: 0;
-    width: 80%;
-    height: 80%;
-    border: 5px solid rgb(0, 0, 0);
-    /* Is line ko hata dein */
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-    /* \ Is line ko hata dein */
+    width: 100%;
+    height: 100%;
     transition: opacity 0.8s ease-in-out;
-    /* Agar image container ko thoda padding ya background chahiye to yahan add kar sakte hain */
+}
+
+.imageFrame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
 }
 
 .visible {
     opacity: 1;
+    z-index: 1;
 }
 
 .hidden {
     opacity: 0;
+    z-index: 0;
 }
 
-/* === RIGHT COLUMN === */
+/* IMAGE STANDS ka exact match */
+.frameStands {
+    position: absolute;
+    bottom: -30px; /* Thoda neeche */
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+.stand {
+    /* Image ke stands ka size aur color */
+    width: 45px; 
+    height: 30px;
+    background-color: #e3d9c7; /* Stands ka exact light beige color */
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.05);
+}
+
+
+/* --- RIGHT COLUMN (SCROLLING TIMELINE) --- */
 .rightScrollingColumn {
-    width: 45%;
-    z-index: 10;
+    width: 50%;
+    z-index: 5;
     position: relative;
+    padding-top: 100px; /* Heading ke niche se start karne ke liye space */
 }
 
 .timeline {
     position: relative;
-    padding-left: 80px;
+    padding-left: 80px; 
     width: 100%;
 }
 
+/* टाइमलाइन की वर्टिकल लाइन */
 .timeline::before {
     content: '';
     position: absolute;
-    left: 79px;
+    left: 48px; 
     top: 0;
-    width: 4px;
+    width: 2px; /* Line ki thickness ko patla kiya */
     height: 100%;
-    background-color: #d4c0a5;
+    background-color: #d4c0a5; /* Line ka color */
     z-index: 1;
 }
 
 .timelineItem {
-    min-height: 100vh;
+    min-height: 80vh; 
     display: flex;
     flex-direction: column;
     justify-content: center;
     position: relative;
+    /* Padding kam kiya, taaki items close dikhe */
+    padding: 20px 0; 
 }
 
 .timelineNumberWrapper {
     position: absolute;
-    left: 0;
+    /* Isse circle line ke upar aayega */
+    left: -2px; 
     top: 50%;
     transform: translateY(-50%);
     z-index: 2;
@@ -164,254 +164,178 @@
     align-items: center;
 }
 
+/* Number se pehle chhota dot */
 .timelineDot {
-    width: 12px;
+    width: 12px; /* Chhota kiya */
     height: 12px;
-    background-color: white;
-    border: 2px solid #c9a87c;
+    background-color: #fdfaf6;
+    border: 3px solid #d4c0a5; /* Line se match karta hua border color */
     border-radius: 50%;
-    margin-left: -5px;
     transition: all 0.4s ease;
+    /* Position adjust ki taki line par ho */
+    margin-left: 42px; 
 }
 
+/* Active hone par dot gayab ho jayega (ya number ke neeche chhip jayega) */
 .timelineItem.active .timelineDot {
-    background-color: #25384D;
+    opacity: 0; 
 }
 
+/* स्टेप नंबर का गोला */
 .timelineNumber {
-    width: 60px;
-    height: 60px;
+    width: 65px; /* Thoda bada circle */
+    height: 65px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2rem;
+    font-size: 1.6rem; 
     font-weight: bold;
-    margin-left: 20px;
+    /* Dot ke upar overlap karega */
+    margin-left: -65px; 
     transition: all 0.4s ease;
-    background-color: rgba(220, 220, 220, 0.5);
+    background-color: #fdfaf6; /* Default white/beige background */
+    border: 1px solid #d4c0a5; /* Light border */
     color: #888;
 }
 
+/* Active Number ka exact match */
 .timelineItem.active .timelineNumber {
-    background-color: #25384D;
-    color: white;
-    transform: scale(1.1);
+    background-color: #c9a87c; /* Exact Golden Color */
+    color: white; /* Exact White Text */
+    transform: scale(1.0); /* Scale effect hata diya */
+    border-color: #c9a87c;
 }
 
-/* === UPDATED === */
-/* Timeline ke text ka color theek kiya */
-/* === CHANGE 3: TIMELINE KE FONT COLOR KO WHITE KARNA HAI === */
 .timelineContent {
-    padding-left: 110px;
-    color: white;
-    /* <-- TEXT KA COLOR WHITE KIYA */
+    /* Content ko line se dur shift kiya */
+    padding-left: 100px; 
+    color: #555;
+    /* Content ki position adjust ki taki number ke center mein aaye */
+    transform: translateY(-5px); 
 }
 
+/* Icon ki styling */
 .timelineContent .icon {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-    color: white;
-    /* <-- ICON KA COLOR WHITE KIYA */
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #c9a87c; /* Golden color */
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Icon ko left align kiya */
+    border-radius: 0;
 }
 
 .timelineContent h3 {
     font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
+    font-size: 1.5rem; /* Title thoda chhota kiya */
     font-weight: 600;
-    margin-bottom: 15px;
-    color: rgb(0, 0, 0);
-    /* <-- TITLE KA COLOR WHITE KIYA */
+    margin-bottom: 10px;
+    color: #333;
 }
 
 .timelineContent p {
     font-family: 'Poppins', sans-serif;
     font-size: 1rem;
     line-height: 1.7;
-    max-width: 350px;
-    color: #000000;
-    /* <-- DESCRIPTION KA COLOR THODA OFF-WHITE KIYA */
+    max-width: 380px;
+    color: #666;
 }
 
-/* === MOBILE RESPONSIVE STYLES === */
+/* --- MOBILE RESPONSIVE STYLES --- */
 @media (max-width: 768px) {
     .mainContainer {
-        padding: 0;
-        height: 100vh;
-        overflow: hidden;
+        padding: 40px 0;
+    }
+
+    .mainHeading {
+        font-size: 2rem;
+        margin-bottom: 30px;
     }
 
     .contentWrapper {
         flex-direction: column;
-        height: 100vh;
-        max-width: 100%;
-        margin: 0;
     }
 
-    /* === MOBILE LEFT COLUMN (TOP HALF) === */
+    /* --- MOBILE: STICKY IMAGE --- */
     .leftStickyColumn {
+        position: sticky;
+        top: 88px; /* Height of the navbar */
         width: 100%;
-        height: 50vh;
-        position: relative;
-        top: 0;
-    }
-
-    .fullscreenBackground {
-        width: 100vw;
-        height: 50vh;
-        margin-left: 0;
-    }
-
-    .stickyHeading {
-        top: 8%;
-        left: 50%;
-        font-size: 1.8rem;
-        width: 90%;
-        max-width: none;
+        height: 50vh; /* Reduced height for mobile */
+        transform: none;
+        z-index: 10;
+        background-color: #fdfaf6; /* Match background */
+        padding-top: 20px;
     }
 
     .imageContainer {
-        top: 50%;
-        left: 50%;
-        width: 40%;
-        max-width: 200px;
-        aspect-ratio: 4 / 5;
+        width: 70%;
+        max-width: 300px;
+        transform: none;
+        margin: 0 auto;
+        aspect-ratio: 4 / 3.5;
     }
 
-    /* === MOBILE RIGHT COLUMN (BOTTOM HALF) === */
+    .frameStands {
+        padding: 0 15px;
+    }
+
+    .stand {
+        width: 35px;
+        height: 20px;
+    }
+
+    /* --- MOBILE: SCROLLING TIMELINE --- */
     .rightScrollingColumn {
         width: 100%;
-        height: 50vh;
-        background: #fdfaf6;
-        padding: 20px 0;
-        overflow-x: auto;
-        overflow-y: hidden;
+        padding-top: 0;
+        z-index: 5;
     }
 
     .timeline {
-        display: flex;
-        flex-direction: row;
-        padding-left: 0;
-        width: max-content;
-        height: 100%;
-        align-items: center;
-        gap: 40px;
-        padding: 0 20px;
+        padding-left: 40px; /* Adjust for smaller screen */
     }
 
     .timeline::before {
-        display: none;
+        left: 48px; /* Adjust line position */
     }
 
     .timelineItem {
-        min-height: auto;
-        width: 280px;
-        flex-shrink: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        position: relative;
-        background: white;
-        border-radius: 12px;
-        padding: 20px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        margin: 10px 0;
+        min-height: 60vh; /* Ensure enough scroll space per item */
+        padding: 20px 0;
+        justify-content: center;
     }
 
     .timelineNumberWrapper {
-        position: static;
-        transform: none;
-        display: flex;
-        align-items: center;
-        margin-bottom: 15px;
-        justify-content: flex-start;
+        left: -12px; /* Adjust number position */
     }
 
     .timelineDot {
-        display: none;
+        margin-left: 34px;
     }
 
     .timelineNumber {
         width: 50px;
         height: 50px;
-        font-size: 1.5rem;
-        margin-left: 0;
-        margin-right: 15px;
-        background-color: #25384D;
-        color: white;
-        flex-shrink: 0;
+        font-size: 1.2rem;
+        margin-left: -50px;
     }
 
     .timelineContent {
-        padding-left: 0;
-        color: #333;
-    }
-
-    .timelineContent .icon {
-        display: none;
+        display: block; /* Ensure content is visible */
+        padding-left: 60px;
+        transform: translateY(0);
     }
 
     .timelineContent h3 {
-        font-size: 1.4rem;
-        margin-bottom: 10px;
-        color: #25384D;
-        line-height: 1.3;
+        font-size: 1.3rem;
     }
 
     .timelineContent p {
         font-size: 0.9rem;
-        line-height: 1.5;
-        max-width: none;
-        color: #666;
-        margin: 0;
-    }
-
-    /* Custom scrollbar for mobile */
-    .rightScrollingColumn::-webkit-scrollbar {
-        height: 6px;
-    }
-
-    .rightScrollingColumn::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 3px;
-    }
-
-    .rightScrollingColumn::-webkit-scrollbar-thumb {
-        background: #c9a87c;
-        border-radius: 3px;
-    }
-
-    .rightScrollingColumn::-webkit-scrollbar-thumb:hover {
-        background: #b8956b;
-    }
-
-    /* Smooth scrolling and better touch experience */
-    .rightScrollingColumn {
-        scroll-behavior: smooth;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    /* Initial scroll position hint */
-    .timeline::after {
-        content: '';
-        width: 20px;
-        height: 1px;
-        flex-shrink: 0;
-    }
-
-    /* Active state for mobile cards */
-    .timelineItem.active {
-        transform: scale(1.02);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        border: 2px solid #c9a87c;
-    }
-
-    .timelineItem.active .timelineNumber {
-        background-color: #c9a87c;
-        transform: scale(1.1);
-    }
-
-    .timelineItem.active .timelineContent h3 {
-        color: #c9a87c;
+        max-width: 90%;
     }
 }

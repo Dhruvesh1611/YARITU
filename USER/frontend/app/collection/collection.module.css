@@ -171,7 +171,7 @@
 .breadcrumbs {
   font-family: 'Lato', sans-serif;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 18px;
   margin-bottom: 30px;
   /* Ensure breadcrumb labels display in uppercase */
   text-transform: uppercase;
@@ -184,7 +184,7 @@
 .collection-title {
   font-family: 'Playfair Display', serif;
   font-weight: 400;
-  font-size: 40px;
+  font-size: 35px;
   margin-bottom: 12px;
 }
 
@@ -279,13 +279,6 @@
   margin-bottom: 30px;
 }
 
-/* Hide view toggle on wider screens (desktop) - only show on mobile */
-@media (min-width: 769px) {
-  .view-toggle-container {
-    display: none;
-  }
-}
-
 .view-toggle-btn {
   background-color: #f8f4f0;
   border: 2px solid #ddd;
@@ -308,7 +301,7 @@
 .view-toggle-btn.active {
   background-color: var(--brand-accent);
   border-color: var(--brand-accent);
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 .view-toggle-btn svg {

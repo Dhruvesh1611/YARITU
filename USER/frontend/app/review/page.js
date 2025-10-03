@@ -58,7 +58,7 @@ function VideoReview({ src, className, width, height, isPlaying, onPlay, thumbna
         zIndex: 3,
         pointerEvents: 'none',
       }}>
-        <svg width="56" height="56" viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="28" fill="#fff" fillOpacity="0.7"/><polygon points="22,18 40,28 22,38" fill="#25384d"/></svg>
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="28" fill="#fff" fillOpacity="0.7" /><polygon points="22,18 40,28 22,38" fill="#25384d" /></svg>
       </div>
     </div>
   );
@@ -132,14 +132,14 @@ export default function Review() {
           <div className="container reviews-content">
             <h2 className="reviews-title">Customer <span className="highlight">Reviews</span></h2>
             <p className="reviews-subtitle">Real experiences from our satisfied customers</p>
+            
             <div className="review-gallery">
-              {[1,2,3,4,5].map((num, idx) => (
+              {[1, 2, 3, 4, 5].map((num, idx) => (
                 <VideoReview
                   key={num}
                   src={`/images/review${num}.mp4`}
                   className={`gallery-photo photo-${num}`}
-                  width={idx % 2 === 1 ? 244 : 212}
-                  height={idx % 2 === 1 ? 387 : 310}
+                  // Width aur Height yahan se hata diya
                   isPlaying={playingIdx === idx}
                   onPlay={() => setPlayingIdx(idx)}
                   thumbnail={`/images/review${num}.jpg`}
@@ -158,7 +158,14 @@ export default function Review() {
               <div className="testimonial-card" key={review.id}>
                 <div className="card-content client-review-card">
                   <div className="client-photo-wrap">
-                    <Image src={review.image} alt={review.alt} width={420} height={540} className="client-photo" />
+                    <Image 
+                      src={review.image} 
+                      alt={review.alt} 
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="client-photo" 
+                      priority={review.id <= 4}
+                    />
                   </div>
                   <p className="client-review-text">{review.text}</p>
                   <p className="client-signature">~ {review.name}</p>

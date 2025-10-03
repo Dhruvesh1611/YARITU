@@ -243,7 +243,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #c8bdaa;
+  background-color: #213346;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -255,8 +255,8 @@
 }
 
 .contactSocialLinks a img {
-  width: 16px;
-  height: 16px;
+  width: 26px;
+  height: 26px;
 }
 
 .socialCaption {
@@ -315,7 +315,7 @@
 @media (max-width: 480px) {
   .contactHeroSection { padding: 55px 14px 45px; }
   .contactHeroContent h1 { font-size: clamp(30px, 10vw, 38px); }
-  .formWrapper { padding: 22px 16px; border-radius: 16px; }
+  .formWrapper { padding: 22px 26px; border-radius: 16px; }
   .infoCard { padding: 18px; border-radius: 14px; }
   .submitBtn { padding: 13px; }
 }
@@ -323,7 +323,7 @@
 /* === High Density / Landscape Tweaks === */
 @media (max-height: 600px) and (orientation: landscape) {
   .contactHeroSection { padding: 50px 30px; }
-  .contactHeroContent h1 { font-size: 38px; }
+  .contactHeroContent h1 { font-size: 50px; }
   .contactHeroContent p { font-size: 16px; }
 }
 

@@ -1,9 +1,114 @@
 // app/about/page.js
 
 import React from 'react';
-import styles from './about.module.css'; // Changed the import
+import styles from './about.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
+
+const stores = [
+  {
+    city: 'Udaipur, Rajasthan',
+    address: 'Plot no 8, 100 Feet Rd, Opp Shubh Kesar Garden, Shobhagpura Udaipur, Rajasthan 313001',
+    phone: '+91 99090 00616',
+    image: '/images/store_1.png',
+  },
+  {
+    city: 'Indore',
+    address: '1st & 2nd Floor, 8 Gumasta Nagar, Opp. Sethi gate, Footi Kothi Road, Indore, Madhya Pradesh 452009',
+    phone: '+91 84016 73773',
+    image: '/images/store_1.png',
+  },
+  {
+    city: 'Jaipur, Rajasthan',
+    address: 'Plot No. 12, Sec.-8, Sarthi Marg, Near SBI Choraha, Vaishali Nagar, Jaipur, Rajasthan 302021',
+    phone: '+91 84016 73273',
+    image: '/images/store_1.png',
+  },
+  {
+    city: 'Jamnagar',
+    address: 'Shop No. FF-107 to 114, Nandanvan Stylus Complex Nandanvan Society, Ranjit Sagar Road, Jamnagar-361 005',
+    phone: '+91 72288 72280',
+    image: '/images/store_1.png',
+  },
+  {
+    city: 'Jetpur',
+    address: '1st Floor, Jetpur City Mall, Opp. Gurukrupa Ceramics, Amarnagar Road, Jetpur.',
+    phone: '+91 88666 40550',
+    image: '/images/store_1.png',
+  },
+  {
+    city: 'Morbi',
+    address: '2nd Floor, Shop No.5-8, 3rd, 4th Floor, Balaji Comp., Opp. Canal Chowk, Ravapar Road, Morbi-363 641',
+    phone: '+91 75675 14014',
+    image: '/images/store_1.png',
+  },
+  {
+    city: 'Amreli',
+    address: '2nd floor, Shivam Plaza, Near Panchanath Mahadev Temple, Old Marketing Yard, Amreli-365601',
+    phone: '+91 88496 68776',
+    image: '/images/store_1.png',
+  },
+  {
+    city: 'Navsari',
+    address: '1st Floor, Shreenath House, Near. City Tower, Kaliawadi, Navsari-396427',
+    phone: '+91 93287 48970',
+    image: '/images/store_1.png',
+  },
+  {
+    city: 'Nikol, Ahmedabad',
+    address: 'Opp. Sardar Mall, Nikol Road, Approach Ahmedabad-382350',
+    phone: '+91 99099 45508',
+    image: '/images/store_1.png',
+  },
+  {
+    city: 'Gota, Ahmedabad',
+    address: 'Shop No. 211 to 214, Shlok Infinity, Opp. Vishwakarma Mandir, Nr. Gota Railway Bridge, Chandlodiya, Ahmedabad-382481',
+    phone: '+91 97122 05000',
+    image: '/images/store_1.png',
+  },
+  {
+    city: 'Bopal, Ahmedabad',
+    address: 'Shop No. 2013 to 2018, TRP Mall, Ghuma Road, B.R.T.S. Bopal, Ahmedabad-380058',
+    phone: '+91 93166 97344',
+    image: '/images/store_1.png',
+  },
+  {
+    city: 'Maruti Chowk, Surat',
+    address: 'shop no. 1-5, 1floor, panchdev shopping center, Lambe Hanuman Rd, opp. maruti gaushala, Navi Shakti Vijay Society, Mohan Nagar, Varachha, Surat, Gujarat 395006',
+    phone: '+91 89806 14403',
+    image: '/images/store_1.png',
+  },
+  {
+    city: 'Katargam, Surat',
+    address: 'Shop No.1 to 3, 1st floor, Bhavya Complex, Laxminarayan Soc., Dabholi Char Rasta, Ved Road, Surat.',
+    phone: '+91 89806 14400',
+    image: '/images/store_1.png',
+  },
+  {
+    city: 'Yogi Chowk, Surat',
+    address: '2nd Floor and 3rd Floor, Pragati IT, World, Yogi Chowk Road, near Satyam Clinic, Punagam, Surat, Gujarat 395010',
+    phone: '+91 84016 73473',
+    image: '/images/store_1.png',
+  },
+  {
+    city: 'Rajkot',
+    address: 'Opp. Ambika Park, Before Hanuman Madhi Chowk, Raiya Road, Rajkot 360007',
+    phone: '+91 99090 00615',
+    image: '/images/store_1.png',
+  },
+  {
+    city: 'Mehsana',
+    address: 'BHAGWATI CHAMBER, NEAR BHARAT PETROL PUMP, Radhanpur Rd, Dediyasan, Mehsana, Gujarat 384002',
+    phone: '+91 88667 06069',
+    image: '/images/store_1.png',
+  },
+  {
+    city: 'Botad',
+    address: '1st & 2nd Floor, Opp. Surya Garden Restaurant, Paliyad Road, Botad, Gujarat 364710',
+    phone: '+91 99090 00627',
+    image: '/images/store_1.png',
+  },
+];
 
 export default function About() {
   return (
@@ -26,7 +131,8 @@ export default function About() {
             </Link>
           </div>
           <div className={styles.aboutUsImageWrapper}>
-            <Image src="/images/Our_story.png" alt="Yaritu traditional attire" className={styles.mainImage} width={548} height={600} />
+            {/* Fixed casing: actual file name is Our_Story.png (capital S) to avoid 404 + hydration mismatch */}
+            <Image src="/images/Our_Story.png" alt="Yaritu traditional attire" className={styles.mainImage} width={548} height={600} />
             <div className={styles.overlayShape1}></div>
             <div className={styles.overlayShape2}></div>
           </div>
@@ -81,29 +187,19 @@ export default function About() {
             <p>Experience our collections firsthand at our premium boutiques</p>
           </div>
           <div className={styles.storesGrid}>
-            <div className={styles.aboutStoreCard}>
-              <div className={styles.storeDetails}>
-                <h3>Mumbai</h3>
-                <p className={styles.address}>123 Wedding Street, Bandra West</p>
-                <p className={styles.phone}>+91 98765 43210</p>
-                <a href="#" className={styles.storeButton}>Get Directions</a>
+            {stores.map((store, index) => (
+              <div key={index} className={`${styles.aboutStoreCard} ${index % 2 !== 0 ? styles.cardReverse : ''}`}>
+                <div className={styles.storeDetails}>
+                  <h3>{store.city}</h3>
+                  <p className={styles.address}>{store.address}</p>
+                  <p className={styles.phone}>{store.phone}</p>
+                  <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(store.address)}`} target="_blank" rel="noopener noreferrer" className={styles.storeButton}>Get Directions</a>
+                </div>
+                <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(store.address)}`} target="_blank" rel="noopener noreferrer" className={styles.storeImage}>
+                  <Image src={store.image} alt={`${store.city} Store Interior`} width={580} height={390} />
+                </a>
               </div>
-              <div className={styles.storeImage}>
-                <Image src="/images/store_1.png" alt="Mumbai Store Interior" width={580} height={390} />
-              </div>
-            </div>
-            <div className={`${styles.aboutStoreCard} ${styles.cardReverse}`}>
-              <div className={styles.storeDetails}>
-                <h3>Jamnagar</h3>
-                <p className={styles.address}>789 Style Boulevard, Koramangala</p>
-                <p className={styles.phone}>+91 98765 43212</p>
-                <a href="#" className={styles.storeButton}>Get Directions</a>
-              </div>
-              <div className={styles.storeImage}>
-                <Image src="/images/5a0deaf6120d1eb05813de08e6d0745c6e4e208e.png" alt="Jamnagar Store Interior" width={580} height={390} />
-              </div>
-            </div>
-            {/* Add other store cards here with the same pattern */}
+            ))}
           </div>
         </div>
       </section>

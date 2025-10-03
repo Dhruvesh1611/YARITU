@@ -243,7 +243,7 @@ export default function Offer() {
             <h2>Never Miss a Deal</h2>
             <p>Subscribe to our newsletter and get exclusive offers delivered to your inbox</p>
             <form className="subscribe-form">
-              <input type="email" placeholder="Enter your email" />
+              <input type="mobile-number" placeholder="Enter your mobile number" />
               <button type="submit">Subscribe</button>
             </form>
             <small>Join 10,000+ happy subscribers and get 10% off your first purchase</small>
