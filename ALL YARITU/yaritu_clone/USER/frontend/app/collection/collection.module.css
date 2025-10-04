@@ -1,0 +1,522 @@
+.collection-section {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 60px;
+  text-align: center;
+  color: var(--button-bg);
+  margin-bottom: 40px;
+}
+
+.section-title .highlight {
+  color: var(--brand-accent);
+}
+
+.divider {
+  border: 0;
+  border-top: 2px solid #000000;
+  width: 85%;
+  margin: 0 auto;
+}
+
+.category-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align items to the top */
+  gap: 30px;
+  margin: 70px 0;
+  flex-wrap: wrap;
+}
+
+.category-button-container {
+  position: relative;
+}
+
+.category-button {
+  position: relative;
+  width: 220px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  background: radial-gradient(circle at 80% 50%, rgba(255,255,255,0.18) 0%, rgba(44,62,80,0.95) 60%, #25384d 100% );
+  box-shadow: 0 4px 15px rgba(44, 62, 80, 0.3), 0 1.5px 0 #fff inset;
+  text-decoration: none;
+  border: none;
+  color: #eaf1fa;
+  font-size: 18px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s cubic-bezier(.4,0,.2,1);
+  overflow: hidden;
+}
+
+.category-button::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 70%;
+  height: 100%;
+  background: radial-gradient(circle at 80% 40%, rgba(255,255,255,0.13) 0%, rgba(255,255,255,0.01) 80%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  background: radial-gradient(circle at 50% 50%, #5a7ca7 0%, #213346 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 10px;
+  z-index: 10;
+  display: flex;
+  justify-content: space-around;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.category-button-container:hover .dropdown-menu {
+  display: flex;
+  opacity: 1;
+  margin-left: 20px;
+  visibility: visible;
+}
+
+/* Desktop behavior: when any dropdown is visible (hover or .open) push the collection content down
+   so the title and subtitle remain visible and aligned consistently across MEN/WOMEN/CHILDREN. */
+@media (min-width: 769px) {
+  /* When hovering the category buttons container, or when JS adds .dropdown-open,
+     move collection content down by the dropdown height + gap. */
+  .category-buttons:hover + .collection-content,
+  .category-buttons.dropdown-open + .collection-content {
+    transform: translateY(120px);
+  }
+
+  /* Animate smoothly and ensure we only affect desktop */
+  .collection-content {
+    transition: transform 160ms ease;
+  }
+}
+
+/* .dropdown-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+} */
+
+.dropdown-column h4 {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.dropdown-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dropdown-column a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.btn-glow, .btn-bg, .btn-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50px;
+}
+
+.btn-glow {
+  opacity: 0.2;
+  z-index: 1;
+}
+
+.btn-bg {
+  background-color: var(--button-bg);
+  z-index: 2;
+}
+
+.btn-text {
+  z-index: 3;
+  color: var(--text-light);
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.breadcrumbs {
+  font-family: 'Lato', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 30px;
+  /* Ensure breadcrumb labels display in uppercase */
+  text-transform: uppercase;
+}
+
+.breadcrumbs > span {
+  font-weight: 400;
+}
+
+.collection-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 35px;
+  margin-bottom: 12px;
+}
+
+
+
+
+
+
+
+
+/* collection.module.css mein yeh code add karein */
+
+.pageTitle {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 50px;
+  color: #000000;
+  margin-bottom: 16px;
+  text-align: center; /* Yeh title ko center mein kar dega */
+}
+
+.highlight {
+  color: var(--color-highlight);
+}
+
+/* Naye Button Styles */
+.categoryButton {
+  background-color: #25334d; /* Dark blue background */
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 1px;
+  border: none;
+  border-radius: 50px; /* Pill shape */
+  padding: 14px 40px;
+  cursor: pointer;
+  position: relative; /* Shiny effect ke liye zaroori */
+  overflow: hidden; /* Shiny effect ko button ke andar rakhega */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease;
+}
+
+.categoryButton:hover {
+  transform: translateY(-2px); /* Halki si hover effect */
+}
+
+/* Button par shiny effect ke liye */
+.categoryButton::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom, 
+    rgba(255, 255, 255, 0.3) 0%, 
+    rgba(255, 255, 255, 0.1) 50%, 
+    transparent 70%
+  );
+  transform: rotate(25deg);
+}
+
+/* Yeh purane button styles ko override karega */
+.btnGlow, .btnBg, .btnText {
+ display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.collection-subtitle {
+  font-size: 16px;
+  margin-bottom: 22px;
+}
+
+/* View Toggle Buttons */
+.view-toggle-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.view-toggle-btn {
+  background-color: #f8f4f0;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+}
+
+.view-toggle-btn:hover {
+  border-color: var(--brand-accent);
+  background-color: #fff;
+}
+
+.view-toggle-btn.active {
+  background-color: var(--brand-accent);
+  border-color: var(--brand-accent);
+  color: rgb(0, 0, 0);
+}
+
+.view-toggle-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Product Grid Layouts */
+.product-grid {
+  display: grid;
+  gap: 28px;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.product-grid.grid-view {
+  grid-template-columns: repeat(2, 1fr); /* Default to 2 columns for grid view */
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Desktop: show 4 items per row and allow cards to be fluid */
+@media (min-width: 1200px) {
+  .product-grid.grid-view {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 1200px;
+    gap: 32px;
+    padding: 0 40px;
+  }
+
+  .product-card {
+    width: 100%; /* let grid column control size */
+  }
+}
+
+.product-grid.single-column {
+  grid-template-columns: 1fr;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.product-card {
+  background-color: var(--secondary-bg);
+  border: 1px solid var(--brand-accent);
+  padding: 1px;
+  width: 300px; /* Ensure card has a fixed width */
+}
+
+.product-image {
+  width: 100%;
+  height: 349px;
+  object-fit: cover;
+  border: 1px solid #e1c28c;
+  box-shadow: 0px 4px 4px 3px rgba(0, 0, 0, 0.16);
+}
+
+.card-info {
+  padding: 24px 12px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+@media (max-width: 1300px) {
+  .product-grid.grid-view {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 700px;
+  }
+}
+
+@media (max-width: 992px) {
+  .product-grid.grid-view {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 600px;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .collection-content {
+    padding: 0;
+  }
+  .breadcrumbs, .collection-title, .collection-subtitle {
+    text-align: center;
+  }
+  
+  /* Mobile button styling like the screenshot */
+  .category-buttons {
+    gap: 15px;
+    margin: 50px 0 30px 0;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .category-button {
+    width: 220px;
+    height: 40px;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(44, 62, 80, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .category-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(44, 62, 80, 0.4);
+    background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+  }
+  
+  .category-button .btn-text {
+    position: relative;
+    z-index: 2;
+    color: white;
+  }
+  
+  /* Hide background images and elements on mobile */
+  .category-button .btn-glow,
+  .category-button .btn-bg {
+    display: none;
+  }
+
+  /* Mobile: when a dropdown is opened, show a stacked full-width panel under the button */
+  .category-button-container .dropdown-menu {
+    position: static;
+    transform: none;
+    width: calc(100%);
+    max-width: 1560px;
+    background: #213346;
+    color: #fff;
+    border-radius: 12px;
+    padding: 18px;
+    margin: 12px 10px 0 0;
+    display: none;
+    opacity: 1;
+    visibility: visible;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  }
+
+  /* When dropdown is active (via JS), reveal the menu panel */
+  .category-button-container.open .dropdown-menu,
+  .category-button-container .dropdown-menu.show {
+    display: flex;
+    flex-direction: row; /* show two columns side-by-side */
+    gap: 24px;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .category-button-container.open .dropdown-menu .dropdown-column,
+  .category-button-container .dropdown-menu.show .dropdown-column {
+    width: 48%;
+  }
+  
+
+  /* Push the main collection content down so dropdown doesn't overlap */
+  .collection-content.dropdown-active {
+    margin-top: 12px; /* small gap so title is visible right beneath dropdown */
+    transition: margin-top 0.12s ease;
+  }
+  
+  .product-grid.grid-view {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 100%;
+    gap: 15px;
+    padding: 0 15px;
+  }
+  
+  .view-toggle-container {
+    margin-bottom: 20px;
+  }
+  
+  .view-toggle-btn {
+    width: 45px;
+    height: 45px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-grid.grid-view {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 100%;
+    padding: 0 0px;
+    gap: 10px;
+  }
+  
+  .product-grid.single-column {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+    padding: 0 10px;
+  }
+  
+  .product-card {
+    width: 100%;
+  }
+  
+  .product-image {
+    height: auto;
+    aspect-ratio: 3/4;
+  }
+}
+
+.whatsapp-fab {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 45px;
+  height: 45px;
+  z-index: 100;
+}

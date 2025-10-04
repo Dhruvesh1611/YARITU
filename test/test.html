@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        .success {
+            background-color: #e8f5e9;
+            border: 1px solid #4CAF50;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Server Test Page</h1>
+    
+    <div class="success">
+        <p><strong>Success!</strong> If you can see this page, your Express server is working correctly and serving static files.</p>
+    </div>
+    
+    <h2>Troubleshooting Steps</h2>
+    <ol>
+        <li>The server is successfully serving this HTML file</li>
+        <li>Next step is to check if <a href="/debug">the debug endpoint</a> responds</li>
+        <li>If both work, then the issue might be with Socket.IO or the main game files</li>
+    </ol>
+    
+    <div>
+        <h3>Connection Test</h3>
+        <button id="testBtn">Test AJAX Request</button>
+        <p id="testResult"></p>
+    </div>
+    
+    <script>
+        document.getElementById('testBtn').addEventListener('click', function() {
+            const resultElement = document.getElementById('testResult');
+            resultElement.textContent = 'Testing connection...';
+            
+            fetch('/debug')
+                .then(response => response.text())
+                .then(data => {
+                    resultElement.textContent = 'Success! Server responded with: ' + data;
+                    resultElement.style.color = '#4CAF50';
+                })
+                .catch(error => {
+                    resultElement.textContent = 'Error: ' + error.message;
+                    resultElement.style.color = '#f44336';
+                });
+        });
+    </script>
+</body>
+</html> 

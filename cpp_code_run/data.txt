@@ -1,0 +1,4 @@
+Hello, this is a test file!
+File handling in C++ is very useful.
+This line is appended!
+More info added without erasing previous content.

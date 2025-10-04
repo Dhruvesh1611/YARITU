@@ -1,0 +1,333 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* Main container styling */
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Header styling */
+.header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.header p {
+  font-size: 1.1rem;
+  color: #6c757d;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* Control panel styling */
+.control-panel {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.select-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 250px;
+}
+
+.select-container label {
+  font-weight: 500;
+  color: #495057;
+  font-size: 1rem;
+}
+
+.api-select {
+  padding: 12px 15px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: white;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  padding-right: 40px;
+}
+
+.api-select:hover {
+  border-color: #4a6cf7;
+}
+
+.api-select:focus {
+  outline: none;
+  border-color: #4a6cf7;
+  box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.25);
+}
+
+.fetch-button {
+  padding: 12px 30px;
+  background-color: #4a6cf7;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 140px;
+  align-self: flex-end;
+}
+
+.fetch-button:hover {
+  background-color: #3a5be8;
+  transform: translateY(-2px);
+}
+
+.fetch-button:active {
+  transform: translateY(0);
+}
+
+.fetch-button:disabled {
+  background-color: #a0aec0;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Result container styling */
+.result-container {
+  background-color: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  min-height: 300px;
+}
+
+.data-display {
+  width: 100%;
+}
+
+.data-display h3 {
+  color: #2c3e50;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.data-display pre {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 6px;
+  overflow: auto;
+  max-height: 500px;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* Error message styling */
+.error-message {
+  padding: 1rem;
+  background-color: #fff5f5;
+  border-left: 4px solid #f56565;
+  border-radius: 6px;
+}
+
+.error-message h3 {
+  color: #c53030;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.error-message p {
+  color: #e53e3e;
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
+/* Retry button styling */
+.retry-button {
+  padding: 8px 16px;
+  background-color: #e53e3e;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.retry-button:hover {
+  background-color: #c53030;
+}
+
+/* Loader styling */
+.loader {
+  margin: 2rem auto;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #4a6cf7;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Pokemon List Styling */
+.pokemon-list {
+  width: 100%;
+}
+
+.pokemon-list h3 {
+  color: #2c3e50;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.pokemon-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pokemon-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e9ecef;
+  transition: background-color 0.2s ease;
+}
+
+.pokemon-item:hover {
+  background-color: #f8f9fa;
+}
+
+.pokemon-number {
+  font-weight: bold;
+  color: #4a6cf7;
+  margin-right: 16px;
+  min-width: 30px;
+}
+
+.pokemon-name {
+  flex: 1;
+  text-transform: capitalize;
+  font-size: 1.1rem;
+}
+
+.pokemon-details-link {
+  padding: 6px 12px;
+  background-color: #e9ecef;
+  color: #495057;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.pokemon-details-link:hover {
+  background-color: #4a6cf7;
+  color: white;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .control-panel {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .select-container, .fetch-button {
+    width: 100%;
+  }
+  
+  .fetch-button {
+    align-self: center;
+  }
+
+  .pokemon-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 16px;
+  }
+
+  .pokemon-number {
+    margin-right: 0;
+  }
+
+  .pokemon-details-link {
+    align-self: flex-start;
+  }
+}
