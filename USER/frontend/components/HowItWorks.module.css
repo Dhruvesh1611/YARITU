@@ -1,0 +1,341 @@
+/* components/HowItWorks.module.css */
+
+/* --- GENERAL STYLES --- */
+.mainContainer {
+    position: relative;
+    /* Image background color se exact match */
+    background-color: #fdfaf6; 
+    padding: 80px 0;
+}
+
+.mainHeading {
+    text-align: center;
+    font-family: 'Playfair Display', serif; 
+    font-size: 3rem;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 60px;
+    position: relative;
+    /* 'HOW YARITU WORKS' text */
+}
+
+/* Image mein koi under-line nahi hai, isliye ise hata denge (comment out) */
+/* .mainHeading::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: #c9a87c; 
+} */
+
+.contentWrapper {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: flex-start;
+}
+
+/* --- LEFT COLUMN (STICKY IMAGE) --- */
+.leftStickyColumn {
+    width: 50%;
+    height: 100vh; 
+    position: sticky;
+    top: 88px; /* Height of the navbar */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imageContainer {
+    position: relative;
+    /* Image ka overall size aur aspect ratio */
+    width: 90%; 
+    max-width: 500px; 
+    aspect-ratio: 4 / 3.5; /* Image mein thoda rectangular shape hai */
+    /* Image ko thoda right mein shift kiya for better visual match */
+    transform: translateX(20px); 
+}
+
+.imageFrameWrapper {
+    position: relative;
+    /* Image mein white frame border hai */
+    width: 100%;
+    height: 100%;
+    border: 5px solid white; /* White border */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05); /* Bahut halka shadow */
+    border-radius: 0; /* Image mein sharp corners hain */
+    overflow: hidden;
+}
+
+.imageFrame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.imageFrame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+.visible {
+    opacity: 1;
+    z-index: 1;
+}
+
+.hidden {
+    opacity: 0;
+    z-index: 0;
+}
+
+/* IMAGE STANDS ka exact match */
+.frameStands {
+    position: absolute;
+    bottom: -30px; /* Thoda neeche */
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+.stand {
+    /* Image ke stands ka size aur color */
+    width: 45px; 
+    height: 30px;
+    background-color: #e3d9c7; /* Stands ka exact light beige color */
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.05);
+}
+
+
+/* --- RIGHT COLUMN (SCROLLING TIMELINE) --- */
+.rightScrollingColumn {
+    width: 50%;
+    z-index: 5;
+    position: relative;
+    padding-top: 100px; /* Heading ke niche se start karne ke liye space */
+}
+
+.timeline {
+    position: relative;
+    padding-left: 80px; 
+    width: 100%;
+}
+
+/* टाइमलाइन की वर्टिकल लाइन */
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 48px; 
+    top: 0;
+    width: 2px; /* Line ki thickness ko patla kiya */
+    height: 100%;
+    background-color: #d4c0a5; /* Line ka color */
+    z-index: 1;
+}
+
+.timelineItem {
+    min-height: 80vh; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    /* Padding kam kiya, taaki items close dikhe */
+    padding: 20px 0; 
+}
+
+.timelineNumberWrapper {
+    position: absolute;
+    /* Isse circle line ke upar aayega */
+    left: -2px; 
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+}
+
+/* Number se pehle chhota dot */
+.timelineDot {
+    width: 12px; /* Chhota kiya */
+    height: 12px;
+    background-color: #fdfaf6;
+    border: 3px solid #d4c0a5; /* Line se match karta hua border color */
+    border-radius: 50%;
+    transition: all 0.4s ease;
+    /* Position adjust ki taki line par ho */
+    margin-left: 42px; 
+}
+
+/* Active hone par dot gayab ho jayega (ya number ke neeche chhip jayega) */
+.timelineItem.active .timelineDot {
+    opacity: 0; 
+}
+
+/* स्टेप नंबर का गोला */
+.timelineNumber {
+    width: 65px; /* Thoda bada circle */
+    height: 65px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.6rem; 
+    font-weight: bold;
+    /* Dot ke upar overlap karega */
+    margin-left: -65px; 
+    transition: all 0.4s ease;
+    background-color: #fdfaf6; /* Default white/beige background */
+    border: 1px solid #d4c0a5; /* Light border */
+    color: #888;
+}
+
+/* Active Number ka exact match */
+.timelineItem.active .timelineNumber {
+    background-color: #c9a87c; /* Exact Golden Color */
+    color: white; /* Exact White Text */
+    transform: scale(1.0); /* Scale effect hata diya */
+    border-color: #c9a87c;
+}
+
+.timelineContent {
+    /* Content ko line se dur shift kiya */
+    padding-left: 100px; 
+    color: #555;
+    /* Content ki position adjust ki taki number ke center mein aaye */
+    transform: translateY(-5px); 
+}
+
+/* Icon ki styling */
+.timelineContent .icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #c9a87c; /* Golden color */
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Icon ko left align kiya */
+    border-radius: 0;
+}
+
+.timelineContent h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; /* Title thoda chhota kiya */
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.timelineContent p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 380px;
+    color: #666;
+}
+
+/* --- MOBILE RESPONSIVE STYLES --- */
+@media (max-width: 768px) {
+    .mainContainer {
+        padding: 40px 0;
+    }
+
+    .mainHeading {
+        font-size: 2rem;
+        margin-bottom: 30px;
+    }
+
+    .contentWrapper {
+        flex-direction: column;
+    }
+
+    /* --- MOBILE: STICKY IMAGE --- */
+    .leftStickyColumn {
+        position: sticky;
+        top: 88px; /* Height of the navbar */
+        width: 100%;
+        height: 50vh; /* Reduced height for mobile */
+        transform: none;
+        z-index: 10;
+        background-color: #fdfaf6; /* Match background */
+        padding-top: 20px;
+    }
+
+    .imageContainer {
+        width: 70%;
+        max-width: 300px;
+        transform: none;
+        margin: 0 auto;
+        aspect-ratio: 4 / 3.5;
+    }
+
+    .frameStands {
+        padding: 0 15px;
+    }
+
+    .stand {
+        width: 35px;
+        height: 20px;
+    }
+
+    /* --- MOBILE: SCROLLING TIMELINE --- */
+    .rightScrollingColumn {
+        width: 100%;
+        padding-top: 0;
+        z-index: 5;
+    }
+
+    .timeline {
+        padding-left: 40px; /* Adjust for smaller screen */
+    }
+
+    .timeline::before {
+        left: 48px; /* Adjust line position */
+    }
+
+    .timelineItem {
+        min-height: 60vh; /* Ensure enough scroll space per item */
+        padding: 20px 0;
+        justify-content: center;
+    }
+
+    .timelineNumberWrapper {
+        left: -12px; /* Adjust number position */
+    }
+
+    .timelineDot {
+        margin-left: 34px;
+    }
+
+    .timelineNumber {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+        margin-left: -50px;
+    }
+
+    .timelineContent {
+        display: block; /* Ensure content is visible */
+        padding-left: 60px;
+        transform: translateY(0);
+    }
+
+    .timelineContent h3 {
+        font-size: 1.3rem;
+    }
+
+    .timelineContent p {
+        font-size: 0.9rem;
+        max-width: 90%;
+    }
+}

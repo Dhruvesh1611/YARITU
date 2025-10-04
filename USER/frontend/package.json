@@ -1,0 +1,27 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "@sanity/image-url": "^1.2.0",
+    "@sanity/vision": "^4.10.2",
+    "framer-motion": "^12.23.22",
+    "next": "15.5.3",
+    "next-sanity": "^11.4.2",
+    "nodemailer": "^7.0.6",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-icons": "^5.5.0",
+    "sanity": "^4.10.2",
+    "styled-components": "^6.1.19"
+  },
+  "devDependencies": {
+    "dotenv": "^17.2.3"
+  }
+}
