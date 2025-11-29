@@ -1,0 +1,158 @@
+/* app/globals.css */
+
+:root {
+  --header-height: 88px;
+  --color-surface: #ffffff;
+  --color-primary: #c5a46d;
+  --color-dark-blue: #25384d;
+  --color-dark-gray: #2a2a2a;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-background: #f8f4f0;
+  --color-highlight: #c5a46d;
+  --color-accent: #c5a46d; /* Yeh variable zaroori hai */
+  --color-text: #2a2a2a;
+  --color-text-light: #666666;
+  --color-border-light: #e0e0e0;
+  --color-icon-bg: #c8bdaa;
+  --font-heading: var(--font-playfair);
+  --font-body: var(--font-poppins);
+  --font-nav: var(--font-poiret);
+  --font-button: var(--font-source-serif-4);
+}
+
+:root {
+  --primary-color: #2563eb; /* A more modern blue */
+  --primary-color-dark: #1d4ed8;
+  --destructive-color: #dc2626;
+  --destructive-color-dark: #b91c1c;
+  --text-light: #ffffff;
+  --text-dark: #1f2937;
+  --bg-light: #ffffff;
+  --bg-medium: #f3f4f6;
+  --border-color: #e5e7eb;
+
+  --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 20px;
+  --spacing-xl: 40px;
+  
+  --border-radius-sm: 6px;
+  --border-radius-md: 8px;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* html {
+  /* overflow-x: hidden; */
+/* } */
+
+body {
+  font-family: var(--font-body); /* Default body font */
+  color: var(--color-text);
+  background-color: var(--color-background);
+  padding-top: var(--header-height);
+  width: 100%;
+}
+
+.page-title {
+  font-family: var(--font-heading); /* Playfair Display */
+  font-weight: 700;
+  font-size: 60px; /* Sabke liye same size */
+  line-height: 1.2;
+  color: var(--color-text); /* Dark color */
+  text-align: center;
+  margin-bottom: 16px;
+  padding-top: 60px; /* Thoda space upar se */
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 48px; /* Mobile par thoda chota size */
+    padding-top: 60px;
+  }
+}
+
+h1, h2, h3, h4, h5, h6, .section-title {
+  font-family: var(--font-heading); /* All headings will use Playfair Display */
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.highlight {
+  color: var(--color-highlight);
+}
+
+.whatsapp-float {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 100;
+  width: 50px;
+  height: 50px;
+  transition: transform 0.3s ease;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+}
+
+.section-container {
+  padding: 80px 40px;
+  text-align: center;
+}
+
+.section-title {
+  font-weight: 700;
+  font-size: 42px;
+  color: var(--color-black);
+  margin-bottom: 16px;
+}
+
+.section-subtitle {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 21px;
+  color: var(--color-text-light);
+  margin-bottom: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 768px) {
+  .section-container {
+    padding: 40px 20px;
+  }
+  .section-title {
+    font-size: 32px;
+  }
+  .section-subtitle {
+    font-size: 18px;
+  }
+}
+
+/* In your CSS module (e.g., styles.module.css) */
+

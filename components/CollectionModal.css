@@ -1,0 +1,433 @@
+/* --- Root Variables for Easy Theming --- */
+:root {
+  --primary-color: #0d6efd;
+  --secondary-color: #6c757d;
+  --success-color: #198754;
+  --danger-color: #dc3545;
+  --light-gray: #f8f9fa;
+  --border-color: #dee2e6;
+  --text-color: #212529;
+  --text-muted: #6c757d;
+  --border-radius: 0.375rem;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Modal Overlay & Container --- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-container {
+  width: 980px;
+  max-width: 98vw;
+  border-radius: 12px;
+  padding: 0; /* we'll rely on inner spacing */
+  background: #fff;
+  box-shadow: var(--box-shadow);
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.3s ease;
+}
+
+/* make container a positioned parent so we can absolutely place the close button */
+.modal-container { position: relative; padding-right: 48px; }
+
+/* --- Modal Header --- */
+.modal-header {
+  display: flex;
+  justify-content: center; /* center the title since close is absolute */
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  background: #fff;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  letter-spacing: -0.2px;
+  font-weight: 500;
+}
+.modal-header { position: relative; }
+.modal-header h3 { position: relative; left: 0; transform: translateX(0); }
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--text-muted);
+  line-height: 1;
+}
+.close-button:hover {
+  color: var(--text-color);
+  transform: translateY(-1px);
+}
+
+/* --- Modal Body & Layout --- */
+.modal-body {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 1.75rem;
+  padding: 1.25rem 1.5rem;
+  max-height: calc(90vh - 86px);
+  overflow-y: auto;
+}
+
+.form-fields {
+  flex: 2; /* Takes 2/3 of the space */
+  padding-right: 0.25rem;
+}
+
+.form-sidebar {
+  flex: 1; /* Takes 1/3 of the space */
+  display: flex;
+  flex-direction: column;
+  padding-left: 0.5rem;
+  border-left: 1px solid rgba(0,0,0,0.04);
+}
+
+/* --- Form Elements --- */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label, .form-group-checkbox label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid rgba(16,24,40,0.06);
+  border-radius: 8px;
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.form-row {
+  display: flex;
+  gap: 0.75rem;
+}
+.form-row .form-group {
+  flex: 1;
+}
+
+.form-group.indented {
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+}
+
+/* Checkbox specific styling */
+.form-group-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+.form-group-checkbox input[type="checkbox"] {
+    width: 1em;
+    height: 1em;
+}
+
+/* --- Image Uploader --- */
+.image-uploader {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background-color: var(--light-gray);
+  border: 1px dashed rgba(16,24,40,0.06);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color 0.2s;
+  height: 180px;
+}
+.image-uploader:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(16,24,40,0.06);
+}
+.image-uploader img {
+  width: 100%;
+  height: 100%;
+  /* Show full image in admin preview so admin can see the entire upload.
+     Use `contain` here to avoid unexpected cropping in the modal preview.
+     The frontend listing/product card can still use cover when rendering to users. */
+  object-fit: contain;
+  background-color: var(--light-gray);
+  border-radius: 8px;
+}
+.upload-placeholder {
+  text-align: center;
+  color: var(--text-muted);
+}
+.upload-placeholder span {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+.upload-placeholder small {
+  font-size: 0.8rem;
+}
+
+.other-images-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-top: 6px;
+}
+
+.other-image-item {
+    position: relative;
+    width: 76px;
+    height: 76px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(16,24,40,0.06);
+    background: #fff;
+}
+
+.other-image-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.remove-image-btn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.image-uploader-small {
+    width: 76px;
+    height: 76px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: 600;
+    color: #475569;
+    background: #fff;
+    border: 1px dashed rgba(16,24,40,0.06);
+}
+
+.image-uploader-small:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+/* --- Error Handling & Actions --- */
+.error-text {
+  color: var(--danger-color);
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.error-box {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: var(--danger-color);
+  border: 1px solid rgba(220, 53, 69, 0.2);
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius);
+  margin-top: auto;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: auto; /* Pushes to the bottom */
+  padding: 12px 1.5rem;
+  border-top: 1px solid rgba(0,0,0,0.04);
+  background: #fff;
+}
+
+.btn {
+  padding: 0.6rem 1.2rem;
+  border: 1px solid transparent;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg,#1565d8,#0ea5e9);
+  box-shadow: 0 6px 18px rgba(14,165,233,0.12);
+  border-color: var(--primary-color);
+  color: #fff;
+}
+.btn-primary:hover:not(:disabled) {
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+  color: #fff;
+}
+.btn-secondary:hover:not(:disabled) {
+  background-color: #5c636a;
+  border-color: #565e64;
+}
+
+/* --- Animations & Spinner --- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.spinner {
+  width: 1.2em;
+  height: 1.2em;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .modal-body { grid-template-columns: 1fr; padding: 1rem; }
+  .form-sidebar { border-left: none; padding-left: 0; }
+  .modal-container { width: 96vw; }
+  .image-uploader { height: 160px; }
+  .other-image-item { width: 64px; height: 64px; }
+}
+
+/* remove the extra right padding on smaller screens so content fits */
+@media (max-width: 900px) {
+  .modal-container { padding-right: 12px; }
+}
+
+@media (max-width: 768px) {
+    .modal-body {
+        flex-direction: column-reverse;
+    }
+}
+
+@media (max-width: 480px) {
+  .modal-body { padding: 0.75rem; }
+  .image-uploader { height: 140px; }
+  .other-image-item { width: 56px; height: 56px; }
+  .modal-header h3 { font-size: 1.05rem; }
+}
+
+/* subtle transitions */
+.image-uploader, .other-image-item, .image-uploader-small, .btn { transition: all 160ms ease-in-out; }
+.other-image-item:hover .remove-image-btn { transform: scale(1.05); }
+
+
+
+
+
+
+
+/* --- Add this CSS for Upload Progress Bar --- */
+
+.upload-progress-container {
+  width: 100%;
+  height: 20px;
+  background-color: #e9ecef; /* Light grey background */
+  border-radius: 10px;
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #dee2e6;
+}
+
+.upload-progress-bar {
+  height: 100%;
+  width: 0%;
+  background-color: #25334d; /* Your theme's dark blue color */
+  border-radius: 10px;
+  transition: width 0.2s ease-in-out;
+}
+
+.upload-progress-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #343a40; /* Dark text */
+  font-weight: bold;
+  font-size: 12px;
+  /* Text ko bar ke upar dikhane ke liye */
+  mix-blend-mode: difference;
+  color: white; /* Text bar ke upar white dikhega */
+}

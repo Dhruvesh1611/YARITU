@@ -1,0 +1,258 @@
+/* --- Root Variables for Easy Theming --- */
+:root {
+  --pm-primary-color: #c5a46d; /* A classy gold color */
+  --pm-text-dark: #2c3e50;
+  --pm-text-light: #7f8c8d;
+  --pm-background: #ffffff;
+  --pm-border-color: #ecf0f1;
+  --pm-font-heading: 'Playfair Display', serif;
+  --pm-font-body: 'Poppins', sans-serif;
+}
+
+/* --- Modal Overlay & Container --- */
+.product-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  animation: pm-fadeIn 0.3s ease;
+}
+
+.product-modal-container {
+  position: relative;
+  width: 900px;
+  max-width: 95vw;
+  max-height: 90vh;
+  background-color: var(--pm-background);
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  animation: pm-slideIn 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.close-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.7);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 24px;
+  color: var(--pm-text-dark);
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.close-button:hover {
+  transform: rotate(90deg);
+  background: white;
+}
+
+/* --- Modal Content Layout --- */
+.product-modal-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  padding: 32px;
+  overflow-y: auto;
+}
+
+/* --- Left Column: Image Gallery --- */
+.image-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.main-image-container {
+  width: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #f0f0f0;
+}
+
+/* Cursor-follow zoom: use CSS variables for origin and scale. JS will update
+   --ox / --oy (percent) and --scale. Fallback :hover provides a simple zoom
+   for non-JS environments. */
+.main-image-container {
+  --scale: 1;
+  --ox: 50%;
+  --oy: 50%;
+}
+
+.main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--ox, 50%) var(--oy, 50%);
+  transform-origin: var(--ox, 50%) var(--oy, 50%);
+  transform: scale(var(--scale, 1));
+  transition: transform 220ms cubic-bezier(.2,.9,.2,1), object-position 220ms ease;
+}
+
+/* Fallback hover for non-JS or touchless browsers */
+.main-image-container:hover .main-image,
+.main-image-container:focus-within .main-image {
+  /* fallback hover scale for non-JS environments */
+  --scale: 2.6;
+}
+
+.thumbnail-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  gap: 12px;
+}
+
+.thumbnail-item {
+  aspect-ratio: 1 / 1;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.thumbnail-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbnail-item.active {
+  border-color: var(--pm-primary-color);
+  box-shadow: 0 0 8px rgba(197, 164, 109, 0.5);
+}
+
+/* --- Right Column: Product Details --- */
+.product-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-title {
+  font-family: var(--pm-font-heading);
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--pm-text-dark);
+  margin: 0 0 16px 0;
+  line-height: 1.2;
+}
+
+.product-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-family: var(--pm-font-body);
+  font-size: 0.9rem;
+  color: var(--pm-text-light);
+  margin-bottom: 24px;
+}
+
+.product-meta strong {
+  color: var(--pm-text-dark);
+}
+
+.product-description {
+  font-family: var(--pm-font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 24px;
+  flex-grow: 1;
+}
+
+.price-container {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.current-price {
+  font-family: var(--pm-font-body);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--pm-text-dark);
+}
+
+.original-price {
+  font-size: 1.2rem;
+  color: var(--pm-text-light);
+  text-decoration: line-through;
+}
+
+/* MRP shown in modal (smaller, muted) */
+.mrp-modal {
+  font-size: 0.95rem;
+  color: var(--pm-text-light);
+  margin-bottom: 16px;
+}
+
+.rent-now-button, .enquire-button {
+  font-family: var(--pm-font-body);
+  width: 100%;
+  padding: 14px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.rent-now-button {
+  background-color: var(--pm-text-dark);
+  color: white;
+  margin-bottom: 12px;
+}
+
+.rent-now-button:hover {
+  background-color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.enquire-button {
+  background-color: #25D366;
+  color: white;
+}
+.enquire-button:hover {
+  background-color: #128C7E;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+
+/* --- Animations --- */
+@keyframes pm-fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pm-slideIn {
+  from { transform: translateY(20px) scale(0.98); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+  .product-modal-content {
+    grid-template-columns: 1fr;
+    padding: 24px;
+    max-height: 85vh;
+  }
+  .product-title {
+    font-size: 2rem;
+  }
+}

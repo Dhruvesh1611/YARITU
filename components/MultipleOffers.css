@@ -1,0 +1,126 @@
+.multiple-offers-section {
+  padding: 80px 20px;
+  background-color: #f8f4f0;
+  text-align: center;
+  overflow: hidden;
+}
+
+.multiple-offers-section .section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  margin-bottom: 60px;
+}
+
+.multiple-offers-section .section-title .highlight {
+  color: #c5a46d;
+}
+
+.multiple-offers-section .offers-container {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1000px;
+}
+
+.multiple-offers-section .offer-card {
+  position: absolute;
+  width: 280px;
+  border: 3px solid white;
+  height: 500px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+/* Fade-in helpers for offer cards */
+.multiple-offers-section .offer-card.initHidden { opacity: 0; transform: translateY(8px); }
+.multiple-offers-section .offer-card.loaded { opacity: 1; transform: translateY(0); transition: opacity 0.45s ease, transform 0.45s ease; }
+
+
+
+.multiple-offers-section .offer-image {
+  /* Next/Image using `fill` needs absolute positioning to cover the card */
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.multiple-offers-section .offer-details {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.multiple-offers-section .offer-category {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #2a2a2a;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.multiple-offers-section .offer-discount {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #c5a46d;
+}
+
+@media (max-width: 992px) {
+  .multiple-offers-section .offers-container {
+    height: 380px;
+  }
+  .multiple-offers-section .offer-card {
+    width: 220px;
+    height: 340px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Keep carousel behaviour on small screens but scale down sizes so mobile matches web appearance */
+  .multiple-offers-section {
+    padding: 40px 12px;
+  }
+
+  .multiple-offers-section .offers-container {
+    height: 360px; /* compact height for phones */
+    perspective: 900px;
+    align-items: center;
+  }
+
+
+  .multiple-offers-section .offer-card {
+    position: absolute;
+    width: min(220px, 70%);
+    height: 320px;
+    border-radius: 12px;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.18);
+    transform-origin: center center;
+    /* Default to grayscale on mobile; the inline style from JS will set grayscale(0%) for the centered card */
+    filter: grayscale(100%);
+  }
+
+  /* Slightly reduce section title size on small screens */
+  .multiple-offers-section .section-title {
+    font-size: 1.8rem;
+    margin-bottom: 28px;
+  }
+}
+
+/* Give the section a neutral grayscale background on small screens to emphasize the BW look */
+@media (max-width: 768px) {
+  .multiple-offers-section {
+    background-color: #e9e9e9;
+  }
+}

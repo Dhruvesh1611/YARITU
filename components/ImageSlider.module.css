@@ -1,0 +1,271 @@
+/* components/ImageSlider.module.css */
+
+.carouselContainer {
+  position: relative;
+  width: 100%;
+  height: 550px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 60px; /* Add button ke liye space */
+}
+
+.imageWrapper {
+  width: 44%; /* Center image ka size */
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imageCard {
+  width: 50%;
+  height: 90%;
+  /* border-radius: 16px;
+  overflow: hidden;
+  position: absolute;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12); */
+  border-radius: 16px;
+  overflow: hidden;
+  position: absolute;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  background-color: #f0f0f0; /* Default loading color set kiya */
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 2px solid rgb(10, 33, 55);
+  z-index: 30;
+}
+
+.leftArrow {
+  left: 5%;
+}
+
+.rightArrow {
+  right: 5%;
+}
+
+
+/* === ADD FEATURED BUTTON & FEATURED GRID (NEW STYLES) === */
+
+/* File: ImageSlider.module.css (Updated Section) */
+
+/* === ADD FEATURED BUTTON & FEATURED GRID (NEW STYLES) === */
+
+.addFeaturedContainer {
+  /* Position: Button ko Carousel area ke andar, right-top mein adjust kiya */
+  position: absolute;
+  top: 10px; /* Thoda neeche laya, header ke neeche */
+  right: 5%; /* Right side se 5% margin */
+  z-index: 40;
+}
+
+.addFeaturedBtn {
+  /* Professional Look: Gradient aur Shadow */
+  background: linear-gradient(145deg, #0a2137, #1a3650); /* Dark Blue to Darker Blue Gradient */
+  color: white;
+  border: none;
+  padding: 8px 18px; /* Padding kam kiya */
+  font-size: 0.95rem; /* Font size thoda adjust kiya */
+  font-weight: 600; /* Thoda bold kiya */
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Soft shadow */
+  transition: all 0.3s ease; /* Smooth transition for all effects */
+  letter-spacing: 0.5px; /* Thoda space diya letters mein */
+}
+
+.addFeaturedBtn:hover {
+  background: linear-gradient(145deg, #1a3650, #0a2137); /* Hover par gradient reverse kiya */
+  transform: translateY(-2px); /* Upar uthaya */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3); /* Shadow badhaya */
+}
+
+.addFeaturedBtn:active {
+    transform: translateY(0); /* Click karne par wapas neeche */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.featuredGrid {
+  margin-top: 24px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 16px;
+}
+
+.featuredCard {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.featuredCard:hover {
+  transform: scale(1.05);
+}
+
+.featuredCardImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Fade-in for featured images when content is ready */
+.image {
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.35s ease;
+}
+.image.loaded {
+  opacity: 1;
+}
+.featuredCard.initHidden { opacity: 0; transform: translateY(6px); }
+.featuredCard.loaded { opacity: 1; transform: translateY(0); }
+
+.cardActionsOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  opacity: 0;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.featuredCard:hover .cardActionsOverlay {
+  opacity: 1;
+}
+
+.cardActionBtn {
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.cardActionBtn:hover {
+  transform: scale(1.1);
+}
+
+.editBtn {
+  color: #0a2137;
+}
+.editBtn:hover {
+  background-color: #e0e0e0;
+}
+
+.deleteBtn {
+  color: #e53e3e; /* Red for delete */
+}
+.deleteBtn:hover {
+  background-color: #fed7d7; /* Light red */
+}
+
+/* Delete Confirmation Modal Styles */
+.confirmDeleteOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.confirmDeleteModal {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  max-width: 320px;
+}
+.confirmDeleteModal h4 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+.confirmDeleteModal p {
+  margin-bottom: 20px;
+  color: #555;
+}
+.confirmDeleteModal div {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+.confirmDeleteModal button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  font-weight: 500;
+}
+.confirmDeleteModal button.confirmBtn {
+  background-color: #e53e3e;
+  color: white;
+  border-color: #e53e3e;
+}
+
+
+/* === RESPONSIVE STYLES === */
+@media (max-width: 768px) {
+  .carouselContainer {
+    height: 500px;
+    margin-top: 50px;
+  }
+  .imageWrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Yeh line add karein */
+  }
+  .imageCard {
+    width: 70%;
+    height: 90%;
+  }
+  .leftArrow {
+    left: 2%;
+  }
+  .rightArrow {
+    right: 2%;
+  }
+  .addFeaturedContainer {
+    top: -45px;
+    right: 16px;
+  }
+  .addFeaturedBtn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+}

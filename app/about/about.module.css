@@ -1,0 +1,464 @@
+/* about.module.css */
+
+.heroStorySection {
+  padding: 20px 40px 64px;
+  text-align: center;
+  background-color: var(--color-background);
+}
+.heroStorySection h1 {
+  font-family: var(--font-heading);
+  font-size: 50px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-text-dark);
+  margin: 0 0 16px;
+}
+.heroStorySection p {
+  font-size: 21px;
+  line-height: 1.6;
+  color: var(--color-text-light);
+  margin: 0;
+}
+
+.aboutUsSection {
+  padding: 10px 0;
+  background-color: var(--color-background);
+}
+.aboutUsContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.aboutUsContent h2 {
+  font-family: 'Lato', sans-serif;
+  font-size: 30px;
+  font-weight: 500;
+  color: var(--color-text-dark);
+  margin: 0 0 32px;
+}
+.aboutUsContent p {
+  font-size: 17.6px;
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  /* Change these two lines: */
+  background-color: #25334D; /* Example: Dark blue, adjust to your brand's dark color */
+  color: #FFFFFF; /* Example: White, adjust to your brand's light color */
+  /* --- */
+  padding: 15px 40px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 17.6px;
+  margin-top: 24px;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Optional: smooth transition */
+}
+
+/* Optional: Add hover effect */
+.ctaButton:hover {
+    background-color: #1a2533; /* Slightly darker on hover */
+    color: #f0f0f0;
+}
+
+.ctaButton img {
+  width: 20px;
+  height: auto;
+}
+.aboutUsImageWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 548px;
+  margin: 0 auto;
+}
+.mainImage {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.1);
+  display: block;
+}
+
+
+.achievementsSection {
+  padding: 80px 40px;
+  background-color: #eaeaea; /* var(--color-background-alt) */
+}
+.achievementsHeader {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.achievementsHeader h2 {
+  font-family: var(--font-heading);
+  font-size: 40px;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  margin: 0 0 15px;
+}
+.achievementsHeader p {
+  font-size: 19.2px;
+  line-height: 1.6;
+  color: var(--color-text-light);
+  margin: 0;
+}
+.achievementsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+.achievementItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.achievementItem img {
+  height: 40px;
+  width: auto;
+  margin-bottom: 16px;
+}
+.achievementItem h3 {
+  font-family: var(--font-heading);
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0 0 8px;
+}
+.achievementItem p {
+  font-size: 17.6px;
+  color: var(--color-dark);
+  margin: 0;
+}
+
+.missionSection {
+  padding: 80px 40px;
+  background-color: var(--color-background);
+  text-align: center;
+}
+.missionSection .container {
+  max-width: 810px;
+  margin: 0 auto;
+}
+.missionSection h2 {
+  font-family: var(--font-heading);
+  font-size: 40px;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  margin: 0 0 30px;
+}
+.missionSection p {
+  font-size: 20px;
+  line-height: 1.6;
+  color: var(--color-text-light);
+  margin: 0;
+}
+
+.visionSection {
+  padding: 80px 40px;
+  background-color: #f8f4f0; /* var(--color-background-alt-2) */
+  text-align: center;
+}
+.visionSection .container {
+  max-width: 810px;
+  margin: 0 auto;
+}
+.visionSection h2 {
+  font-family: var(--font-heading);
+  font-size: 40px;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  margin: 0 0 30px;
+}
+.visionSection p {
+  font-size: 20px;
+  line-height: 1.6;
+  color: var(--color-text-light);
+  margin: 0;
+}
+
+.storesSection, .aboutStores {
+  padding: 80px 40px;
+  background-color: #eae5e5; /* var(--color-background-alt-3) */
+}
+.storesHeader {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.storesHeader h2 {
+  font-family: var(--font-heading);
+  font-size: 40px;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  margin: 0 0 15px;
+}
+.storesHeader p {
+  font-size: 19.2px;
+  line-height: 1.6;
+  color: var(--color-text-light);
+  margin: 0;
+}
+.storesGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  max-width: 1160px;
+  margin: 0 auto;
+}
+.aboutStoreCard {
+  display: flex;
+  align-items: stretch; /* ensure children fill same height */
+  background: linear-gradient(270deg, #ffffff 0%, #dddddd 121.18%);
+  border-radius: 20px;
+  overflow: hidden;
+  min-height: 450px;
+}
+.cardReverse {
+  flex-direction: row-reverse;
+}
+.storeDetails, .storeImage {
+  flex: 1 1 50%;
+}
+.storeDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px;
+  border-left: 2px solid #25384d;
+  border-right: 2px solid #25384d;
+  box-sizing: border-box;
+}
+.storeDetails h3 {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  margin: 0 0 16px;
+}
+.address {
+  font-size: 16px;
+  color: var(--color-text-light);
+  margin: 0 0 12px;
+}
+.phone {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: 0 0 24px;
+}
+/* Phone link: align icon and text */
+.phone a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: inherit; /* keep the .phone color */
+  text-decoration: none;
+}
+.phone a:hover {
+  text-decoration: underline;
+}
+.phoneIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* Match the offer page phone color (gold) so the emoji icon looks the same */
+  color: #c5a46d;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  font-size: 18px; /* ensure emoji scales correctly */
+  line-height: 1;
+}
+.phoneIcon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.phoneText {
+  display: inline-block;
+}
+.storeButton {
+  background-color: #25384d;
+  color: #ffffff;
+  border-radius: 25px;
+  padding: 12px 28px;
+  text-decoration: none;
+  font-family: 'Arial', sans-serif;
+  font-weight: 700;
+  font-size: 13.3px;
+}
+.storeImage {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+.storeImageInner {
+  position: relative;
+  width: 100%;
+  /* Use an aspect-ratio similar to the home store cards so images appear consistent */
+  aspect-ratio: 230 / 180; /* ~1.28 */
+  max-width: 580px; /* preserve desktop design max width */
+  height: auto;
+  max-height: 450px; /* cap extremely tall images */
+}
+/* Ensure images fill the container and crop like on the home page */
+.storeImageInner span, .storeImageInner img, .storeImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+  .aboutUsContainer {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .aboutUsImageWrapper {
+    order: -1;
+  }
+  .heroStorySection h1 {
+    font-size: 44px;
+  }
+  .achievementsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+  .aboutStoreCard, .cardReverse {
+    flex-direction: column;
+  }
+  /* Show image first on mobile by changing order; let inner container control aspect/height */
+  .storeImage {
+    order: -1;
+    width: 100%;
+    height: auto;
+  }
+  /* Reduce details vertical size by lowering padding */
+  .storeDetails {
+    padding: 14px 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroStorySection {
+    padding: 20px 20px 40px;
+  }
+  .heroStorySection h1 {
+    font-size: 40px;
+  }
+  .heroStorySection p {
+    font-size: 18px;
+  }
+  .achievementsSection {
+    padding: 60px 20px;
+  }
+  .achievementsGrid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .achievementsHeader h2 {
+    font-size: 32px;
+  }
+  .achievementsHeader p {
+    font-size: 16px;
+  }
+  .missionSection, .visionSection {
+    padding: 60px 20px;
+  }
+  .missionSection h2, .visionSection h2 {
+    font-size: 32px;
+  }
+  .missionSection p, .visionSection p {
+    font-size: 18px;
+  }
+  .storesSection {
+    padding: 60px 20px;
+  }
+  /* On smaller phones: ensure image sits above details and is taller */
+  .storeImage {
+    order: -1;
+    width: 100%;
+    height: auto;
+  }
+  .storeDetails {
+    padding: 12px 14px;
+  }
+
+  /* Make headings and text more compact on tight viewports */
+  .storeDetails h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+  .storeDetails .address,
+  .storeDetails .phone {
+    font-size: 15px;
+    line-height: 1.4;
+  }
+}
+
+/* Connect With Us section */
+.connectSection {
+  padding: 60px 40px;
+  background-color: var(--color-background);
+}
+/* Keep the connect area visually lightweight: no card background */
+.connectCard {
+  max-width: 820px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 18px 8px; /* reduce vertical padding so it sits cleanly */
+  border-radius: 8px;
+  background: transparent; /* remove gray/white background */
+  box-shadow: none;
+}
+.connectCard h2 {
+  font-family: var(--font-heading);
+  font-size: 34px;
+  margin: 0 0 12px;
+  color: var(--color-text-dark);
+}
+.socialLinks {
+  display: flex;
+  gap: 22px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.socialLinks a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;    /* outer hit area */
+  height: 64px;   /* outer hit area */
+  border-radius: 50%;
+  background: transparent; /* no solid circle behind icons */
+  box-shadow: none;
+  transition: transform 0.14s ease;
+}
+.socialLinks a:hover {
+  transform: translateY(-4px);
+}
+.socialLinks img {
+  width: 44px;  /* visible icon size */
+  height: 44px;
+  object-fit: contain;
+}
+.socialCaption {
+  font-size: 16px;
+  color: var(--color-text-light);
+  margin: 0;
+}
+
+/* Make icons slightly smaller on narrow screens */
+@media (max-width: 480px) {
+  .socialLinks a { width: 52px; height: 52px; }
+  .socialLinks img { width: 36px; height: 36px; }
+  .connectCard h2 { font-size: 26px; }
+  .socialCaption { font-size: 15px; }
+}

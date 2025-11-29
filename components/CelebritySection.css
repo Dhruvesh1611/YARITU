@@ -1,0 +1,180 @@
+.celebrity-section {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #f9f9f9;
+    overflow-x: hidden; /* Prevent horizontal overflow */
+    position: relative;
+}
+
+.celebrity-title {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    font-family: 'Cinzel', serif;
+}
+
+/* Video Carousel Container */
+.video-carousel-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 90%;
+    margin: 0 auto 30px;
+}
+
+.video-container {
+    max-width: 100%;
+    margin: 0 auto;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 3px solid rgb(239, 213, 191);
+    position: relative;
+}
+
+.video-container video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Navigation Arrows */
+.video-nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    z-index: 10;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    line-height: 1;
+}
+
+.video-nav-arrow:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    color: #000;
+}
+
+.video-nav-prev {
+    left: -25px;
+    padding-left: 2px; /* Slight adjustment for visual centering */
+}
+
+.video-nav-next {
+    right: -25px;
+    padding-right: 2px; /* Slight adjustment for visual centering */
+}
+
+/* Video Indicator Dots */
+.video-dots {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.video-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid rgba(51, 51, 51, 0.6);
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(51, 51, 51, 0.2);
+}
+
+.video-dot:hover {
+    background-color: rgba(51, 51, 51, 0.4);
+    transform: scale(1.2);
+    box-shadow: 0 0 0 4px rgba(51, 51, 51, 0.3);
+}
+
+.video-dot.active {
+    background-color: rgba(51, 51, 51, 0.8);
+    border-color: rgba(51, 51, 51, 1);
+    transform: scale(1.3);
+    box-shadow: 0 0 0 5px rgba(51, 51, 51, 0.4);
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+    .celebrity-section {
+        padding: 30px 15px;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+    
+    .video-carousel-container {
+        max-width: 95%;
+    }
+    
+    .celebrity-section video {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .section-title {
+        /* Local override removed so the global .section-title mobile size applies */
+        /* font-size: 32px; */
+        margin-bottom: 15px;
+        padding: 0 10px;
+    }
+    
+    .section-subtitle {
+        font-size: 1rem;
+        margin-bottom: 20px;
+        padding: 0 10px;
+    }
+
+    /* Hide navigation arrows on mobile for cleaner look */
+    .video-nav-arrow {
+        display: none;
+    }
+
+    /* Larger dots on mobile for better touch interaction */
+    .video-dot {
+        width: 16px;
+        height: 16px;
+        border-width: 3px;
+    }
+
+    .video-dots {
+        margin-top: 25px;
+        gap: 15px;
+    }
+}
+
+/* Tablet responsive styles */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .video-nav-arrow {
+        width: 45px;
+        height: 45px;
+        font-size: 22px;
+    }
+    
+    .video-nav-prev {
+        left: -22px;
+    }
+    
+    .video-nav-next {
+        right: -22px;
+    }
+}

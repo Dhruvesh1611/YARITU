@@ -1,0 +1,1106 @@
+.pag.hero-section {
+    position: relative;
+    height: 100vh; 
+    width: 100%; /* Use 100% instead of 100vw to avoid overflow */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+    transition: background-image 0.8s ease-in-out;
+
+    padding-top: 0px; /* Height of the fixed header */
+}
+
+.hero-section {
+    margin-top: -88px; /* Negative margin to offset the fixed header height */
+    position: relative;
+    height: 100vh; 
+    width: 100%; /* Use 100% instead of 100vw to avoid overflow */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    /* background-image is now rendered via next/image in the component to ensure
+       consistency across viewports (mobile and desktop). Clear old CSS to avoid
+       conflicts. */
+    background-image: none;
+    background-size: unset;
+    background-repeat: no-repeat;
+    background-position: unset;
+    box-sizing: border-box;
+}
+
+/* Container for next/image fill used as the hero background */
+.hero-bg-image {
+    position: absolute;
+    inset: 0; /* top:0; right:0; bottom:0; left:0 */
+    z-index: 0;
+    background-color: #e0e0e0;
+}
+
+/* Ensure hero content sits above the background image */
+.hero-section > .hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 40px;
+    border-radius: 15px;
+}
+
+.hero-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 3.5rem;
+    color: #ffffff; /* White text */
+    line-height: 1.2;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.hero-subtitle {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+.hero-button {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #ffffff;
+    background-color: rgba(37, 51, 77, 0.7); /* Darker background */
+    border: 1px solid #ffffff;
+    border-radius: 50px;
+    padding: 12px 30px;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.hero-button:hover {
+    background-color: rgba(37, 51, 77, 1);
+    transform: scale(1.05);
+}
+
+/* Hero Carousel Dots */
+.hero-dots {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    z-index: 3;
+}
+
+.hero-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.hero-dot:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+    transform: scale(1.2);
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.4);
+}
+
+.hero-dot.active {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-color: rgba(255, 255, 255, 1);
+    transform: scale(1.3);
+    box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+/* Celebrities Section */
+.celebrities-section {
+    padding: 60px 20px;
+    background-color: #f8f4f0; /* Light background */
+    text-align: center;
+}
+
+.celebrities-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.celebrities-logo {
+    width: 120px; /* Slightly larger logo */
+    height: auto;
+}
+
+.celebrities-text .section-title {
+    color: #2a2a2a;
+    font-size: 2.8rem;
+}
+
+.celebrities-text .section-subtitle {
+    color: #666;
+    font-size: 1.1rem;
+    margin-top: 10px;
+}
+
+.celebrities-image-container {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.celebrities-fabric-image {
+    height: 550px;
+    display: block;
+}
+
+#section-featured {
+    background-color: #f8f4f0;
+}
+.featured-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+.featured-header .section-title,
+.featured-header .section-subtitle {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+.featured-gallery {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    position: relative;
+    /* center items and ensure snap centers each image in the viewport */
+    justify-content: center;
+    /* Padding to allow proper centering and partial side views */
+    padding-left: calc(50vw - 130px); /* Center images properly */
+    padding-right: calc(50vw - 130px); /* Center images properly */
+    /* Help the browser snap items to exact center of viewport */
+    scroll-padding-left: calc(50vw - 130px);
+    scroll-padding-right: calc(50vw - 130px);
+    gap: 22px;
+}
+.gallery-item {
+    border-radius: 20px;
+    /* Maintain a fixed visual aspect ratio (reference 300:543) while allowing
+       the box to responsively scale. Height is computed from width via
+       aspect-ratio; padding-top fallback provided below for older browsers. */
+    width: 300px;
+    aspect-ratio: 300 / 543;
+    height: auto;
+    overflow: hidden;
+}
+.gallery-item.large {
+    width: 340px;
+    aspect-ratio: 300 / 543;
+    height: auto;
+}
+
+/* Wrapper and image rules scoped under the featured gallery wrapper so the
+   featured collection boxes always keep the 300:543 aspect and images cover */
+.featured-gallery-wrapper .image-wrapper {
+    width: 100%;
+    max-width: 300px; /* reference scale */
+    aspect-ratio: 300 / 543;
+    height: auto;
+    position: relative;
+    overflow: hidden;
+}
+/* Fallback for browsers without aspect-ratio: use padding-top trick */
+.featured-gallery-wrapper .image-wrapper::before {
+    content: '';
+    display: block;
+    padding-top: 181%; /* 543 / 300 = 1.81 => 181% */
+}
+.featured-gallery-wrapper .image-wrapper > img,
+.featured-gallery-wrapper .image-wrapper > picture,
+.featured-gallery-wrapper .image-wrapper > .next-image,
+.featured-gallery-wrapper .gallery-item img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover !important;
+    display: block;
+}
+.gallery-arrow {
+    background: #FFFFFF;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.gallery-arrow.prev {
+    left: -25px;
+}
+.gallery-arrow.next {
+    right: -25px;
+}
+.gallery-arrow img {
+    width: 18px;
+    height: 18px;
+}
+@media (max-width: 1200px) {
+    .gallery-items {
+        flex-wrap: wrap;
+    }
+    .gallery-arrow {
+        position: static;
+        transform: none;
+    }
+    .featured-gallery {
+        flex-wrap: wrap;
+    }
+}
+
+/* Mobile: make Featured Collection horizontally scrollable */
+@media (max-width: 768px) {
+    .gallery-arrow {
+        display: none; /* Hide arrows on mobile */
+    }
+    
+    .featured-gallery {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        align-items: center;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 20px 0;
+        width: 100%;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        justify-content: flex-start;
+        /* Padding to show partial images on sides */
+        padding-left: 40px;
+        padding-right: 40px;
+        flex-wrap: nowrap; /* Override the wrap behavior */
+    }
+
+    .featured-gallery::-webkit-scrollbar {
+        height: 0; /* Hide scrollbar for cleaner look */
+    }
+
+    .gallery-items {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        align-items: center;
+        min-width: max-content;
+        flex-wrap: nowrap; /* Override the wrap behavior */
+    }
+
+    .gallery-item {
+        flex: 0 0 280px; /* Fixed width for scrolling */
+        width: 280px;
+        aspect-ratio: 300 / 543;
+        height: auto;
+        border-radius: 16px;
+        overflow: hidden;
+        scroll-snap-align: center;
+        transition: transform 0.3s ease;
+    }
+
+    .gallery-item.large {
+        flex: 0 0 300px; /* Slightly larger for the main featured item */
+        width: 300px;
+        aspect-ratio: 300 / 543;
+        height: auto;
+    }
+}
+
+/* Mobile override: ensure trending absolute containers behave as flow items and show overlay button */
+@media (max-width: 768px) {
+    /* Our JS places each video inside an absolutely-positioned wrapper div; on mobile we want these wrappers to act like normal cards in the scrolling row */
+    .trending-images-container > div {
+        position: relative !important;
+        left: auto !important;
+        top: auto !important;
+        width: auto !important;
+        height: auto !important;
+        margin: 0 8px !important;
+        transform: none !important;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+        /* scroll-snap-type: x mandatory; */ /* <-- YEH GALAT JAGAH THA */
+        border-radius: 16px;
+        overflow: hidden;
+        display: block !important;
+        flex: 0 0 auto !important;
+    }
+
+    /* Ensure the video fills the card and keeps proper aspect ratio */
+    .trending-images-container > div video,
+    .trending-images-container .trending-img img,
+    .trending-images-container .trending-img video {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        object-fit: cover !important;
+        /* scroll-snap-align: center; */ /* <-- YEH GALAT JAGAH THA */
+        display: block !important;
+        border-radius: 12px !important;
+    }
+
+    /* Overlay container (child div) should sit on top of the card so the button is visible */
+    .trending-images-container > div > div {
+        position: absolute !important;
+        inset: 0 !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: flex-end !important;
+        padding: 8px !important;
+        pointer-events: none !important;
+    }
+
+    /* Make the button visible and clickable inside the overlay */
+    .trending-images-container > div > div > button {
+        pointer-events: auto !important;
+        position: absolute !important;
+        bottom: 12px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        z-index: 9999 !important;
+        background: rgba(255,255,255,0.98) !important;
+        border: 1px solid #ccc !important;
+        padding: 6px 10px !important;
+        border-radius: 8px !important;
+        cursor: pointer !important;
+    }
+}
+
+/* Adjust hero top padding for different viewports so content sits below the fixed navbar */
+@media (max-width: 992px) {
+    .hero-section {
+        padding-top: 110px;
+    }
+    .hero-title {
+        font-size: 2.8rem;
+    }
+    .hero-dots {
+        bottom: 40px;
+    }
+    .hero-dot {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section {
+        padding-top: 90px;
+    }
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    .hero-content {
+        padding: 20px;
+    }
+    .hero-dots {
+        bottom: 50px;
+    }
+    .hero-dot {
+        width: 16px;
+        height: 16px;
+        border-width: 3px;
+    }
+}
+
+#section-trending {
+    background-color: #f1eeee;
+    padding-top: 70px;
+    padding-bottom: 70px;
+    overflow: hidden; /* Prevent any overflow */
+}
+.trending-images-container {
+
+    position: relative;
+    width: 1280px;
+    height: 700px;
+    margin: 40px auto 0;
+    overflow: hidden; /* Prevent vertical scroll */
+}
+.trending-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+.trending-img {
+    position: absolute;
+    border-radius: 20px;
+    object-fit: cover;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+ /* === TABLET STYLES FOR TRENDING SECTION (769px - 1200px) === */
+@media (min-width: 769px) and (max-width: 1200px) {
+    #section-trending {
+        padding: 60px 0; /* Vertical padding theek hai */
+        overflow: hidden; 
+    }
+    
+    .trending-images-container {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        gap: 20px;
+        width: 100%; 
+        height: auto;
+        margin: 40px 0 0 0;
+        -webkit-overflow-scrolling: touch;
+        box-sizing: border-box; 
+        flex-wrap: nowrap; /* Ensure they stay in one line */
+
+        /* Naya Calculation: Images ko center mein lane ke liye */
+        /* Image Width is 320px (from .trending-img below) */
+        /* Padding = (Container Width / 2) - (Image Width / 2) */
+        /* Padding-left aur right is 50vw - (320px / 2) = 50vw - 160px */
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-left: calc(50vw - 160px); 
+        padding-right: calc(50vw - 160px); 
+    }
+
+    .trending-images-container::-webkit-scrollbar {
+        display: none; /* Scrollbar chupane ke liye */
+    }
+
+    .trending-img {
+        position: static; 
+        flex: 0 0 320px; /* Fixed width for consistency */
+        width: 320px;
+        height: 480px;
+        scroll-snap-align: center; /* Image ko center mein snap karega */
+        border-radius: 20px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    
+    /* Ensure image content fills the card */
+    .trending-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        border-radius: 20px;
+    }
+
+    .trending-bg {
+        display: none; /* Desktop background hide karein */
+    }
+}
+
+/* Mobile adjustments (less than 768px) mein bhi centering ka formula theek hai.
+   Mobile mein image width 260px hai, isliye wahan padding '50vw - 130px' hai, jo ki sahi hai.
+   Isliye mobile media query mein koi change ki zarurat nahi hai. 
+*/
+/* Mobile: make Trending Now horizontally scrollable with snap and slightly smaller images */
+@media (max-width: 768px) {
+    #section-trending {
+        padding: 40px 0;
+        overflow: hidden;
+    }
+    
+    .trending-images-container {
+        display: flex;
+        flex-direction: row;
+        /* border: 2px solid red; */
+        gap: 15px;
+        align-items: center;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 20px 0;
+        width: 100%;
+        height: auto;
+        scroll-snap-type: x mandatory; /* <--- YEH SAHI HAI (Point #2) */
+        -webkit-overflow-scrolling: touch;
+        justify-content: flex-start;
+        /* Padding to allow proper centering and side views */
+    /* Adjusted padding to match center image half-width (130px) for proper centering */
+    padding-left: calc(50vw - 130px); /* Center images properly */
+    padding-right: calc(50vw - 130px); /* Center images properly */
+        /* enable snapping so each card can snap into the center of the viewport */
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .trending-images-container::-webkit-scrollbar {
+        height: 0; /* Hide scrollbar for cleaner look */
+    }
+
+    .trending-img {
+        position: relative;
+        /* Base size for outer images (pos1/pos5) on mobile */
+        flex: 0 0 200px;
+        width: 200px !important; /* override inline styles from JSX */
+        height: 300px !important; /* override inline styles from JSX */
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+        scroll-snap-align: center; /* <--- YEH SAHI HAI (Point #2) */
+        transition: transform 0.28s ease, opacity 0.28s ease;
+        /* Remove absolute positioning styles */
+        top: auto !important;
+        left: auto !important;
+        transform: none !important;
+        /* snap align each card to center of the container */
+        scroll-snap-align: center !important;
+        /* margin: 0 8px; small gap around cards for breathing room */
+    }
+
+    /* Make the trending container taller to accommodate the larger center image */
+    .trending-images-container {
+        height: 460px !important;
+        margin-top: 6px !important;
+        padding-top: 8px !important;
+        padding-bottom: 8px !important;
+    }
+
+    /* Ensure images fill the container properly */
+    .trending-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        border-radius: 16px;
+    }
+
+    /* Graduated sizes: outermost (pos1/pos5) small, neighbors (pos2/pos4) medium, center (pos3) largest */
+    .trending-img.pos1,
+    .trending-img.pos5 {
+        width: 200px !important;
+        height: 300px !important;
+        flex: 0 0 200px;
+        z-index: 2 !important;
+        transform: translateY(0) !important;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+    }
+
+    .trending-img.pos2,
+    .trending-img.pos4 {
+        width: 235px !important;
+        height: 350px !important;
+        flex: 0 0 235px;
+        z-index: 4 !important;
+        transform: translateY(-6px) !important;
+        box-shadow: 0 10px 22px rgba(0,0,0,0.14);
+    }
+
+    .trending-img.pos3.center {
+        width: 260px !important;
+        height: 420px !important;
+        flex: 0 0 260px;
+        border-radius: 16px;
+        box-shadow: 0 14px 36px rgba(0,0,0,0.2);
+        transform: translateY(-14px) !important; /* lift it up more */
+        z-index: 6 !important;
+    }
+
+    /* Hide the decorative background used on desktop */
+    .trending-bg {
+        display: none;
+    }
+}
+
+#section-offers {
+    background-color: #f8f4f0;
+}
+.offers-gallery {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 60px;
+    margin-bottom: 40px;
+}
+.offers-image-stack {
+    position: relative;
+    width: 985px;
+    height: 419px;
+}
+.offer-bg-shadow, .offer-main-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.offer-bg-shadow {
+    filter: drop-shadow(20px 20px 20px #000000);
+}
+.view-more-btn {
+    display: inline-block;
+    background-color: #eadcb9;
+    border-radius: 30px;
+    padding: 8px 30px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: #000000;
+    text-decoration: none;
+    text-align: center;
+}
+@media (max-width: 1024px) {
+    .offers-image-stack {
+        width: 100%;
+        height: auto;
+        padding-top: 42.5%; /* 419 / 985 */
+    }
+}
+
+#section-stores, .home-stores, .about-stores {
+    background-color: #ffffff;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+}
+/* THIS IS THE FIX */
+#home-stores  {
+    overflow-x: hidden;
+}
+
+.home-stores .section-title, .about-stores .section-title, #section-stores .section-title {
+    font-size: 36px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+.home-stores .stores-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 230px);
+    gap: 28px 24px;
+    justify-content: center;
+    max-width: calc(230px * 5 + 24px * 4);
+    margin: 0 auto 40px;
+}
+
+.home-store-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    overflow-x: hidden;
+    opacity: 0;
+    transform: translateX(-100px);
+    transition: all 0.6s ease-out;
+    width: 230px;
+    height: 180px;
+    box-sizing: border-box;
+}
+
+/* Ensure Next/Image fill wrapper covers card and respects border radius */
+.home-store-card .store-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit; /* ensure same rounding */
+    overflow: hidden;
+}
+
+/* Animation classes for scroll reveal (home) */
+.home-store-card.animate-in {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Fade-in for stores grid cards when data loads */
+.home-store-card.loaded {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 0.5s ease, transform 0.45s ease;
+}
+
+/* Alternate animation directions for left/right effect (home) */
+.home-stores .home-store-card:nth-child(odd) {
+    transform: translateX(-100px); /* Come from left */
+}
+
+.home-stores .home-store-card:nth-child(even) {
+    transform: translateX(100px); /* Come from right */
+}
+
+.home-stores .home-store-card:nth-child(odd).animate-in,
+.home-stores .home-store-card:nth-child(even).animate-in {
+    transform: translateX(0);
+}
+
+.home-store-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.home-store-card .store-name-overlay {
+    /* Make overlay cover the entire card but keep it hidden initially */
+    position: absolute;
+    inset: 0; /* top:0; right:0; bottom:0; left:0 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.65);
+    color: white;
+    text-align: center;
+    padding: 10px;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.28s ease, transform 0.28s ease;
+    font-family: 'Poppins', sans-serif;
+    z-index: 2; /* make sure overlay sits above the image */
+}
+
+.home-store-card:hover img,
+.home-store-card:focus-within img,
+.home-store-card:active img {
+    transform: scale(1.06);
+}
+
+/* On hover or keyboard focus, show the overlay and enlarge the text */
+.home-store-card:hover .store-name-overlay,
+.home-store-card:focus-within .store-name-overlay,
+.home-store-card:active .store-name-overlay,
+.home-store-card.name-revealed .store-name-overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Make the store name large and prominent */
+.home-store-card .store-name-overlay span {
+    font-size: 1.2rem; /* default size */
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    line-height: 1.05;
+}
+
+/* Larger font on bigger screens */
+@media (min-width: 993px) {
+    .home-store-card .store-name-overlay span {
+        font-size: 1.6rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .home-store-card .store-name-overlay span {
+        font-size: 1.9rem;
+    }
+}
+
+/* === NEW TABLET STYLES FOR STORES GRID (769px - 1204px) === */
+
+/* For large tablets/small desktops (993px - 1204px): 4 columns */
+@media (min-width: 993px) and (max-width: 1204px) {
+    .home-stores .stores-grid {
+        /* Set 4 columns with flexible width (1fr) */
+        grid-template-columns: repeat(4, minmax(200px, 1fr));
+        gap: 20px;
+        /* Remove fixed max-width for better responsiveness */
+        max-width: 100%; 
+        padding: 0 20px; /* Add horizontal padding to prevent edge sticking */
+    }
+    .home-store-card {
+        width: 100%;
+        height: 180px; /* Consistent height */
+    }
+}
+
+/* For smaller tablets (769px - 992px): 3 columns */
+@media (min-width: 769px) and (max-width: 992px) {
+    .home-stores .stores-grid {
+        /* Set 3 columns with flexible width (1fr) */
+        grid-template-columns: repeat(3, minmax(180px, 1fr));
+        gap: 16px;
+        max-width: 100%;
+        padding: 0 15px; /* Add horizontal padding */
+    }
+    .home-store-card {
+        width: 100%;
+        height: 150px; /* Adjusted height for smaller tablet viewports */
+    }
+}
+/* === END NEW TABLET STYLES === */
+
+
+@media (max-width: 768px) {
+    .home-stores .stores-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 16px;
+    }
+    .home-store-card {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 230 / 180;
+    }
+}
+@media (max-width: 480px) {
+    .home-stores .stores-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    .home-store-card {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
+    }
+}
+
+#section-brand-gallery {
+    background-color: #ffffff;
+    padding: 60px 0;
+}
+.brand-gallery-container {
+    position: relative;
+    width: 1080px;
+    height: 665px;
+    margin: 0 auto;
+}
+.brand-gallery-bg {
+    position: absolute;
+    top: 0;
+    left: 50px;
+    width: 515px;
+    height: 665px;
+    object-fit: cover;
+}
+.brand-gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.overlay-rect {
+    position: absolute;
+    width: 220px;
+    height: 155px;
+    background-color: #ddbebe;
+    border: 1px solid #ffffff;
+}
+@media (max-width: 1280px) {
+    .brand-gallery-container {
+        display: none; /* Hiding complex layout on smaller screens */
+    }
+}
+
+.how-it-works-section {
+    position: relative;
+    min-height: 960px;
+    background-image: url('/images/5a0deaf6120d1eb05813de08e6d0745c6e4e208e.png');
+    background-size: cover;
+    background-position: center;
+    padding: 80px 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.how-it-works-content {
+    width: 50%;
+    padding-right: 5%;
+}
+/* Left framed image - desktop presentation */
+.how-it-works-frame {
+    position: absolute;
+    left: 6%;
+    top: 18%;
+    width: 420px;
+    height: 420px;
+    border: 6px solid rgba(255,255,255,0.95);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+    border-radius: 6px;
+    overflow: hidden;
+    z-index: 3;
+    background: rgba(255,255,255,0.02);
+}
+
+/* Hide framed image on very small screens to avoid layout overflow; keep desktop-first behavior */
+@media (max-width: 480px) {
+    .how-it-works-frame {
+        display: none;
+    }
+}
+.timeline-item {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+}
+.timeline-number {
+    width: 60px;
+    height: 60px;
+    background-color: var(--color-dark-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 40px;
+    font-weight: 600;
+    flex-shrink: 0;
+    z-index: 2;
+}
+.timeline-connector {
+    position: absolute;
+    left: 30px;
+    top: 60px;
+    width: 2px;
+    height: 100%;
+    background-color: #000;
+    z-index: 1;
+}
+.timeline-desc {
+    margin-left: 40px;
+    padding-bottom: 60px;
+}
+.timeline-desc img {
+    max-width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+}
+.timeline-desc h3 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 15px;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+}
+.timeline-desc p {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    line-height: 1.4;
+    max-width: 200px;
+}
+@media (max-width: 992px) {
+    /* Preserve desktop layout for How-It-Works on smaller screens
+       so mobile matches desktop UI as requested. */
+    .how-it-works-section {
+        /* keep the same layout as desktop */
+        justify-content: flex-end;
+        align-items: center;
+        min-height: 960px; /* match desktop height to keep framing consistent */
+        padding: 80px 0;
+        background-size: cover;
+        background-position: center;
+    }
+    .how-it-works-content {
+        width: 50%;
+        padding-right: 5%;
+    }
+}
+
+#section-testimonials {
+    background-color: #f8f4f0;
+}
+
+#section-testimonials .section-title {
+    padding-top: 100px;
+}
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    justify-content: center;
+}
+/* .testimonial-card img {
+    width: 100%;
+    height: auto;
+    border: 0px solid var(--color-primary);
+    border-radius: 20px;
+} */
+
+.whatsapp-float {
+    position: fixed;
+    width: 45px;
+    height: 45px;
+    bottom: 40px;
+    right: 40px;
+    z-index: 100;
+    transition: transform 0.3s;
+}
+.whatsapp-float:hover {
+    transform: scale(1.1);
+}
+.whatsapp-float img {
+    width: 100%;
+    height: 100%;
+}
+
+/* Fade-in animation for trending videos when they load (replacing skeletons) */
+.trending-video {
+    opacity: 0;
+    transition: opacity 0.6s ease, transform 0.4s ease;
+    will-change: opacity, transform;
+}
+.trending-video.loaded {
+    opacity: 1;
+}
+
+/* Ensure placeholders fade out smoothly as videos replace them */
+.trending-placeholder {
+    width: 100%;
+    height: 100%;
+    background: #e9e9e9;
+    border-radius: 12px;
+    transition: opacity 0.4s ease;
+}
+.trending-placeholder.hidden {
+    opacity: 0;
+}
+
+/* Tablet-specific hero adjustments: limit hero height and make image contain to avoid vertical cropping
+   Target: devices between 768px and 1024px (portrait/tablet). This keeps the hero visually similar to desktop
+   while preventing the image from being zoomed/cropped by a full 100vh container. */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .main-hero-section {
+        /* Limit height so tablet doesn't force a huge (100vh) hero that crops images */
+        height: min(60vh, 500px) !important;
+        max-height: 500px !important;
+        overflow: hidden;
+    }
+
+    /* Ensure the hero image fits inside the container without being cropped */
+    .main-hero-section .hero-image-element,
+    .hero-image-element {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain !important;
+        object-position: center center !important;
+        display: block !important;
+    }
+}

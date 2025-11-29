@@ -1,0 +1,333 @@
+#reviews {
+  position: relative;
+  /* rely on global body padding for header space; keep a small offset for visual breathing */
+  padding-top: 80px;
+  padding-bottom: 100px;
+  background: linear-gradient(180deg, #ffffff 0%, #737373 73.85%);
+}
+
+.reviews-content {
+  text-align: center;
+}
+
+.reviews-title {
+  font-family: var(--font-heading);
+  font-size: 50px;
+  font-weight: 600;
+}
+
+.reviews-subtitle {
+  font-family: var(--font-body);
+  font-size: 21px;
+  font-weight: 400;
+  color: var(--color-secondary-text);
+  margin-top: 16px;
+}
+
+.review-gallery {
+  margin-top: 78px;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* align bottoms so taller cards visually balance */
+  gap: 25px; /* consistent space between cards */
+  flex-wrap: nowrap;
+}
+
+.gallery-photo {
+  position: relative;
+  border-radius: 20px;
+  box-shadow: 0px 5px 10px 5px rgba(0, 0, 0, 0.49);
+  object-fit: cover;
+  transition: transform 0.25s ease, z-index 0.25s ease;
+  width: 212px;
+  height: 310px;
+  flex-shrink: 0;
+}
+
+.gallery-photo:hover {
+    transform: translateY(-8px) scale(1.03);
+    z-index: 10 !important;
+}
+
+.photo-1,
+.photo-3,
+.photo-5 {
+  width: 212px;
+  height: 310px;
+}
+
+.photo-2,
+.photo-4 {
+  width: 244px;
+  height: 387px;
+}
+
+#testimonials {
+  padding: 80px 0;
+  background-color: var(--color-background-light);
+}
+
+.testimonials-title {
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: 48px;
+  font-weight: 400;
+  margin-bottom: 83px;
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 29px 20px;
+}
+
+.testimonial-card {
+  border: none;
+  width: 80;
+  border-radius: 20px; /* keep radius for hover shadow shape */
+  padding: 0;
+  background: transparent;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  overflow: visible;
+}
+/* Add this code at the bottom of your CSS file */
+
+#reviews .testimonial-card img {
+    border: none;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 15px 25px rgba(0,0,0,0.1);
+}
+
+.card-content {
+  background-color: #fffdf9;
+  border: 1px solid #ead9bd;
+  border-radius: 18px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 18px 20px 18px;
+  box-sizing: border-box;
+}
+
+.card-text {
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 400;
+  color: #000;
+}
+
+/* ===== Client Review Cards (What Our Clients Say) ===== */
+.client-review-card {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  min-height: auto;
+}
+
+.client-photo-wrap {
+  width: 100%;
+  border-radius: 18px 18px 0 0;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 7 / 10;
+  background: #f2f0ed;
+  min-height: 400px;
+}
+
+.client-photo {
+  object-fit: cover;
+  display: block;
+
+}
+
+.client-review-text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #222;
+  margin: 14px 10px 10px;
+  letter-spacing: 0.2px;
+}
+
+.client-signature {
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+  color: #25384d;
+  margin: 12px 10px 10px 10px;
+  text-transform: uppercase;
+}
+
+.testimonial-card:hover { box-shadow: 0 12px 32px rgba(0,0,0,0.16); }
+.testimonial-card:hover .client-photo { transform: scale(1.04); transition: transform 0.55s ease; }
+
+/* Responsive adjustments */
+/*
+ * === TABLET OPTIMIZATIONS (769px to 1200px) ===
+ * Review aur Testimonials sections ke liye refining.
+ */
+@media (min-width: 769px) and (max-width: 1200px) {
+  
+    
+  /* --- 1. Global Section Spacing --- */
+  #reviews {
+    padding-top: 60px; /* Thoda kam padding */
+    padding-bottom: 80px;
+  }
+  
+  #testimonials {
+    padding: 60px 30px; /* Horizontal padding add kiya */
+  }
+
+  /* --- 2. Titles --- */
+  .reviews-title {
+    font-size: 42px; /* Desktop (50px) se chota */
+  }
+
+  .reviews-subtitle {
+    font-size: 19px;
+    margin-top: 12px;
+  }
+  
+  .testimonials-title {
+    font-size: 40px; /* Existing 1024px ke saath consistent */
+    margin-bottom: 50px;
+  }
+
+  /* --- 3. Review Gallery --- */
+  .review-gallery {
+    margin-top: 50px; /* Spacing kam kiya */
+    /* Scaling existing 1200px aur 900px blocks se handle ho jayegi */
+  }
+
+  /* --- 4. Testimonial Grid (2-column layout ke liye refinements) --- */
+  .testimonial-grid {
+    gap: 24px 20px; /* 2-column layout mein gap adjust kiya */
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .client-photo-wrap {
+      /* Card photo ki minimum height set ki taaki 2-column mein cards balanced lagein */
+      min-height: 300px; 
+  }
+  
+  .client-review-text {
+      font-size: 14px;
+  }
+}
+
+/* Existing max-width: 1024px block will ensure 2 columns, which is ideal for most tablets */
+@media (max-width: 1024px) {
+  .testimonial-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .review-gallery {
+    margin-top: -88px;
+  }
+}
+
+@media (max-width: 768px) {
+  .client-photo-wrap { aspect-ratio: 3 / 4; }
+  .client-review-text { font-size: 14px; }
+  .client-signature { font-size: 12px; }
+  
+
+  /* * #reviews: Is section ki top padding badhao taaki content 
+   * fixed/sticky header ke neeche dikhe. 
+   */
+
+  /* * #reviews: Is section ki top padding badhao taaki content 
+   * fixed/sticky header ke neeche dikhe. 
+   */
+  #reviews {
+    padding-top: 150px; /* Padding ko 120px se badhakar 150px kiya taaki fixed header clear ho jaye */
+    padding-bottom: 60px; /* Mobile ke liye bottom padding thoda kam kiya */
+  }
+  
+  /* Titles ko center mein laayein */
+  .reviews-title, .reviews-subtitle {
+    text-align: center;
+    padding: 0 15px; /* Thoda horizontal padding diya */
+  }
+
+  /* Testimonial grid ki spacing bhi maintain kar lete hain */
+  .testimonial-grid {
+    padding: 0 20px;
+  }
+}
+
+
+
+@media (max-width: 480px) {
+  .client-review-text { font-size: 13.5px; }
+  
+
+}
+
+
+
+
+@media (max-width: 600px) {
+  .reviews-title {
+    font-size: 36px;
+  }
+  .reviews-subtitle {
+    font-size: 18px;
+  }
+  .review-gallery {
+    display: flex;
+    position: static;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 18px;
+    height: auto;
+    transform: none;
+    margin-top: -88px;
+    padding: 0 12px;
+
+  }
+  .gallery-photo {
+    position: relative;
+    width: calc(50% - 9px);
+    height: auto;
+    aspect-ratio: 212 / 310;
+  }
+}
+
+@media (max-width: 1024px) {
+  .testimonial-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .testimonials-title {
+    font-size: 40px;
+    margin-bottom: 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  #testimonials {
+    padding: 60px 0;
+  }
+  .testimonial-grid {
+    grid-template-columns: 1fr;
+  }
+  .testimonials-title {
+    font-size: 32px;
+    margin-bottom: 40px;
+  }
+}
+
+
+

@@ -1,0 +1,532 @@
+/* --- GENERAL STYLES --- */
+.mainContainer {
+    position: relative;
+    background-color: #fdfaf6; 
+    padding: 80px 0;
+    background-image: url('/images/BLUE.png');
+}
+
+.mainHeading {
+    text-align: center;
+    font-family: 'Playfair Display', serif; 
+    font-size: 3rem;
+    font-weight: 500;
+    color: #ffffff;
+    margin-bottom: 60px;
+    position: relative;
+}
+
+.contentWrapper {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: flex-start;
+}
+
+/* --- LEFT COLUMN (STICKY IMAGE) --- */
+.leftStickyColumn {
+    width: 40%;
+    height: 100vh; 
+    position: sticky;
+    top: 50px;
+    margin-left: -40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imageContainer {
+    position: relative;
+    width: 95%;
+    height: 600px;
+    max-width: 600px;
+    aspect-ratio: 4 / 3.5;
+    transform: translateX(20px);
+}
+
+.imageFrameWrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 5px solid rgb(142, 112, 64);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    border-radius: 0;
+    overflow: hidden;
+}
+
+.imageFrame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.imageFrame img {
+    width: 100%;
+    height: 100%;
+    border: 5px solid #c9a87c;
+    object-fit: cover; 
+}
+
+.visible {
+    opacity: 1;
+    z-index: 1;
+}
+
+.hidden {
+    opacity: 0;
+    z-index: 0;
+}
+
+.frameStands {
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% + 40px);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 8%;
+    box-sizing: border-box;
+    pointer-events: none;
+}
+
+.stand {
+    width: 50px;
+    height: 34px;
+    background-color: #e3d9c7;
+    border-radius: 6px 6px 0 0;
+    box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.05);
+    position: relative;
+    z-index: 2;
+}
+
+
+/* --- RIGHT COLUMN (SCROLLING TIMELINE) --- */
+.rightScrollingColumn {
+    width: 50%;
+    z-index: 5;
+    position: relative;
+    padding-top: 100px;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 140px; 
+    width: 100%;
+    padding-bottom: 200px; 
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 158px; 
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background-color: #d4c0a5;
+    z-index: 1;
+}
+
+.timelineItem {
+    min-height: 80vh; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    padding: 20px 0; 
+}
+
+.timelineNumberWrapper {
+    position: absolute;
+    left: -2px; 
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+}
+
+.timelineDot {
+    width: 12px;
+    height: 12px;
+    background-color: #fdfaf6;
+    border: 3px solid #d4c0a5;
+    border-radius: 50%;
+    transition: all 0.4s ease;
+    margin-left: 42px; 
+}
+
+.timelineItem.active .timelineDot {
+    opacity: 0; 
+}
+
+.timelineNumber {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.6rem; 
+    font-weight: bold;
+    margin-left: -65px; 
+    transition: all 0.4s ease;
+    background-color: #fdfaf6;
+    border: 1px solid #d4c0a5;
+    color: #888;
+}
+
+.timelineItem.active .timelineNumber {
+    background-color: #c9a87c;
+    color: white;
+    transform: scale(1.0);
+    border-color: #c9a87c;
+}
+
+.timelineContent {
+    padding-left: 100px; 
+    color: #555;
+    transform: translateY(-5px); 
+}
+
+.timelineContent .icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #c9a87c;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 0;
+}
+
+.timelineContent h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #ffdfbe;
+}
+
+.timelineContent p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 380px;
+    color: #ffffff;
+}
+
+/* === TABLET RESPONSIVE STYLES === */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .mainHeading {
+        font-size: 2.5rem;
+    }
+
+    .contentWrapper {
+        padding: 0 20px;
+    }
+
+    .leftStickyColumn {
+        width: 45%;
+    }
+
+    .frameStands {
+        padding: 0 6%;
+        top: -22px;
+        width: calc(100% + 20px);
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .stand {
+        width: 44px;
+        height: 28px;
+    }
+
+    .rightScrollingColumn {
+        width: 55%;
+        padding-top: 50px;
+    }
+
+    .timeline {
+        padding-left: 40px;
+    }
+
+    .timeline::before {
+        left: 58px;
+    }
+
+    .timelineItem {
+        min-height: 65vh;
+    }
+    
+    .timelineNumberWrapper {
+        left: -8px;
+    }
+
+    .timelineContent {
+        padding-left: 80px;
+    }
+
+    .timelineContent h3 {
+        font-size: 1.4rem;
+    }
+
+    .timelineContent p {
+        font-size: 0.95rem;
+        max-width: 100%;
+    }
+}
+
+
+/* --- MOBILE PORTRAIT STYLES --- */
+@media (max-width: 768px) {
+    .mainContainer {
+        padding: 0;
+        background-color: #fdfaf6;
+    }
+
+    .mainHeading {
+        font-size: 2rem;
+        margin-bottom: 30px;
+        padding-top: 40px;
+    }
+
+    .contentWrapper {
+        flex-direction: column;
+    }
+
+    .leftStickyColumn {
+        position: sticky;
+        top: 0;
+        left: 20px;
+        width: 100%;
+        height: 60vh;
+        @media (max-height: 600px) {
+             height: 50vh;
+        }
+        z-index: 10;
+        background-color: #fdfaf6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform: none;
+        box-shadow: none; 
+        padding-top: 0;
+    }
+
+    .imageContainer {
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        transform: none;
+        aspect-ratio: unset;
+    }
+    
+    .imageFrameWrapper {
+        border: none;
+    }
+
+    .imageFrame img {
+        width: 100%;
+        height: 100%;
+        border: none;
+        object-fit: cover;
+    }
+
+    .frameStands {
+       display: none;
+    }
+
+    .rightScrollingColumn {
+        width: 100%;
+        z-index: 5;
+        position: relative;
+        background-image: url('/images/BLUE.png');
+        padding: 0;
+        margin-top: -20px; 
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+    }
+
+    .timeline {
+        padding-left: 40px;
+        padding-top: 20px;
+    }
+
+    .timeline::before {
+        left: 48px;
+    }
+
+    .timelineItem {
+        min-height: 45vh;
+        padding: 20px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .timelineNumberWrapper {
+        left: -12px;
+    }
+
+    .timelineDot {
+        margin-left: 34px;
+    }
+
+    .timelineNumber {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+        margin-left: -50px;
+    }
+
+    .timelineContent {
+        padding-left: 60px;
+        transform: translateY(0);
+    }
+
+    .timelineContent h3 {
+        font-size: 1.3rem;
+        color: #ffdfbe;
+    }
+
+    .timelineContent p {
+        font-size: 0.9rem;
+        max-width: 90%;
+        color: #ffffff;
+    }
+}
+
+/* Small phones (fix sticky image cropping & overlap) */
+@media (max-width: 360px) {
+    /* Keep sticky behavior with a fixed viewport-height area so image isn't over-cropped */
+    .leftStickyColumn {
+        position: sticky; /* ensure sticky remains */
+        top: 0; /* stick to top */
+        height: 80vh; /* fixed portion of viewport */
+        min-height: 260px;
+        max-height: 320px;
+        overflow: hidden; /* prevent internal overflow from exposing extra image */
+        align-items: center; /* center the image inside the sticky frame */
+        background-color: transparent;
+        z-index: 12;
+    }
+
+    /* Make the image container fully fill the sticky area */
+    .imageContainer {
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        aspect-ratio: unset;
+        transform: none;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .imageFrameWrapper {
+        border: none;
+        box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+        height: 100%;
+    }
+
+    /* Favor the upper portion of the image while keeping cover behaviour */
+    .imageFrame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 25%; /* show upper center area */
+        border: none;
+    }
+
+    /* Ensure the right column starts after the sticky image area */
+    .rightScrollingColumn {
+        margin-top: 0;
+        padding-top: 45vh; /* push content below the sticky image */
+    }
+
+    .timeline {
+        padding-top: 12px;
+    }
+}
+
+/* === LANDSCAPE MOBILE STYLES === */
+/* Yeh naya code hai jo mobile ko horizontal karne par apply hoga */
+@media (max-width: 900px) and (orientation: landscape) {
+    
+    .mainContainer {
+        padding: 40px 0; /* Original padding wapas laaye */
+    }
+
+    .mainHeading {
+        font-size: 2.2rem;
+        margin-bottom: 40px;
+        padding-top: 0;
+    }
+
+    .contentWrapper {
+        flex-direction: row; /* Columns ko side-by-side karega */
+        padding: 0 20px;
+    }
+
+    /* Left column ko wapas desktop jaisa banayega */
+    .leftStickyColumn {
+        position: sticky;
+        top: 20px; /* Thoda neeche stick karega */
+        width: 45%;
+        height: 100vh;
+        background-color: transparent;
+        z-index: auto;
+    }
+
+    /* Image container ko bhi desktop jaisa banayega */
+    .imageContainer {
+        width: 95%;
+        height: auto; /* Height auto rakhein taki aspect ratio kaam kare */
+        max-width: 450px;
+        transform: translateX(0);
+        aspect-ratio: 4 / 3.5;
+    }
+
+    .imageFrameWrapper {
+        border: 5px solid rgb(142, 112, 64); /* Border wapas laaye */
+    }
+    
+    .imageFrame img {
+        border: 5px solid #c9a87c; /* Image border wapas laaye */
+    }
+
+    .frameStands {
+        display: flex; /* Stands ko wapas dikhaye */
+    }
+    
+    /* Right column ko wapas desktop jaisa banayega */
+    .rightScrollingColumn {
+        width: 55%;
+        margin-top: 0;
+        border-radius: 0;
+        background-image: none; /* Background main container se aayega */
+        padding-top: 50px;
+    }
+    
+    .timeline {
+        padding-left: 40px;
+        padding-top: 0;
+    }
+    
+    .timeline::before {
+        left: 58px;
+    }
+
+    .timelineItem {
+        min-height: 60vh; /* Thodi height adjust karein */
+    }
+
+    .timelineContent h3, .timelineContent p {
+        color: #ffffff; /* Text color wapas white karein */
+    }
+}

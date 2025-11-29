@@ -1,0 +1,36 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.922.0",
+  "@aws-sdk/s3-request-presigner": "^3.922.0",
+    "@emailjs/browser": "^4.4.1",
+    "@heroicons/react": "^2.0.18",
+    "@sanity/image-url": "^1.2.0",
+    "@sanity/vision": "^4.10.2",
+    "formidable": "^3.5.4",
+    "framer-motion": "^12.23.22",
+    "mongoose": "^8.19.1",
+    "next": "15.5.3",
+    "next-auth": "^5.0.0-beta.29",
+    "next-sanity": "^11.4.2",
+    "nodemailer": "^6.10.1",
+    "prop-types": "^15.8.1",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-icons": "^5.5.0",
+    "sanity": "^4.10.2",
+    "styled-components": "^6.1.19"
+  },
+  "devDependencies": {
+    "@next/bundle-analyzer": "^16.0.1",
+    "cross-env": "^10.1.0",
+    "dotenv": "^17.2.3"
+  }
+}

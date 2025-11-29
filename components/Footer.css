@@ -1,0 +1,109 @@
+.site-footer {
+    background-color: #213346;
+    color: #ffffff;
+    padding: 60px 20px;
+    font-family: sans-serif;
+}
+.footer-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    gap: 40px;
+    text-align: left;
+}
+.footer-logo {
+    margin-bottom: 20px;
+}
+.footer-about p {
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 455px;
+    margin-bottom: 20px;
+}
+.social-links {
+    display: flex;
+    gap: 20px;
+}
+.social-links a img {
+    width: 24px;
+    height: 24px;
+}
+.footer-links h3, .footer-contact h3 {
+    /* Use Poppins for footer headings only */
+    font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.footer-links li {
+    margin-bottom: 15px;
+}
+.footer-links a, .footer-contact a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+}
+.footer-contact p, .footer-contact address {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    font-style: normal;
+}
+@media (max-width: 992px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .footer-about, .footer-links, .footer-contact {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .footer-about p {
+        text-align: center;
+    }
+}
+
+.footer-credits {
+    margin: 12px auto 0;
+    max-width: 1280px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+    text-align: center;
+}
+.footer-credits strong {
+    font-weight: 600;
+}
+
+/* Extra small mobile screens fix for footer text */
+@media (max-width: 480px) {
+
+    .footer-about p {
+        max-width: 100% !important;   /* no 455px limit */
+        width: 100%;
+        padding: 0 20px;              /* even left-right spacing */
+        text-align: center !important;
+        margin: 0 auto 20px;          /* perfect centering */
+        line-height: 1.6;
+    }
+
+    .footer-contact p,
+    .footer-contact address {
+        max-width: 100% !important;
+        padding: 0 20px;
+        text-align: center !important;
+    }
+
+    .footer-links ul {
+        padding: 0;
+    }
+}
