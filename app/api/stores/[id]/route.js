@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '../../../../lib/dbConnect';
 import Store from '../../../../models/Store';
-import { auth } from '../../../../app/api/auth/[...nextauth]/route';
+import { auth } from '../../auth/[...nextauth]/route';
 
 export async function PUT(request, context) {
   // In Next.js App Router dynamic API routes, params may be async - await them if needed

@@ -13,7 +13,7 @@ export async function GET() {
 }
 
 export async function POST(request) {
-  const { auth } = await import('../../../app/api/auth/[...nextauth]/route');
+  const { auth } = await import('../auth/[...nextauth]/route');
   const session = await auth();
   if (!session) return NextResponse.json({ success: false, message: 'Not authenticated' }, { status: 401 });
 

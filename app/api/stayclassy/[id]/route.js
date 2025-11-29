@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '../../../../lib/dbConnect';
 import StayClassyImage from '../../../../models/StayClassyImage';
-import { auth } from '../../../../app/api/auth/[...nextauth]/route';
+import { auth } from '../../auth/[...nextauth]/route';
 
 export async function PUT(request, context) {
   const { params } = context;
