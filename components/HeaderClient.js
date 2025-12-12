@@ -39,13 +39,13 @@ export default function HeaderClient() {
               <div className={styles.navCenter}>
                   <div className={styles.navGroup}>
                       {session && session.user && session.user.role === 'admin' && (
-                        <Link href="/admin" className={styles.navLink} style={{ marginRight: 12 }}>Admin</Link>
+                        <Link href="/admin" prefetch className={styles.navLink} style={{ marginRight: 12 }}>Admin</Link>
                       )}
-                      <Link href="/" className={navLinkClass('/')}>Home</Link>
-                      <Link href="/collection" className={navLinkClass('/collection')}>Collections</Link>
+                      <Link href="/" prefetch className={navLinkClass('/')}>Home</Link>
+                      <Link href="/collection" prefetch className={navLinkClass('/collection')}>Collections</Link>
                   </div>
 
-                  <Link href="/" className={styles.navLogo}>
+                  <Link href="/" prefetch className={styles.navLogo}>
                     <Image
                         src="/images/yaritu_logo_black.svg"
                         alt="Yaritu Logo"
@@ -56,9 +56,9 @@ export default function HeaderClient() {
                   </Link>
 
                   <div className={styles.navGroup}>
-                      <Link href="/about" className={navLinkClass('/about')}>About</Link>
-                      <Link href="/contact" className={navLinkClass('/contact')}>Contact</Link>
-                      <Link href="/review" className={navLinkClass('/review')}>Reviews</Link>
+                      <Link href="/about" prefetch className={navLinkClass('/about')}>About</Link>
+                      <Link href="/contact" prefetch className={navLinkClass('/contact')}>Contact</Link>
+                      <Link href="/review" prefetch className={navLinkClass('/review')}>Reviews</Link>
                       {/* admin quick links removed from right-side navbar - single Admin button moved to left */}
                       {session && (
                         <button onClick={() => signOut({ callbackUrl: '/' })} className={`${styles.navLink} ${styles.logoutButton}`}>
@@ -67,7 +67,7 @@ export default function HeaderClient() {
                       )}
                   </div>
               </div>
-              <Link href="/offer" className={styles.navOffers}>
+              <Link href="/offer" prefetch className={styles.navOffers}>
                   <Image src="/images/gift.svg" alt="Hot Sale Icon" className={styles.offerIcon} width={30} height={30} />
                   <span>OFFERS</span>
               </Link>
@@ -86,14 +86,14 @@ export default function HeaderClient() {
              <Image src="/images/yaritu_logo_black.svg" alt="Yaritu" width={90} height={66} style={{ width: 'auto', height: 'auto' }} />
            </Link>
          </div>
-          <Link href="/" className={styles.mobileNavLink} onClick={closeMenu}>Home</Link>
-          <Link href="/collection" className={styles.mobileNavLink} onClick={closeMenu}>Collections</Link>
-          <Link href="/about" className={styles.mobileNavLink} onClick={closeMenu}>About</Link>
-          <Link href="/contact" className={styles.mobileNavLink} onClick={closeMenu}>Contact</Link>
-          <Link href="/review" className={styles.mobileNavLink} onClick={closeMenu}>Reviews</Link>
-          <Link href="/offer" className={styles.mobileNavLink} onClick={closeMenu}>Offers</Link>
+          <Link href="/" prefetch className={styles.mobileNavLink} onClick={closeMenu}>Home</Link>
+          <Link href="/collection" prefetch className={styles.mobileNavLink} onClick={closeMenu}>Collections</Link>
+          <Link href="/about" prefetch className={styles.mobileNavLink} onClick={closeMenu}>About</Link>
+          <Link href="/contact" prefetch className={styles.mobileNavLink} onClick={closeMenu}>Contact</Link>
+          <Link href="/review" prefetch className={styles.mobileNavLink} onClick={closeMenu}>Reviews</Link>
+          <Link href="/offer" prefetch className={styles.mobileNavLink} onClick={closeMenu}>Offers</Link>
           {session && session.user && session.user.role === 'admin' && (
-            <Link href="/admin" className={styles.mobileNavLink} onClick={closeMenu}>Admin</Link>
+            <Link href="/admin" prefetch className={styles.mobileNavLink} onClick={closeMenu}>Admin</Link>
           )}
           {session && (
             <button onClick={() => { signOut({ callbackUrl: '/' }); closeMenu(); }} className={`${styles.mobileNavLink} ${styles.mobileLogoutButton}`}>

@@ -1,3 +1,30 @@
+# --- YARITU project ignores ---
+# Node and Next.js
+node_modules/
+.next/
+.vercel/
+
+# Local environment and secrets
+.env
+.env.local
+.env.*
+.envrc
+
+# Logs and caches
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.DS_Store
+
+# Misc build artifacts
+dist/
+out/
+coverage/
+
+# Editor
+.vscode/
+.idea/
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies

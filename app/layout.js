@@ -10,6 +10,7 @@ import Analytics from '../components/Analytics';
 import './globals.css';
 import WhatsAppChat from '../components/WhatsAppChat';
 import { WHATSAPP_NUMBER } from '../lib/siteConfig';
+import RouteEffect from '../components/RouteEffect';
 
 // --- Font Definitions (Yeh code waisa hi rahega) ---
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '600'], display: 'swap', variable: '--font-poppins' });
@@ -49,6 +50,8 @@ gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', { send_page_view: false${proc
 
         <Providers session={session}>
           <Header /> {/* <-- Header ab Providers ke bahar hai */}
+          {/* Small top progress bar to signal fast navigation */}
+          <RouteEffect />
           <main>
             {children}
           </main>
