@@ -60,6 +60,48 @@ const collectionTitleRef = useRef(null);
 const collectionContentRef = useRef(null);
 const dropdownsContainerRef = useRef(null);
 
+// Helper to compute filtered products immediately from a given source list
+const computeFiltered = (source) => {
+    const src = Array.isArray(source) ? source : [];
+    let products = [];
+    if (activeCategory === 'ALL') {
+        products = src.slice();
+    } else {
+        products = src.filter(p => (p.category || '').toUpperCase() === activeCategory);
+    }
+    if (activeSubcategory) {
+        const sub = activeSubcategory.toString().toUpperCase();
+        if (activeCategory === 'CHILDREN') {
+            products = products.filter(p => {
+                const group = (p.childCategory || p.collectionGroup || '').toString().toUpperCase();
+                if (activeType) {
+                    const t = (p.collectionType || p.type || '').toString().toUpperCase();
+                    const typeMatches = (t === activeType.toUpperCase());
+                    return (group === sub && typeMatches);
+                }
+                return group === sub;
+            });
+        } else {
+            products = products.filter(p => ((p.collectionType || p.type || '').toUpperCase() === sub));
+        }
+    }
+    if (activeType) {
+        const t = activeType.toUpperCase();
+        products = products.filter(p => ((p.collectionType || p.type || '').toUpperCase() === t));
+    } else if (activeOccasion) {
+        const wanted = activeOccasion.toString().toUpperCase();
+        products = products.filter(p => {
+            const occ = p.occasion;
+            if (!occ) return false;
+            if (Array.isArray(occ)) {
+                return occ.some(o => (o || '').toString().toUpperCase() === wanted);
+            }
+            return (occ || '').toString().toUpperCase() === wanted;
+        });
+    }
+    return products;
+};
+
 useEffect(() => {
     if (!activeCategory && !jewelleryMode) {
         setFilteredProducts([]);
@@ -80,18 +122,18 @@ useEffect(() => {
                 const group = (p.childCategory || p.collectionGroup || '').toString().toUpperCase();
                 if (activeType) {
                     const t = (p.collectionType || p.type || '').toString().toUpperCase();
-                    const typeMatches = (t === activeType.toUpperCase()) || (p.description || '').toUpperCase().includes(activeType.toUpperCase());
-                    return (group === sub && typeMatches) || (!group && typeMatches);
+                    const typeMatches = (t === activeType.toUpperCase());
+                    return (group === sub && typeMatches);
                 }
-                return group === sub || (p.description || '').toUpperCase().includes(sub);
+                return group === sub;
             });
         } else {
-            products = products.filter(p => ((p.collectionType || p.type || '').toUpperCase() === sub) || ((p.description||'').toUpperCase().includes(sub)));
+            products = products.filter(p => ((p.collectionType || p.type || '').toUpperCase() === sub));
         }
     }
     if (activeType) {
         const t = activeType.toUpperCase();
-        products = products.filter(p => ((p.collectionType || p.type || '').toUpperCase() === t) || ((p.description||'').toUpperCase().includes(t)) || ((p.title||p.name||'').toUpperCase().includes(t)));
+        products = products.filter(p => ((p.collectionType || p.type || '').toUpperCase() === t));
     } else if (activeOccasion) {
         const wanted = activeOccasion.toString().toUpperCase();
         products = products.filter(p => {
@@ -458,11 +500,18 @@ const handleSaveCollection = (savedData, metaData) => {
             list.splice(matchIndex, 1, savedWithCache);
             const updated = [list[matchIndex], ...list.slice(0, matchIndex), ...list.slice(matchIndex + 1)];
             try { localStorage.setItem(COLLECTIONS_CACHE_KEY, JSON.stringify(updated)); } catch (_) {}
+            // Immediately re-filter the visible list so items move sections right away
+            const nextFiltered = computeFiltered(updated);
+            setFilteredProducts(nextFiltered);
+            setCurrentPage(1);
             return updated;
         }
         const filtered = list.filter(c => c._id !== savedWithCache._id);
         const updated = [savedWithCache, ...filtered];
         try { localStorage.setItem(COLLECTIONS_CACHE_KEY, JSON.stringify(updated)); } catch (_) {}
+        const nextFiltered = computeFiltered(updated);
+        setFilteredProducts(nextFiltered);
+        setCurrentPage(1);
         return updated;
     });
 };
@@ -677,19 +726,19 @@ return (
                                 const group = (p.childCategory || p.collectionGroup || '').toString().toUpperCase();
                                 if (activeType) {
                                     const t = (p.collectionType || p.type || '').toString().toUpperCase();
-                                    const typeMatches = (t === activeType.toUpperCase()) || (p.description || '').toUpperCase().includes(activeType.toUpperCase());
-                                    return (group === sub && typeMatches) || (!group && typeMatches);
+                                    const typeMatches = (t === activeType.toUpperCase());
+                                    return (group === sub && typeMatches);
                                 }
-                                return group === sub || (p.description || '').toUpperCase().includes(sub);
+                                return group === sub;
                             });
                         } else {
-                            items = items.filter(p => ((p.collectionType || p.type || '').toUpperCase() === sub) || ((p.description||'').toUpperCase().includes(sub)));
+                            items = items.filter(p => ((p.collectionType || p.type || '').toUpperCase() === sub));
                         }
                     }
 
                     if (activeType) {
                         const t = activeType.toUpperCase();
-                        items = items.filter(p => ((p.collectionType || p.type || '').toUpperCase() === t) || ((p.description||'').toUpperCase().includes(t)) || ((p.title||p.name||'').toUpperCase().includes(t)));
+                        items = items.filter(p => ((p.collectionType || p.type || '').toUpperCase() === t));
                     } else if (activeOccasion) {
                         const wanted = activeOccasion.toString().toUpperCase();
                         items = items.filter(p => {

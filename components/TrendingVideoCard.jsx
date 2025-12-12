@@ -59,7 +59,15 @@ export default function TrendingVideoCard({ item, onUpdate }) {
   return (
     <div style={{ width: 220, padding: 8, background: '#fff', borderRadius: 8, boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
       <div style={{ height: 120, background: '#000', borderRadius: 6, overflow: 'hidden', marginBottom: 8 }}>
-        <video src={item.videoUrl} style={{ width: '100%', height: '100%', objectFit: 'cover' }} muted loop />
+        <video
+          src={item.videoUrl}
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster={item.posterUrl || undefined}
+        />
       </div>
       <div style={{ display: 'flex', gap: 8 }}>
         <button onClick={() => setIsOpen(true)}>Edit</button>

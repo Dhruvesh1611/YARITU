@@ -133,6 +133,11 @@ export async function POST(request) {
     // have a URL. This prevents saving empty strings or undefined which
     // trigger Mongoose `required` validation.
     const newCollectionData = { ...fields };
+    // Map frontend 'collectionGroup' (BOYS/GIRLS) to model 'childCategory'
+    if (fields.collectionGroup && !fields.childCategory) {
+      newCollectionData.childCategory = fields.collectionGroup;
+      delete newCollectionData.collectionGroup;
+    }
     // Normalize 'occasion' so server accepts both string and array inputs.
     // Frontend may send: ["HALDI","SANGEET"] or a single string or a JSON string.
     if (fields.occasion !== undefined) {

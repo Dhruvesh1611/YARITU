@@ -72,7 +72,14 @@ export default function CelebrityVideoCard({ item, onUpdate, onDelete }) {
     <>
       <div className="video-card">
         <div className="video-thumbnail">
-          <video src={item.videoUrl} muted loop playsInline />
+          <video
+            src={item.videoUrl}
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster={item.posterUrl || undefined}
+          />
         </div>
         <div className="card-footer">
             <p className="card-title">{item.title || 'Untitled'}</p>

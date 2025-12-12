@@ -52,6 +52,11 @@ export async function PUT(request, { params }) {
     }
 
     const updateData = { ...fields, updatedAt: new Date() };
+    // Map 'collectionGroup' to 'childCategory' for children docs
+    if (fields.collectionGroup) {
+      updateData.childCategory = fields.collectionGroup;
+      delete updateData.collectionGroup;
+    }
     
     if (files.mainImage) {
     const mainImageFile = files.mainImage;

@@ -184,10 +184,11 @@ const ImageSlider = () => {
                                                 alt={image.alt || 'Featured image'}
                                                 fill
                                                 sizes="(max-width: 768px) 50vw, 33vw"
-                                                className={`${styles.image} ${styles.initialHidden}`} // InitialHidden class diya
+                                                className={`${styles.image} ${styles.initialHidden}`}
                                                 priority={image.position === 'center'}
+                                                loading={image.position === 'center' ? undefined : 'lazy'}
+                                                placeholder="empty"
                                                 onLoadingComplete={(img) => {
-                                                    // ✅ FIX: Image load hone par CSS class add karo
                                                     try { img.classList.add(styles.loaded); } catch (err) { }
                                                 }}
                                             />

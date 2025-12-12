@@ -53,8 +53,27 @@ export default function ProductCard({ product, isAdmin, onProductClick, onEdit, 
             return url;
         }
     };
+    // Generate a tiny blurred placeholder for fast perceived load
+    const makeBlurUrl = (url) => {
+        try {
+            if (!url || typeof url !== 'string') return null;
+            const cloudinaryHost = 'res.cloudinary.com';
+            const u = new URL(url);
+            if (!u.hostname.includes(cloudinaryHost)) return null;
+            const parts = u.pathname.split('/upload/');
+            if (parts.length < 2) return null;
+            const before = parts[0];
+            const after = parts[1];
+            const transform = `q_1,w_16,e_blur:2000`;
+            const newPath = `${before}/upload/${transform}/${after}`;
+            return `${u.protocol}//${u.host}${newPath}`;
+        } catch (e) {
+            return null;
+        }
+    };
 
     const displayUrl = imageUrl ? enhanceCloudinaryUrl(imageUrl, 800) : null;
+    const blurUrl = imageUrl ? makeBlurUrl(imageUrl) : null;
 
     const isPending = !!product.isPending;
     const imagePending = !!product.imagePending;
@@ -235,6 +254,9 @@ export default function ProductCard({ product, isAdmin, onProductClick, onEdit, 
                             className={styles['product-image']}
                             width={300}
                             height={349}
+                            sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                            placeholder={blurUrl ? 'blur' : undefined}
+                            blurDataURL={blurUrl || undefined}
                             // we rely on Cloudinary-delivered image quality; keep Next's optimization
                             // disabled in dev via next.config, so requesting a higher-quality Cloudinary
                             // variant ensures the thumbnail is crisp on high-DPR screens.

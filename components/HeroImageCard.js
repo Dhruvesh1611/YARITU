@@ -121,7 +121,15 @@ export default function HeroImageCard({ item, onUpdate, onDelete }) {
   return (
     <>
       <div className="hero-card-container">
-        <Image src={item.imageUrl} alt={item.title || 'hero'} fill sizes="(max-width: 480px) 100vw, 300px" className="hero-card-image" />
+        <Image
+          src={item.imageUrl}
+          alt={item.title || 'hero'}
+          fill
+          sizes="(max-width: 480px) 100vw, 300px"
+          className="hero-card-image"
+          priority={false}
+          loading="lazy"
+        />
         {session && (
           <button onClick={() => setIsOpen(true)} className="edit-button">Edit</button>
         )}
