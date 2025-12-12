@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 export default function StoreImageGalleryClient({ images = [], alt = 'Store image', className, style, intervalMs = 1000, eager = false }) {
   const validImages = Array.isArray(images) ? images.filter(Boolean) : [];
@@ -21,24 +21,34 @@ export default function StoreImageGalleryClient({ images = [], alt = 'Store imag
   }
 
   const current = validImages[Math.min(idx, validImages.length - 1)];
+  const imgRef = useRef(null);
 
   // When source changes, mark not yet loaded to trigger fade-in
   useEffect(() => {
     setLoaded(false);
+    // If the image is already cached and complete, flip loaded immediately
+    const img = imgRef.current;
+    if (img && img.complete) {
+      // Some browsers report complete but haven't fired onload; ensure visible
+      setLoaded(true);
+    }
   }, [current]);
 
   if (!current) return null;
 
   return (
     <img
+      key={current}
+      ref={imgRef}
       src={current}
       alt={alt}
       className={className}
-      style={{ ...style, width: '100%', height: '100%', objectFit: 'cover', display: 'block', opacity: loaded ? 1 : 0, transition: 'opacity 260ms ease', willChange: 'opacity, transform' }}
+      style={{ ...style, width: '100%', height: '100%', objectFit: 'cover', display: 'block', opacity: loaded ? 1 : 0.01, transition: 'opacity 200ms ease', willChange: 'opacity, transform' }}
       loading={eager ? 'eager' : 'lazy'}
       decoding="async"
       fetchPriority={eager ? 'high' : 'auto'}
       onLoad={() => setLoaded(true)}
+      onError={() => setLoaded(true)}
     />
   );
 }
