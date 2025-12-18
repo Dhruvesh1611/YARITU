@@ -1,4 +1,4 @@
-# Yaritu (Frontend)
+# Yaritu 
 
 This repository contains the frontend for the Yaritu project — a Next.js App Router application used to showcase and manage a curated clothing & jewellery rental catalogue.
 
@@ -34,13 +34,17 @@ Open http://localhost:3000 in your browser.
 - GA4: set `NEXT_PUBLIC_GA_ID` to enable Google Analytics (we added `app/lib/gtag.js` and script injection in `app/layout.js`).
 - CDN caching: public read-only API endpoints export `revalidate = 60` and send `Cache-Control: s-maxage=60, stale-while-revalidate=300` headers.
 
-## Screenshots / previews
+## Screenshots / previews for desktop
 
-Below are a couple of lightweight previews to help you get started. (SVGs are included in `docs/`.)
+Below are a couple of lightweight previews to help you get started.
 
-![Yaritu Preview 1](./docs/readme-1.svg)
+![Yaritu Preview 1](./docs/readme-1.png)
 
-![Yaritu Preview 2](./docs/readme-2.svg)
+## Screenshots / previews for mobile
+
+Below are a couple of lightweight previews to help you get started. 
+
+![Yaritu Preview 2](./docs/readme-2.png)
 
 ## Deploying
 
