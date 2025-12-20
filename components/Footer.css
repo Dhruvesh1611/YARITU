@@ -1,109 +1,269 @@
-.site-footer {
-    background-color: #213346;
-    color: #ffffff;
-    padding: 60px 20px;
-    font-family: sans-serif;
+/* =========================
+   SECTION: Collection Section
+========================= */
+.collection-section {
+  padding-top: 80px;
+  padding-bottom: 80px;
 }
-.footer-container {
-    max-width: 1280px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 2fr 1fr 2fr;
-    gap: 40px;
-    text-align: left;
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 60px;
+  text-align: center;
+  color: var(--button-bg);
+  margin-bottom: 40px;
 }
-.footer-logo {
-    margin-bottom: 20px;
+
+.section-title .highlight {
+  color: var(--brand-accent);
 }
-.footer-about p {
-    font-size: 16px;
-    line-height: 1.6;
-    max-width: 455px;
-    margin-bottom: 20px;
+
+.divider {
+  border: 0;
+  border-top: 2px solid #000;
+  width: 85%;
+  margin: 0 auto;
 }
-.social-links {
+
+/* =========================
+   SECTION: Category Buttons
+========================= */
+.category-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  margin: 70px 0;
+  flex-wrap: wrap;
+}
+
+.category-button-container {
+  position: relative;
+}
+
+.category-button {
+  position: relative;
+  width: 220px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  background: radial-gradient(
+    circle at 80% 50%,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(44, 62, 80, 0.95) 60%,
+    #25384d 100%
+  );
+  box-shadow: 0 4px 15px rgba(44, 62, 80, 0.3), 0 1.5px 0 #fff inset;
+  text-decoration: none;
+  border: none;
+  color: #eaf1fa;
+  font-size: 18px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s cubic-bezier(.4, 0, .2, 1);
+  overflow: hidden;
+}
+
+.category-button::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 70%;
+  height: 100%;
+  background: radial-gradient(
+    circle at 80% 40%,
+    rgba(255, 255, 255, 0.13) 0%,
+    rgba(255, 255, 255, 0.01) 80%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* =========================
+   DROPDOWN MENU
+========================= */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  background: radial-gradient(circle at 50% 50%, #5a7ca7 0%, #213346 100%);
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 10px;
+  z-index: 10;
+  justify-content: space-around;
+  opacity: 0;
+  visibility: hidden;
+  transition: none;
+}
+
+.category-button-container.open .dropdown-menu {
+  display: flex;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.dropdown-column h4 {
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  font-family: 'Poppins', sans-serif;
+  color: #c5a46d; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdown-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dropdown-column a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+/* =========================
+   Product Grid & Card Styling
+========================= */
+.product-grid {
+  display: grid;
+  gap: 28px;
+  justify-content: center;
+}
+
+.product-grid.grid-view {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.product-card {
+  background-color: #fff;
+  border: 1px solid #c5a46d;
+  padding: 1px;
+  width: 300px;
+}
+
+/* =========================
+   Desktop Media Query
+========================= */
+@media (min-width: 769px) {
+  .category-button-container:not(.noHover):hover .dropdown-menu {
     display: flex;
-    gap: 20px;
-}
-.social-links a img {
-    width: 24px;
-    height: 24px;
-}
-.footer-links h3, .footer-contact h3 {
-    /* Use Poppins for footer headings only */
-    font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    font-weight: 600;
-    font-size: 18px;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-}
-.footer-links ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-.footer-links li {
-    margin-bottom: 15px;
-}
-.footer-links a, .footer-contact a {
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 14px;
-}
-.footer-contact p, .footer-contact address {
-    font-size: 14px;
-    line-height: 1.6;
-    margin-bottom: 15px;
-    font-style: normal;
-}
-@media (max-width: 992px) {
-    .footer-container {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-    .footer-about, .footer-links, .footer-contact {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    .footer-about p {
-        text-align: center;
-    }
+    opacity: 1;
+    margin-left: 0; /* Desktop center */
+    visibility: visible;
+  }
 }
 
-.footer-credits {
-    margin: 12px auto 0;
-    max-width: 1280px;
-    padding-top: 12px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.6);
+/* =========================
+   Mobile (<=768px) - FINAL TESTED FIX
+========================= */
+/* =========================
+   Mobile (<=768px) - FOOLPROOF CENTER FIX
+========================= */
+@media (max-width: 768px) {
+  /* 1. Parent containers ki extra padding/margin ko force-reset karein */
+  .collection-section, .container, .category-buttons {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+
+  .category-buttons {
+    gap: 15px;
+    margin: 40px 0 30px;
+    flex-direction: column;
+    align-items: center; 
+  }
+  
+  .category-button-container {
+    /* Isse static karne se dropdown screen ke relative center hoga, button ke nahi */
+    position: static !important; 
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .category-button {
+    width: 220px;
+    height: 40px;
+    font-size: 16px;
+    z-index: 11;
+  }
+
+  /* 2. Dropdown Fix: Screen-based Centering */
+  .category-button-container .dropdown-menu {
+    position: absolute !important; 
+    /* Screen ke bilkul beech mein lane ke liye */
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    
+    /* Button ke thoda niche dikhane ke liye */
+    margin-top: 10px; 
+    
+    /* Width logic: Screen ka 92% width occupy karega */
+    width: 92vw !important;      
+    max-width: 380px; 
+    
+    background: #213346;
+    border-radius: 12px;
+    padding: 20px 15px !important;
+    display: none;
+    box-sizing: border-box;
+    z-index: 1000;
+    
+    /* Columns alignment */
+    justify-content: space-around; 
+    gap: 10px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  }
+
+  /* Force display when open */
+  .category-button-container.open .dropdown-menu {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .dropdown-column {
+    flex: 1;
+    text-align: left;
+    min-width: 0; /* Text cutting rokne ke liye */
+  }
+
+  .dropdown-column h4 {
     font-size: 12px;
-    text-align: center;
-}
-.footer-credits strong {
-    font-weight: 600;
-}
+    margin-bottom: 10px;
+    color: #c5a46d;
+    white-space: normal;
+  }
 
-/* Extra small mobile screens fix for footer text */
-@media (max-width: 480px) {
-
-    .footer-about p {
-        max-width: 100% !important;   /* no 455px limit */
-        width: 100%;
-        padding: 0 20px;              /* even left-right spacing */
-        text-align: center !important;
-        margin: 0 auto 20px;          /* perfect centering */
-        line-height: 1.6;
-    }
-
-    .footer-contact p,
-    .footer-contact address {
-        max-width: 100% !important;
-        padding: 0 20px;
-        text-align: center !important;
-    }
-
-    .footer-links ul {
-        padding: 0;
-    }
+  .dropdown-column a {
+    font-size: 12px;
+    line-height: 1.4;
+    margin-bottom: 5px;
+    display: block;
+  }
 }

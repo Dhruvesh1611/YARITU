@@ -15,8 +15,8 @@ export default async function Page() {
         <div className={styles.container}>
           <h2>Admin Access Required</h2>
           <p>
-            Aap is page ko dekhne ke liye authorized nahi hain. Kripya ek admin account se{' '}
-            <Link href="/api/auth/signin">sign in</Link> karein.
+            This page is restricted to administrators. Please 
+            <Link href="/api/auth/signin"> login</Link> with an authorized account.{' '}
           </p>
         </div>
       </div>

@@ -41,11 +41,16 @@ export default function Footer() {
                 <address>Pruvachi Private Limited, 301, 3rd Floor, Shantam Complex, Near Amiras Hotel, Sarthana Jakatnaka, 395013, Surat, Gujarat, India</address>
             </div>
         </div>
-                <div className="footer-credits">
-                        <span>
-                            Website developed by <a href="https://www.instagram.com/shyaradhruvesh?igsh=Njl2OW9zb20yYnFy&utm_source=qr" target="_blank" rel="noopener noreferrer"><strong>Dhruvesh Shyara</strong></a>
-                        </span>
-                </div>
+                                <div className="footer-credits">
+                                               
+                                                <span className="footer-copyright">
+                                                    Copyright © 2020–2025 Yaritu Fashion All rights reserved.
+                                                </span><br /> 
+                                                <br/>
+                                                 <span className="dev-credit">
+                                                    Website developed by <a className="dev-link" href="https://www.instagram.com/shyaradhruvesh?igsh=Njl2OW9zb20yYnFy&utm_source=qr" target="_blank" rel="noopener noreferrer"><strong>Dhruvesh Shyara</strong></a>
+                                                </span>
+                                </div>
     </footer>
   );
 }

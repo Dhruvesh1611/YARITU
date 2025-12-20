@@ -130,6 +130,9 @@
   text-transform: uppercase;
   font-family: 'Poppins', sans-serif;
   color: var(--color-highlight); /* golden accent */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .dropdown-column ul {
@@ -647,8 +650,9 @@
 
   /* 2. Jab container open ho, toh use bada karo */
   .category-button-container.open {
-    width: 90vw; /* Screen ka 90% */
-    max-width: 500px; /* Ek max limit */
+    width: 94vw; /* Screen ka 94% */
+    max-width: 720px; /* Ek max limit */
+    margin: 0 auto; /* center the container on narrow screens */
   }
 
   /* 3. Button ki width ko fix rakho */
@@ -698,7 +702,7 @@
     width: 100%;      /* Container ki 100% width lo (jo open hone par 90vw hai) */
     max-width: 100%;  
     
-    margin: 12px 0 0 0; 
+    margin: 12px auto 0; /* center dropdown card under container */
     box-sizing: border-box; 
     z-index: 10;
     
@@ -725,6 +729,7 @@
     gap: 24px;
     align-items: flex-start;
     justify-content: space-between;
+    margin-left: 0; /* ensure no left offset; card will be centered by auto margins */
   }
 
   .category-button-container.open .dropdown-menu .dropdown-column,

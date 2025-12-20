@@ -201,6 +201,17 @@ Submitted on: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
                 {isSubmitting ? 'Sending...' : 'Send Message'}
               </button>
             </form>
+
+            <section className={styles.careerSection} aria-label="Career Enquiries">
+              <h3>Career Enquiries</h3>
+              <p>For all career related enquiries, please email/contact us at:</p>
+              <p>
+                <strong>Mail:</strong> <a href="mailto:hr@yaritu.com">hr@yaritu.com</a>
+                <br />
+                <strong>Contact No. :</strong> <a href="tel:+917990865614">+91 79908 65614</a>
+              </p>
+            </section>
+
           </div>
 
           <div className={styles.infoWrapper}>
