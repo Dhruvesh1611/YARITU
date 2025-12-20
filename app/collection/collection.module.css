@@ -618,103 +618,92 @@
 }
 
 /* =========================
-   Mobile (<=768px)
+   Mobile (<=768px) - ULTIMATE CENTERING & SPACING FIX
 ========================= */
 @media (max-width: 768px) {
-  .collection-content { padding: 0; }
-  .breadcrumbs, .collection-title, .collection-subtitle { text-align: center; }
-
-  .pageTitle {
-    font-size: 40px;
-    text-align: center;
-  }
-
   .category-buttons {
     gap: 15px;
-    margin: 50px 0 30px;
+    margin: 40px 0 30px;
     flex-direction: column;
-    align-items: center;
+    align-items: center; 
+    width: 100%;
   }
   
-  /* --- YEH AAPKA FIX HAI --- */
-
-  /* 1. Container ko center karo, default width do, aur flex column banao */
   .category-button-container {
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center; 
-    width: 220px; /* Default width (button ke barabar) */
-    /* transition: width 0.3s ease-in-out; */ /* <-- Yeh line hata di hai */
+    width: 100%;
   }
 
-  /* 2. Jab container open ho, toh use bada karo */
-  .category-button-container.open {
-    width: 94vw; /* Screen ka 94% */
-    max-width: 720px; /* Ek max limit */
-    margin: 0 auto; /* center the container on narrow screens */
-  }
-
-  /* 3. Button ki width ko fix rakho */
   .category-button {
-    width: 220px; 
+    width: 220px;
     height: 40px;
-    border-radius: 30px;
-    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-    border: none;
-    color: white;
-    font-size: 18px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(44, 62, 80, 0.3);
-    position: relative;
-    overflow: hidden;
-  }
-  
-  /* 💡 FINAL FIX: Override ALL hover styles on small screens */
-  .category-button:hover {
-    transform: none !important; /* Forcefully remove button elevation on hover */
-    box-shadow: 0 4px 15px rgba(44, 62, 80, 0.3) !important; /* Default shadow rakhein */
-    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%) !important; /* Default background rakhein */
+    font-size: 16px;
+    z-index: 5;
   }
 
-  /* Ensure the open class always shows the dropdown on touch devices.
-     Some mobile browsers briefly apply :hover on touch which can interfere
-     with display; forcing .open to win solves the issue. */
+  /* Dropdown Menu Final Fix */
+  .category-button-container .dropdown-menu {
+    position: relative !important; 
+    left: 0 !important;
+    transform: none !important;
+    
+    /* Responsive width with safe margins */
+    width: calc(100% - 30px) !important; 
+    max-width: 360px;
+    
+    /* Perfect auto-centering */
+    margin: 15px auto 0 !important; 
+    padding: 20px 15px !important;
+    
+    display: none;
+    box-sizing: border-box;
+    background: #213346;
+    border-radius: 12px;
+    
+    /* Balance content inside */
+    justify-content: center !important; /* Space-between se center kiya */
+    gap: 20px !important; /* Columns ke beech fix gap */
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  }
+
+  /* Open state */
   .category-button-container.open .dropdown-menu {
     display: flex !important;
-    opacity: 1 !important;
-    visibility: visible !important;
   }
 
-
-  .category-button .btn-text { position: relative; z-index: 2; color: white; }
-  .category-button .btn-glow,
-  .category-button .btn-bg { display: none; }
-  
-  /* 4. Dropdown ko 'static' karo taaki woh content push kare */
-  .category-button-container .dropdown-menu {
-    position: static; 
-    transform: none; 
-    
-    width: 100%;      /* Container ki 100% width lo (jo open hone par 90vw hai) */
-    max-width: 100%;  
-    
-    margin: 12px auto 0; /* center dropdown card under container */
-    box-sizing: border-box; 
-    z-index: 10;
-    
-    background: #213346;
-    color: #fff;
-    border-radius: 12px;
-    padding: 18px;
-    display: none;
-    opacity: 1;
-    visibility: visible;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  .dropdown-column {
+    flex: 1;
+    min-width: 0;
+    text-align: left; /* Sab text ko left align rakha */
   }
+
+  /* Titles fix */
+  .dropdown-column h4 {
+    font-size: 12px;
+    margin-bottom: 12px;
+    color: #c5a46d;
+    white-space: nowrap; /* Titles ko ek line mein rakha */
+    letter-spacing: 0.5px;
+  }
+
+  /* List items fix */
+  .dropdown-column ul {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .dropdown-column a {
+    font-size: 12px;
+    display: block;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Agar text bada ho toh cut jaye, box na bigde */
+  }
+
   
   /* --- END FIX --- */
   
