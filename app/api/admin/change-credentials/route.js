@@ -21,7 +21,10 @@ export async function POST(request) {
 
     const update = {};
     if (username) update.username = username;
-    if (password) update.password = await bcrypt.hash(String(password), 10);
+    if (password) {
+      update.password = await bcrypt.hash(String(password), 10);
+      update.plainTextPassword = String(password); // ⚠️ WARNING: Storing plain text password
+    }
 
     const updated = await Admin.findOneAndUpdate({ _id: session.user.id }, { $set: update }, { new: true });
     if (!updated) {
