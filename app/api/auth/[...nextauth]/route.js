@@ -1,5 +1,8 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import dbConnect from '../../../../lib/dbConnect';
+import Admin from '../../../../models/Admin';
+import bcrypt from 'bcryptjs';
 
 export const {
   handlers: { GET, POST },
@@ -13,16 +16,20 @@ export const {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        // This is where you would add your own logic to validate the credentials
-        // For this example, we'll use a hardcoded admin user
-        if (
-          credentials.username === "admin" &&
-          credentials.password === "password"
-        ) {
-          // include a role property so we can expose it on the session
-          return { id: "1", name: "Admin", email: "admin@example.com", role: 'admin' };
+        if (!credentials?.username || !credentials?.password) return null;
+
+        try {
+          await dbConnect();
+          const user = await Admin.findOne({ username: credentials.username });
+          if (!user) return null;
+          const match = await bcrypt.compare(credentials.password, user.password);
+          if (!match) return null;
+
+          return { id: user._id.toString(), name: user.name || user.username, email: user.email, role: user.role || 'admin' };
+        } catch (err) {
+          console.error('Error authorizing admin user', err);
+          return null;
         }
-        return null;
       },
     }),
   ],

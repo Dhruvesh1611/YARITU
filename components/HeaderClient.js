@@ -8,6 +8,7 @@ import styles from './Header.module.css';
 import { usePathname } from 'next/navigation';
 import { useUI } from '../contexts/UIProvider';
 import { useSession, signOut } from 'next-auth/react';
+import ChangeAdminCredentials from './ChangeAdminCredentials';
 
 export default function HeaderClient() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -39,7 +40,10 @@ export default function HeaderClient() {
               <div className={styles.navCenter}>
                   <div className={styles.navGroup}>
                       {session && session.user && session.user.role === 'admin' && (
-                        <Link href="/admin" prefetch className={styles.navLink} style={{ marginRight: 12 }}>Admin</Link>
+                        <>
+                          <Link href="/admin" prefetch className={styles.navLink} style={{ marginRight: 12 }}>Admin</Link>
+                          <ChangeAdminCredentials />
+                        </>
                       )}
                       <Link href="/" prefetch className={navLinkClass('/')}>Home</Link>
                       <Link href="/collection" prefetch className={navLinkClass('/collection')}>Collections</Link>

@@ -2,6 +2,10 @@ import { NextResponse } from 'next/server';
 import dbConnect from '../../../lib/dbConnect';
 import StayClassyImage from '../../../models/StayClassyImage';
 
+// Disable caching for this route
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export async function GET() {
   try {
     await dbConnect();

@@ -23,14 +23,7 @@ const StayClassy = () => {
   const isAdmin = !!(session?.user?.isAdmin || session?.user?.role === 'admin');
   const [metadata, setMetadata] = useState({});
 
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem('stayClassyMetadata');
-      if (saved) setMetadata(JSON.parse(saved));
-    } catch (e) {
-      console.error('Failed to read metadata from localStorage', e);
-    }
-  }, []);
+
 
   // Modal State
   const [editingIndex, setEditingIndex] = useState(null);
@@ -44,6 +37,37 @@ const StayClassy = () => {
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploadError, setUploadError] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch data from API on mount
+  useEffect(() => {
+    async function fetchStayClassyImages() {
+      try {
+        const res = await fetch('/api/stayclassy');
+        const json = await res.json();
+        if (json.success && json.data) {
+          // Convert array to object keyed by slot
+          const metaObj = {};
+          json.data.forEach(item => {
+            if (item.slot !== null && item.slot !== undefined) {
+              metaObj[item.slot] = {
+                imageUrl: item.imageUrl,
+                category: item.category,
+                collectionName: item.collectionName,
+                _id: item._id
+              };
+            }
+          });
+          setMetadata(metaObj);
+        }
+      } catch (e) {
+        console.error('Failed to fetch Stay Classy images', e);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchStayClassyImages();
+  }, []);
 
   const handleFlip = () => setIsFlipped(!isFlipped);
 
@@ -59,13 +83,7 @@ const StayClassy = () => {
     return () => { if (gridRef.current) observer.unobserve(gridRef.current); };
   }, []);
 
-  useEffect(() => {
-    try {
-      localStorage.setItem('stayClassyMetadata', JSON.stringify(metadata));
-    } catch (e) {
-      console.error('Failed to save metadata', e);
-    }
-  }, [metadata]);
+
 
   function openEdit(index) {
     const meta = metadata[index] || {};
@@ -108,7 +126,7 @@ const StayClassy = () => {
     return false;
   };
 
-  // UPDATED: Save function is now async to handle uploads
+  // UPDATED: Save function is now async to handle uploads and API
   const saveEdit = async () => {
     let newImageUrl = filePreview; // Start with the current preview URL
 
@@ -127,20 +145,59 @@ const StayClassy = () => {
         setUploading(false);
         return; // Stop the save process if upload fails
       }
-      setUploading(false);
     }
 
-    // Step 2: Save only the image URL (S3 or legacy remote URL). Keep existing category/collection data intact.
-    const existing = metadata[editingIndex] || {};
-    const next = {
-      ...metadata,
-      [editingIndex]: {
-        ...existing,
-  imageUrl: newImageUrl, // Save the new image URL (S3 or legacy remote)
-      },
-    };
-    setMetadata(next);
-    closeEdit();
+    // Step 2: Save to MongoDB via API
+    try {
+      const existing = metadata[editingIndex] || {};
+      const payload = {
+        imageUrl: newImageUrl,
+        category: category,
+        collectionName: collectionName,
+        slot: editingIndex
+      };
+
+      let response;
+      if (existing._id) {
+        // Update existing record
+        response = await fetch(`/api/stayclassy/${existing._id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } else {
+        // Create new record
+        response = await fetch('/api/stayclassy', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      }
+
+      if (!response.ok) throw new Error('Failed to save');
+      
+      const json = await response.json();
+      if (json.success && json.data) {
+        // Update local state
+        const next = {
+          ...metadata,
+          [editingIndex]: {
+            imageUrl: json.data.imageUrl,
+            category: json.data.category,
+            collectionName: json.data.collectionName,
+            _id: json.data._id
+          }
+        };
+        setMetadata(next);
+      }
+      
+      setUploading(false);
+      closeEdit();
+    } catch (error) {
+      console.error('Save error:', error);
+      setUploadError('Failed to save. Please try again.');
+      setUploading(false);
+    }
   };
 
   // Use shared presign helper for uploads

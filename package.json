@@ -17,6 +17,8 @@
     "formidable": "^3.5.4",
     "framer-motion": "^12.23.22",
     "mongoose": "^8.19.1",
+    "bcryptjs": "^2.4.3",
+    "minimist": "^1.2.8",
     "next": "^15.2.0",
     "next-auth": "^5.0.0-beta.29",
     "next-sanity": "^11.4.2",
