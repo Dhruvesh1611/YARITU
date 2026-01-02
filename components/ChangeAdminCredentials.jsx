@@ -8,6 +8,7 @@ export default function ChangeAdminCredentials() {
   const [open, setOpen] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
 
@@ -17,6 +18,14 @@ export default function ChangeAdminCredentials() {
     e.preventDefault();
     setLoading(true);
     setMessage(null);
+    
+    // Validate passwords match if password is being changed
+    if (password && password !== confirmPassword) {
+      setMessage({ type: 'error', text: 'Passwords not match' });
+      setLoading(false);
+      return;
+    }
+    
     try {
       const res = await fetch('/api/admin/change-credentials', {
         method: 'POST',
@@ -28,6 +37,7 @@ export default function ChangeAdminCredentials() {
         setMessage({ type: 'success', text: 'Credentials updated successfully' });
         setUsername('');
         setPassword('');
+        setConfirmPassword('');
         setOpen(false);
       } else {
         setMessage({ type: 'error', text: data?.error || 'Update failed' });
@@ -54,6 +64,9 @@ export default function ChangeAdminCredentials() {
 
               <label className={styles.label}>Password (leave blank to keep)</label>
               <input className={styles.input} type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+
+              <label className={styles.label}>Confirm Password</label>
+              <input className={styles.input} type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
 
               <div className={styles.actions}>
                 <button type="button" onClick={() => setOpen(false)} disabled={loading} className={styles.secondary}>Cancel</button>
