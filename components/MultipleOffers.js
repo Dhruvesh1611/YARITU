@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import './MultipleOffers.css';
@@ -23,6 +23,58 @@ const MultipleOffers = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [editingIndex, setEditingIndex] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const pointer = useRef({ startX: 0, startY: 0, isDown: false, moved: false });
+  const containerRef = useRef(null);
+
+  // Check if mobile
+  useEffect(() => {
+    const checkIsMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+    return () => window.removeEventListener('resize', checkIsMobile);
+  }, []);
+
+  // Swipe handlers for mobile only
+  const onPointerDown = (e) => {
+    if (!isMobile) return;
+    pointer.current.startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+    pointer.current.startY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+    pointer.current.isDown = true;
+    pointer.current.moved = false;
+  };
+
+  const onPointerMove = (e) => {
+    if (!isMobile || !pointer.current.isDown) return;
+    const currentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+    const currentY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+    const diffX = Math.abs(currentX - pointer.current.startX);
+    const diffY = Math.abs(currentY - pointer.current.startY);
+    
+    // Only consider it a swipe if horizontal movement is greater than vertical
+    if (diffX > 10) {
+      pointer.current.moved = true;
+    }
+  };
+
+  const onPointerUp = (e) => {
+    if (!isMobile || !pointer.current.isDown) return;
+    pointer.current.isDown = false;
+    
+    if (!pointer.current.moved) return;
+    
+    const endX = e.type.includes('touch') ? e.changedTouches[0].clientX : e.clientX;
+    const diffX = endX - pointer.current.startX;
+    const threshold = 50;
+    
+    if (diffX > threshold) {
+      // Swiped right - go to previous
+      setCurrentIndex((prevIndex) => (prevIndex - 1 + (offersState.length || 5)) % (offersState.length || 5));
+    } else if (diffX < -threshold) {
+      // Swiped left - go to next
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % (offersState.length || 5));
+    }
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -130,7 +182,16 @@ const MultipleOffers = () => {
       <h2 className="section-title">
         Multiple <span className="highlight">Offers</span>
       </h2>
-      <div className="offers-container">
+      <div 
+        className="offers-container"
+        ref={containerRef}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onTouchStart={onPointerDown}
+        onTouchMove={onPointerMove}
+        onTouchEnd={onPointerUp}
+      >
         {offersState.map((offer, index) => (
           <div
             key={offer.id}

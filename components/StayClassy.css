@@ -31,13 +31,13 @@
 
 .stay-classy-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
   width: 80vw;
   height: 80vw;
   max-width: 1000px;
   max-height: 800px;
-  gap: 2px;
+  gap: 1px;
 }
 
 .flip-card {
@@ -74,38 +74,28 @@
   background-size: 500% 500%;
 }
 
-/* Position the background image for each tile */
-.flip-card:nth-child(1) .flip-card-front { background-position: 0% 0%; }
-.flip-card:nth-child(2) .flip-card-front { background-position: 25% 0%; }
-.flip-card:nth-child(3) .flip-card-front { background-position: 50% 0%; }
-.flip-card:nth-child(4) .flip-card-front { background-position: 75% 0%; }
-.flip-card:nth-child(5) .flip-card-front { background-position: 100% 0%; }
+/* Position the background image for each tile - 4x4 grid centered */
+.flip-card:nth-child(1) .flip-card-front { background-position: 12.5% 12.5%; }
+.flip-card:nth-child(2) .flip-card-front { background-position: 37.5% 12.5%; }
+.flip-card:nth-child(3) .flip-card-front { background-position: 62.5% 12.5%; }
+.flip-card:nth-child(4) .flip-card-front { background-position: 87.5% 12.5%; }
 
-.flip-card:nth-child(6) .flip-card-front { background-position: 0% 25%; }
-.flip-card:nth-child(7) .flip-card-front { background-position: 25% 25%; }
-.flip-card:nth-child(8) .flip-card-front { background-position: 50% 25%; }
-.flip-card:nth-child(9) .flip-card-front { background-position: 75% 25%; }
-.flip-card:nth-child(10) .flip-card-front { background-position: 100% 25%; }
+.flip-card:nth-child(5) .flip-card-front { background-position: 12.5% 37.5%; }
+.flip-card:nth-child(6) .flip-card-front { background-position: 37.5% 37.5%; }
+.flip-card:nth-child(7) .flip-card-front { background-position: 62.5% 37.5%; }
+.flip-card:nth-child(8) .flip-card-front { background-position: 87.5% 37.5%; }
 
-.flip-card:nth-child(11) .flip-card-front { background-position: 0% 50%; }
-.flip-card:nth-child(12) .flip-card-front { background-position: 25% 50%; }
-.flip-card:nth-child(13) .flip-card-front { background-position: 50% 50%; }
-.flip-card:nth-child(14) .flip-card-front { background-position: 75% 50%; }
-.flip-card:nth-child(15) .flip-card-front { background-position: 100% 50%; }
+.flip-card:nth-child(9) .flip-card-front { background-position: 12.5% 62.5%; }
+.flip-card:nth-child(10) .flip-card-front { background-position: 37.5% 62.5%; }
+.flip-card:nth-child(11) .flip-card-front { background-position: 62.5% 62.5%; }
+.flip-card:nth-child(12) .flip-card-front { background-position: 87.5% 62.5%; }
 
-.flip-card:nth-child(16) .flip-card-front { background-position: 0% 75%; }
-.flip-card:nth-child(17) .flip-card-front { background-position: 25% 75%; }
-.flip-card:nth-child(18) .flip-card-front { background-position: 50% 75%; }
-.flip-card:nth-child(19) .flip-card-front { background-position: 75% 75%; }
-.flip-card:nth-child(20) .flip-card-front { background-position: 100% 75%; }
+.flip-card:nth-child(13) .flip-card-front { background-position: 12.5% 87.5%; }
+.flip-card:nth-child(14) .flip-card-front { background-position: 37.5% 87.5%; }
+.flip-card:nth-child(15) .flip-card-front { background-position: 62.5% 87.5%; }
+.flip-card:nth-child(16) .flip-card-front { background-position: 87.5% 87.5%; }
 
-.flip-card:nth-child(21) .flip-card-front { background-position: 0% 100%; }
-.flip-card:nth-child(22) .flip-card-front { background-position: 25% 100%; }
-.flip-card:nth-child(23) .flip-card-front { background-position: 50% 100%; }
-.flip-card:nth-child(24) .flip-card-front { background-position: 75% 100%; }
-.flip-card:nth-child(25) .flip-card-front { background-position: 100% 100%; }
-
-/* Mobile: switch to 4x4 grid and show a centered 4x4 crop of the logo */
+/* Mobile: keep 4x4 grid and show the central 4x4 area of the logo */
 @media (max-width: 768px) {
   .stay-classy-grid {
     grid-template-columns: repeat(4, 1fr);
@@ -114,38 +104,14 @@
     width: 92vw;
     height: 92vw;
     max-width: 420px;
-    max-height: 420px;
-    gap: 2px;
+    max-height: 336px;
+    gap: 0px;
   }
 
-  /* Hide the last row (tiles 17-25 in 5x5) so only the central 4x4 area shows */
-  /* If markup has 25 tiles, hide children beyond the 16th */
+  /* Hide tiles beyond the 16th (only show 4x4) */
   .stay-classy-grid .flip-card:nth-child(n+17) {
     display: none;
   }
-
-  /* Remap background positions for a centered 4x4 crop of the logo image.
-     We treat the original 5x5 background as 0-100% both axes; to center and crop,
-     we'll sample positions roughly between 12.5% and 87.5% so the logo sits in the middle. */
-  .flip-card:nth-child(1) .flip-card-front { background-position: 12.5% 12.5%; }
-  .flip-card:nth-child(2) .flip-card-front { background-position: 37.5% 12.5%; }
-  .flip-card:nth-child(3) .flip-card-front { background-position: 62.5% 12.5%; }
-  .flip-card:nth-child(4) .flip-card-front { background-position: 87.5% 12.5%; }
-
-  .flip-card:nth-child(5) .flip-card-front { background-position: 12.5% 37.5%; }
-  .flip-card:nth-child(6) .flip-card-front { background-position: 37.5% 37.5%; }
-  .flip-card:nth-child(7) .flip-card-front { background-position: 62.5% 37.5%; }
-  .flip-card:nth-child(8) .flip-card-front { background-position: 87.5% 37.5%; }
-
-  .flip-card:nth-child(9) .flip-card-front { background-position: 12.5% 62.5%; }
-  .flip-card:nth-child(10) .flip-card-front { background-position: 37.5% 62.5%; }
-  .flip-card:nth-child(11) .flip-card-front { background-position: 62.5% 62.5%; }
-  .flip-card:nth-child(12) .flip-card-front { background-position: 87.5% 62.5%; }
-
-  .flip-card:nth-child(13) .flip-card-front { background-position: 12.5% 87.5%; }
-  .flip-card:nth-child(14) .flip-card-front { background-position: 37.5% 87.5%; }
-  .flip-card:nth-child(15) .flip-card-front { background-position: 62.5% 87.5%; }
-  .flip-card:nth-child(16) .flip-card-front { background-position: 87.5% 87.5%; }
 }
 
 

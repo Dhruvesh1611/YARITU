@@ -116,7 +116,6 @@ const ImageSlider = () => {
         setImages((p) => p.map((x) => (x._id === updatedItem._id ? { src: updatedItem.src, alt: updatedItem.alt, _id: updatedItem._id } : x)));
     }, []);
 
-
     const total = images.length;
 
     if (total === 0 && !session) {
@@ -133,10 +132,46 @@ const ImageSlider = () => {
         { ...images[rightIndex], position: 'right' },
     ] : [];
 
-    // Pointer handlers (swipe functionality)
-    const onPointerDown = (e) => { /* ... */ };
-    const onPointerMove = (e) => { /* ... */ };
-    const onPointerUp = (e) => { /* ... */ };
+    // Swipe handlers for mobile only
+    const onPointerDown = (e) => {
+        if (!isMobile) return;
+        pointer.current.startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        pointer.current.startY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+        pointer.current.isDown = true;
+        pointer.current.moved = false;
+    };
+
+    const onPointerMove = (e) => {
+        if (!isMobile || !pointer.current.isDown) return;
+        const currentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const currentY = e.type.includes('touch') ? e.touches[0].clientY : e.clientY;
+        const diffX = Math.abs(currentX - pointer.current.startX);
+        const diffY = Math.abs(currentY - pointer.current.startY);
+        
+        // Only consider it a swipe if horizontal movement is greater than vertical
+        if (diffX > 10) {
+            pointer.current.moved = true;
+        }
+    };
+
+    const onPointerUp = (e) => {
+        if (!isMobile || !pointer.current.isDown) return;
+        pointer.current.isDown = false;
+        
+        if (!pointer.current.moved) return;
+        
+        const endX = e.type.includes('touch') ? e.changedTouches[0].clientX : e.clientX;
+        const diffX = endX - pointer.current.startX;
+        const threshold = 50;
+        
+        if (diffX > threshold) {
+            // Swiped right - go to previous
+            goToPrevious();
+        } else if (diffX < -threshold) {
+            // Swiped left - go to next
+            goToNext();
+        }
+    };
 
 
     return (

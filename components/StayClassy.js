@@ -212,7 +212,7 @@ const StayClassy = () => {
         Stay <span className="highlight">Classy</span>
       </h2>
       <div className="stay-classy-grid">
-        {Array.from({ length: 25 }).map((_, index) => {
+        {Array.from({ length: 16 }).map((_, index) => {
           const meta = metadata[index] || {};
           const displayImage = meta.imageUrl || collectionImages[index];
           return (
