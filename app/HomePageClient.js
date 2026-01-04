@@ -41,8 +41,8 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
   const [heroItems, setHeroItems] = useState(initialHeroItems || []);
   const [isHeroLoading, setIsHeroLoading] = useState(!(initialHeroItems && initialHeroItems.length > 0));
   const [trendingVideos, setTrendingVideos] = useState(initialTrendingVideos || []);
+  const [trendingIndex, setTrendingIndex] = useState(2); // active center video for mobile carousel - start with 3rd video (pos3)
   const [isTrendingLoading, setIsTrendingLoading] = useState(true);
-  const [trendingIndex, setTrendingIndex] = useState(0);
 
   const { data: session } = useSession();
   const isAdmin = !!(session?.user?.isAdmin || session?.user?.role === 'admin');
@@ -57,8 +57,9 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
   
   const trendingContainerRef = useRef(null);
   const centerImageRef = useRef(null); 
-  const mobileTrendingRefs = useRef([]);
-  const trendingSwipe = useRef({ startX: 0, startY: 0, isDown: false, moved: false });
+  const mobileTrendingPointer = useRef({ startX: 0, startY: 0, isDown: false, moved: false });
+  const mobileVideoRefs = useRef([]);
+  const trendingInitializedRef = useRef(false);
   const featuredContainerRef = useRef(null);
 
   // Client-side fallback: if no stores came from SSR, fetch once on mount
@@ -111,6 +112,28 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
         return true;
       })
     : [];
+
+  const sortedTrending = Array.isArray(trendingVideos)
+    ? [...trendingVideos].sort((a, b) => (a.position || 0) - (b.position || 0))
+    : [];
+
+  const mobileCarouselItems = (() => {
+    const len = sortedTrending.length || 5;
+    const positionClasses = ['pos1', 'pos2', 'pos3 center', 'pos4', 'pos5'];
+    return [-2, -1, 0, 1, 2].map((offset, idx) => {
+      const targetIndex = ((trendingIndex + offset) % len + len) % len;
+      const item = sortedTrending[targetIndex] || null;
+      const videoSrc = item ? (item.video || item.videoUrl || item.url) : null;
+      const positionValue = item?.position || (targetIndex + 1);
+      return {
+        key: item ? (item._id || `trending-${positionValue}-${idx}`) : `placeholder-${idx}`,
+        videoSrc,
+        item,
+        positionClass: positionClasses[idx],
+        positionValue,
+      };
+    });
+  })();
   useEffect(() => {
     let mounted = true;
     const doFetch = async () => {
@@ -158,6 +181,51 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
     const url = res.publicUrl || res.key || null;
     if (!url) throw new Error('Upload did not return a URL');
     return { url, secure_url: url };
+  };
+
+  // --- Mobile swipe helpers for Trending Now ---
+  const slideTrending = (delta) => {
+    const len = (trendingVideos && trendingVideos.length > 0) ? trendingVideos.length : 5;
+    if (len === 0) return;
+    setTrendingIndex((prev) => {
+      const next = (prev + delta) % len;
+      return next < 0 ? next + len : next;
+    });
+  };
+
+  const handleTrendingSwipeStart = (e) => {
+    if (!isMobile) return;
+    const point = e.type.includes('touch') ? e.touches[0] : e;
+    mobileTrendingPointer.current.startX = point.clientX;
+    mobileTrendingPointer.current.startY = point.clientY;
+    mobileTrendingPointer.current.isDown = true;
+    mobileTrendingPointer.current.moved = false;
+  };
+
+  const handleTrendingSwipeMove = (e) => {
+    if (!isMobile || !mobileTrendingPointer.current.isDown) return;
+    const point = e.type.includes('touch') ? e.touches[0] : e;
+    const diffX = Math.abs(point.clientX - mobileTrendingPointer.current.startX);
+    const diffY = Math.abs(point.clientY - mobileTrendingPointer.current.startY);
+    if (diffX > diffY && diffX > 10) {
+      mobileTrendingPointer.current.moved = true;
+    }
+  };
+
+  const handleTrendingSwipeEnd = (e) => {
+    if (!isMobile || !mobileTrendingPointer.current.isDown) return;
+    mobileTrendingPointer.current.isDown = false;
+    if (!mobileTrendingPointer.current.moved) return;
+
+    const point = e.type.includes('touch') ? (e.changedTouches ? e.changedTouches[0] : e.touches[0]) : e;
+    if (!point) return;
+    const diffX = point.clientX - mobileTrendingPointer.current.startX;
+    const threshold = 50;
+    if (diffX > threshold) {
+      slideTrending(-1); // swipe right -> previous
+    } else if (diffX < -threshold) {
+      slideTrending(1); // swipe left -> next
+    }
   };
 
   // Data fetching wala useEffect hata diya gaya hai, baki sab waisa hi hai
@@ -268,9 +336,24 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
     return () => { mounted = false; };
   }, [initialTrendingVideos]);
 
+  // Initialize mobile carousel index once data arrives and keep index in range if length changes
+  useEffect(() => {
+    if (!isMobile) return; // Only initialize for mobile
+    const len = trendingVideos.length;
+    if (len === 0) return;
+
+    if (!trendingInitializedRef.current) {
+      trendingInitializedRef.current = true;
+      setTrendingIndex(Math.min(2, len - 1)); // start with the historical center slot (pos3)
+      return;
+    }
+
+    setTrendingIndex((prev) => (prev % len));
+  }, [trendingVideos.length, isMobile]);
+
   // Video playback logic for trending section
   useEffect(() => {
-    if (isMobile) return;
+    if (isMobile) return; // mobile handles playback separately
     const container = trendingContainerRef.current;
     if (!container) return;
 
@@ -293,6 +376,7 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
         threshold: 0.8,
       }
     );
+
     videos.forEach((video) => observer.observe(video));
 
     return () => {
@@ -300,72 +384,26 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
     };
   }, [trendingVideos, isMobile]); // Added trendingVideos dependency to re-run when videos change
 
-  // Reset mobile trending index when data changes
+  // Mobile: ensure only the center video plays, others pause
   useEffect(() => {
     if (!isMobile) return;
-    setTrendingIndex(0);
-    mobileTrendingRefs.current = [];
-  }, [trendingVideos, isMobile]);
-
-  // Ensure center video plays on mobile when index changes
-  useEffect(() => {
-    if (!isMobile) return;
-    mobileTrendingRefs.current.forEach((videoEl, idx) => {
-      if (!videoEl) return;
+    mobileVideoRefs.current.forEach((video, idx) => {
+      if (!video) return;
       if (idx === 2) {
-        videoEl.play().catch(() => {});
+        video.play().catch(() => {});
       } else {
-        videoEl.pause();
-        videoEl.currentTime = 0;
+        try {
+          video.pause();
+          video.currentTime = 0;
+        } catch (err) {}
       }
     });
-  }, [trendingIndex, isMobile]);
+  }, [trendingIndex, isMobile, trendingVideos]);
 
-  const handleTrendingPointerDown = (e) => {
-    if (!isMobile) return;
-    const point = e.touches ? e.touches[0] : e;
-    trendingSwipe.current.startX = point.clientX;
-    trendingSwipe.current.startY = point.clientY;
-    trendingSwipe.current.isDown = true;
-    trendingSwipe.current.moved = false;
-  };
-
-  const handleTrendingPointerMove = (e) => {
-    if (!isMobile || !trendingSwipe.current.isDown) return;
-    const point = e.touches ? e.touches[0] : e;
-    const diffX = Math.abs(point.clientX - trendingSwipe.current.startX);
-    const diffY = Math.abs(point.clientY - trendingSwipe.current.startY);
-    if (diffX > 10 && diffX > diffY) {
-      trendingSwipe.current.moved = true;
-    }
-  };
-
-  const handleTrendingPointerUp = (e) => {
-    if (!isMobile || !trendingSwipe.current.isDown) return;
-    trendingSwipe.current.isDown = false;
-    if (!trendingSwipe.current.moved) return;
-
-    const point = e.changedTouches ? e.changedTouches[0] : e;
-    const diffX = point.clientX - trendingSwipe.current.startX;
-    const threshold = 40;
-    const total = trendingVideos.length || 0;
-    if (!total) return;
-
-    if (diffX > threshold) {
-      setTrendingIndex((prev) => (prev - 1 + total) % total);
-    } else if (diffX < -threshold) {
-      setTrendingIndex((prev) => (prev + 1) % total);
-    }
-  };
-
-  const trendingSorted = Array.isArray(trendingVideos)
-    ? [...trendingVideos].sort((a, b) => (a.position || 0) - (b.position || 0))
-    : [];
-  const trendingTotal = trendingSorted.length;
-  const mobileOffsets = [-2, -1, 0, 1, 2];
-  const mobileSlots = trendingTotal
-    ? mobileOffsets.map((offset) => trendingSorted[(trendingIndex + offset + trendingTotal) % trendingTotal])
-    : [];
+  // reset mobile refs on each render so callbacks reassign correctly
+  if (isMobile) {
+    mobileVideoRefs.current = [];
+  }
 
   return (
     <>
@@ -488,13 +526,13 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
           <div
             ref={trendingContainerRef}
             className="trending-images-container"
-            style={{ cursor: 'default' }}
-            onPointerDown={handleTrendingPointerDown}
-            onPointerMove={handleTrendingPointerMove}
-            onPointerUp={handleTrendingPointerUp}
-            onTouchStart={handleTrendingPointerDown}
-            onTouchMove={handleTrendingPointerMove}
-            onTouchEnd={handleTrendingPointerUp}
+            style={{ cursor: isMobile ? 'grab' : 'default' }}
+            onPointerDown={handleTrendingSwipeStart}
+            onPointerMove={handleTrendingSwipeMove}
+            onPointerUp={handleTrendingSwipeEnd}
+            onTouchStart={handleTrendingSwipeStart}
+            onTouchMove={handleTrendingSwipeMove}
+            onTouchEnd={handleTrendingSwipeEnd}
           >
               <Image src="/images/background_shape.png" className="trending-bg" alt="background shape" fill sizes="(max-width: 1024px) 100vw, 1200px" style={{ objectFit: 'cover' }} />
 
@@ -578,62 +616,55 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
                 </div>
               )}
 
-            {isMobile ? (
-              isTrendingLoading ? (
-                Array.from({ length: 3 }).map((_, i) => (
-                  <div key={`trending-skeleton-${i}`} className={`trending-img pos${i + 1} ${i === 1 ? 'center' : ''}`} style={{ flex: '0 0 auto', position: 'relative' }}>
+            {isTrendingLoading ? (
+              isMobile ? (
+                [0,1,2,3,4].map((idx) => (
+                  <div key={`trend-skel-${idx}`} className={`trending-img ${['pos1','pos2','pos3 center','pos4','pos5'][idx]}`}>
                     <SkeletonLoader variant="video" />
                   </div>
                 ))
               ) : (
-                mobileSlots.map((videoItem, slotIdx) => {
-                  const videoSrc = videoItem ? (videoItem.video || videoItem.videoUrl || videoItem.url) : null;
-                  const isCenter = slotIdx === 2;
-                  const key = videoItem?._id || `trending-${slotIdx}-${videoSrc || 'empty'}`;
-                  return (
-                    <div
-                      key={key}
-                      className={`trending-img pos${slotIdx + 1} ${isCenter ? 'center' : ''}`}
-                      style={{ flex: '0 0 auto', position: 'relative' }}
-                    >
-                      {videoSrc ? (
-                        <video
-                          ref={(el) => { mobileTrendingRefs.current[slotIdx] = el; }}
-                          className="trending-video"
-                          playsInline
-                          muted
-                          loop
-                          autoPlay={isCenter}
-                          preload="metadata"
-                          src={videoSrc}
-                          onLoadedData={(e) => {
-                            try { if (isCenter) e.currentTarget.play().catch(() => {}); } catch (err) {}
-                            try { e.currentTarget.classList.add('loaded'); } catch (err) {}
-                          }}
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 16 }}
-                        />
-                      ) : (
-                        <div className="trending-placeholder" />
-                      )}
-                      {isAdmin && (
-                        <div style={{ position: 'absolute', inset: 0, display: 'flex', justifyContent: 'center', alignItems: 'flex-end', padding: 8, pointerEvents: 'none' }}>
-                          <button
-                            onClick={(e) => { e.stopPropagation(); setReplacePosition(videoItem?.position || slotIdx + 1); fileInputRef.current && fileInputRef.current.click(); }}
-                            style={{ pointerEvents: 'auto', marginBottom: 6, zIndex: 20, padding: '6px 8px', borderRadius: 6, background: 'rgba(255,255,255,0.95)', border: '1px solid #ccc', cursor: 'pointer' }}
-                          >
-                            {replacing && replacePosition === (videoItem?.position || slotIdx + 1) ? 'Replacing...' : 'Edit'}
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })
-              )
-            ) : (
-              isTrendingLoading ? (
                 [1,2,3,4,5].map(pos => (
                   <div key={`skeleton-${pos}`} style={{ position: 'absolute', left: 66 + (pos - 1) * 233, top: pos === 3 ? 67 : (pos === 2 || pos === 4 ? 106 : 145), width: pos === 3 ? 245 : (pos === 2 || pos === 4 ? 224 : 204), height: pos === 3 ? 527 : (pos === 2 || pos === 4 ? 441 : 363), zIndex: pos === 3 ? 4 : (pos === 2 || pos === 4 ? 3 : 2) }}>
                     <SkeletonLoader variant="video" />
+                  </div>
+                ))
+              )
+            ) : (
+              isMobile ? (
+                mobileCarouselItems.map((slot, idx) => (
+                  <div key={slot.key} className={`trending-img ${slot.positionClass}`}>
+                    {slot.videoSrc ? (
+                      <video
+                        ref={(el) => { mobileVideoRefs.current[idx] = el; if (idx === 2) centerImageRef.current = el; }}
+                        className="trending-video"
+                        playsInline
+                        muted
+                        loop
+                        autoPlay={idx === 2}
+                        preload="metadata"
+                        src={slot.videoSrc}
+                        onLoadedData={(e) => {
+                          if (idx === 2) {
+                            try { e.currentTarget.play().catch(() => {}); } catch (err) {}
+                          }
+                          try { e.currentTarget.classList.add('loaded'); } catch (err) {}
+                        }}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      />
+                    ) : (
+                      <SkeletonLoader variant="video" />
+                    )}
+                    {isAdmin && slot.item && (
+                      <div style={{ position: 'absolute', inset: 0, display: 'flex', justifyContent: 'center', alignItems: 'flex-end', padding: 8, pointerEvents: 'none' }}>
+                        <button
+                          onClick={(e) => { e.stopPropagation(); setReplacePosition(slot.positionValue); fileInputRef.current && fileInputRef.current.click(); }}
+                          style={{ pointerEvents: 'auto', marginBottom: 6, zIndex: 20, padding: '6px 8px', borderRadius: 6, background: 'rgba(255,255,255,0.95)', border: '1px solid #ccc', cursor: 'pointer' }}
+                        >
+                          {replacing && replacePosition === slot.positionValue ? 'Replacing...' : 'Edit'}
+                        </button>
+                      </div>
+                    )}
                   </div>
                 ))
               ) : (

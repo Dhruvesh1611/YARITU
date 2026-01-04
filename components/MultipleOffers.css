@@ -94,7 +94,7 @@
   }
 
   .multiple-offers-section .offers-container {
-    height: 360px; /* compact height for phones */
+    height: 450px; /* increased height for phones to prevent image cropping */
     perspective: 900px;
     align-items: center;
   }
@@ -103,7 +103,7 @@
   .multiple-offers-section .offer-card {
     position: absolute;
     width: min(220px, 70%);
-    height: 320px;
+    height: 400px; /* increased from 320px to 400px to show more of the image */
     border-radius: 12px;
     box-shadow: 0 8px 22px rgba(0,0,0,0.18);
     transform-origin: center center;
