@@ -3,11 +3,16 @@ import dbConnect from '../../../lib/dbConnect';
 import TrendingVideo from '../../../models/TrendingVideo';
 import { auth } from '../auth/[...nextauth]/route';
 
+export const revalidate = 3600; // Cache for 1 hour
+
 export async function GET() {
   try {
     await dbConnect();
     const items = await TrendingVideo.find({}).sort({ position: 1 });
-    return NextResponse.json({ success: true, data: items });
+    
+    const response = NextResponse.json({ success: true, data: items });
+    response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=7200');
+    return response;
   } catch (err) {
     return NextResponse.json({ success: false, error: err.message }, { status: 500 });
   }

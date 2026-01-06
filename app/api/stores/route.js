@@ -2,8 +2,7 @@ import { NextResponse } from 'next/server';
 
 // Ensure this route is always dynamic and runs on Node.js runtime (for Mongoose)
 export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+export const revalidate = 3600; // Cache for 1 hour
 import dbConnect from '../../../lib/dbConnect';
 import Store from '../../../models/Store';
 import { auth } from '../auth/[...nextauth]/route';
@@ -17,8 +16,10 @@ export async function GET(request) {
   // Note: model uses `name` field for the store name
   const stores = await Store.find({}).sort({ name: 1 });
 
-    // Step 3: Return the data
-    return NextResponse.json({ success: true, data: stores });
+    // Step 3: Return the data with caching headers
+    const response = NextResponse.json({ success: true, data: stores });
+    response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=7200');
+    return response;
 
   } catch (error) {
     // Agar koi bhi error aati hai to crash hone ke bajaye yeh response bhejo

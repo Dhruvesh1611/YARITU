@@ -82,7 +82,7 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
       }
       setIsHeroLoading(true);
       try {
-        const res = await fetch('/api/hero', { cache: 'no-store' });
+        const res = await fetch('/api/hero');
         if (res.ok) {
           const j = await res.json().catch(() => null);
           if (j?.success && Array.isArray(j.data) && mounted) {
@@ -141,7 +141,7 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
       if (!stores || stores.length === 0) {
         setIsStoresLoading(true);
         try {
-          const r = await fetch('/api/stores', { cache: 'no-store' });
+          const r = await fetch('/api/stores');
           if (r.ok) {
             const j = await r.json().catch(() => null);
             if (j?.success && Array.isArray(j.data) && mounted) setStores(j.data);
@@ -318,7 +318,7 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
           return;
         }
 
-        const res = await fetch('/api/trending', { cache: 'no-store' });
+        const res = await fetch('/api/trending');
         if (res.ok) {
           const j = await res.json();
           if (j?.success && Array.isArray(j.data)) {
@@ -399,11 +399,6 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
       }
     });
   }, [trendingIndex, isMobile, trendingVideos]);
-
-  // reset mobile refs on each render so callbacks reassign correctly
-  if (isMobile) {
-    mobileVideoRefs.current = [];
-  }
 
   return (
     <>
@@ -642,7 +637,7 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
                         muted
                         loop
                         autoPlay={idx === 2}
-                        preload="metadata"
+                        preload={idx === 2 ? 'auto' : 'metadata'}
                         src={slot.videoSrc}
                         onLoadedData={(e) => {
                           if (idx === 2) {
@@ -691,7 +686,7 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
                           muted
                           loop
                           autoPlay
-                          preload="metadata"
+                          preload={pos === 3 || pos === 2 || pos === 4 ? 'auto' : 'metadata'}
                           src={videoSrc}
                           onLoadedData={(e) => {
                             try {
