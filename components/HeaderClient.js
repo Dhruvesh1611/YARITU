@@ -56,6 +56,7 @@ export default function HeaderClient() {
                         fill
                         sizes="(max-width: 480px) 100px, 160px"
                         style={{ objectFit: 'contain' }}
+                        priority
                       />
                   </Link>
 

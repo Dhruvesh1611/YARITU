@@ -154,5 +154,30 @@ a {
   }
 }
 
+/* Fast loading - videos and images fade in smoothly when loaded */
+video, img {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+video.loaded, img.loaded,
+video[data-loaded="true"], img[data-loaded="true"],
+img[data-nimg] {
+  opacity: 1;
+}
+
+/* Next.js Image component auto-loaded state */
+img[data-nimg="fill"],
+img[data-nimg="responsive"],
+img[data-nimg="intrinsic"] {
+  opacity: 1;
+}
+
+/* Skeleton shimmer animation */
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
 /* In your CSS module (e.g., styles.module.css) */
 

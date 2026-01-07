@@ -2,20 +2,46 @@
 const nextConfig = {
     reactStrictMode: false,
     images: {
-        // During local development we disable the Next.js image optimization proxy
-        // to avoid timeouts when contacting remote CDNs like Cloudinary.
-        unoptimized: true,
+        // Enable Next.js image optimization for faster loading
+        unoptimized: false,
+        // Use modern formats for better compression
+        formats: ['image/avif', 'image/webp'],
+        // Configure allowed quality values
+        qualities: [75, 85, 90],
+        // Allow SVG images
+        dangerouslyAllowSVG: true,
+        contentDispositionType: 'attachment',
+        contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+        // Minimize layout shift
+        deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
+        imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
         remotePatterns: [
             {
                 protocol: 'https',
-                hostname: 'placehold.co', // Yeh aapka purana wala hai
+                hostname: 'placehold.co',
             },
             {
                 protocol: 'https',
-                hostname: 'res.cloudinary.com', // Yeh naya wala add karein
+                hostname: 'res.cloudinary.com',
+            },
+            {
+                protocol: 'https',
+                hostname: '*.amazonaws.com',
+            },
+            {
+                protocol: 'https',
+                hostname: '*.s3.amazonaws.com',
+            },
+            {
+                protocol: 'https',
+                hostname: '*.s3.*.amazonaws.com',
             },
         ],
     },
+    // Enable compression
+    compress: true,
+    // Optimize production builds
+    swcMinify: true,
 };
 
 // Enable @next/bundle-analyzer when the ANALYZE env var is set to 'true'

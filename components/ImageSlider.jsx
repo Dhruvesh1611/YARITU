@@ -223,8 +223,8 @@ const ImageSlider = () => {
                                                 priority={image.position === 'center'}
                                                 loading={image.position === 'center' ? undefined : 'lazy'}
                                                 placeholder="empty"
-                                                onLoadingComplete={(img) => {
-                                                    try { img.classList.add(styles.loaded); } catch (err) { }
+                                                onLoad={(e) => {
+                                                    try { e.target.classList.add(styles.loaded); } catch (err) { }
                                                 }}
                                             />
                                         ) : (

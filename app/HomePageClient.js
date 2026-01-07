@@ -2,7 +2,7 @@
 
 "use client";
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import './home.css';
@@ -30,6 +30,20 @@ const heroImages = [
   '/images/hero2.png',
   '/images/hero3.png'
 ];
+
+// Preload video helper - use fetch to cache video in browser
+const preloadVideo = (src) => {
+  if (!src || typeof window === 'undefined') return;
+  // Use fetch with low priority to preload video without blocking
+  fetch(src, { priority: 'low' }).catch(() => {});
+};
+
+// Preload image helper
+const preloadImage = (src) => {
+  if (!src || typeof window === 'undefined') return;
+  const img = new window.Image();
+  img.src = src;
+};
 
 export default function HomePageClient({ initialHeroItems, initialStores, initialTrendingVideos }) {
   const router = useRouter();
@@ -61,6 +75,25 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
   const mobileVideoRefs = useRef([]);
   const trendingInitializedRef = useRef(false);
   const featuredContainerRef = useRef(null);
+
+  // Preload next hero images and center trending video on mount
+  useEffect(() => {
+    // Preload first 2 hero images for instant switching
+    if (heroItems && heroItems.length > 0) {
+      heroItems.slice(0, 2).forEach(item => {
+        if (item?.imageUrl) preloadImage(item.imageUrl);
+      });
+    }
+    
+    // Preload center trending video
+    if (trendingVideos && trendingVideos.length > 0) {
+      const centerVideo = trendingVideos.find(v => v.position === 3) || trendingVideos[0];
+      if (centerVideo) {
+        const src = centerVideo.video || centerVideo.videoUrl || centerVideo.url;
+        if (src) preloadVideo(src);
+      }
+    }
+  }, [heroItems, trendingVideos]);
 
   // Client-side fallback: if no stores came from SSR, fetch once on mount
   useEffect(() => {
@@ -117,23 +150,30 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
     ? [...trendingVideos].sort((a, b) => (a.position || 0) - (b.position || 0))
     : [];
 
-  const mobileCarouselItems = (() => {
-    const len = sortedTrending.length || 5;
-    const positionClasses = ['pos1', 'pos2', 'pos3 center', 'pos4', 'pos5'];
-    return [-2, -1, 0, 1, 2].map((offset, idx) => {
-      const targetIndex = ((trendingIndex + offset) % len + len) % len;
-      const item = sortedTrending[targetIndex] || null;
-      const videoSrc = item ? (item.video || item.videoUrl || item.url) : null;
-      const positionValue = item?.position || (targetIndex + 1);
-      return {
-        key: item ? (item._id || `trending-${positionValue}-${idx}`) : `placeholder-${idx}`,
-        videoSrc,
-        item,
-        positionClass: positionClasses[idx],
-        positionValue,
-      };
-    });
-  })();
+  // Calculate position class for each video based on current trendingIndex
+  // Videos stay mounted, only their CSS position changes for smooth animation
+  const getPositionClass = (videoIndex) => {
+    const len = sortedTrending.length;
+    if (len === 0) return 'hidden';
+    
+    // Calculate relative position from center (trendingIndex)
+    let diff = videoIndex - trendingIndex;
+    
+    // Handle circular wrapping
+    if (diff > len / 2) diff -= len;
+    if (diff < -len / 2) diff += len;
+    
+    // Map diff to position class
+    switch (diff) {
+      case -2: return 'pos1';
+      case -1: return 'pos2';
+      case 0: return 'pos3 center';
+      case 1: return 'pos4';
+      case 2: return 'pos5';
+      default: return 'hidden';
+    }
+  };
+
   useEffect(() => {
     let mounted = true;
     const doFetch = async () => {
@@ -370,14 +410,18 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
     if (!isMobile) return;
     mobileVideoRefs.current.forEach((video, idx) => {
       if (!video) return;
-      if (idx === 2) {
-        video.play().catch(() => {});
-      } else {
-        try {
-          video.pause();
-          video.currentTime = 0;
-        } catch (err) {}
-      }
+      // Play center video, pause others based on trendingIndex
+      const centerIdx = trendingIndex;
+      mobileVideoRefs.current.forEach((video, idx) => {
+        if (!video) return;
+        if (idx === centerIdx) {
+          video.play().catch(() => {});
+        } else {
+          try {
+            video.pause();
+          } catch (err) {}
+        }
+      });
     });
   }, [trendingIndex, isMobile, trendingVideos]);
 
@@ -416,6 +460,8 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
               };
 
               if (isRemote(imageUrl)) {
+                // Check if it's an SVG (either proper .svg or malformed like 5svg)
+                const isSvg = imageUrl.toLowerCase().includes('svg');
                 return (
                   <Image
                     src={imageUrl}
@@ -423,7 +469,12 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
                     fill
                     sizes="100vw"
                     style={{ objectFit: 'cover' }}
-                    priority
+                    priority={currentHeroImage === 0}
+                    loading={currentHeroImage === 0 ? 'eager' : 'lazy'}
+                    quality={isSvg ? undefined : 85}
+                    unoptimized={isSvg}
+                    placeholder={isSvg ? 'empty' : 'blur'}
+                    blurDataURL={isSvg ? undefined : "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAUH/8QAIhAAAgEDBAMBAAAAAAAAAAAAAQIDAAQRBRIhMQYTQWH/xAAVAQEBAAAAAAAAAAAAAAAAAAADBP/EABkRAAIDAQAAAAAAAAAAAAAAAAEhAAIRMf/aAAwDAQACEQMRAD8Aw2DU7i3sY7OOaRI1cuAGIBJABI+gY/K1o65qceny6ZHfXC2Uh3PArnaxxj4ODSlKVGwFFiov/9k="}
                   />
                 );
               }
@@ -608,41 +659,63 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
               )
             ) : (
               isMobile ? (
-                mobileCarouselItems.map((slot, idx) => (
-                  <div key={slot.key} className={`trending-img ${slot.positionClass}`}>
-                    {slot.videoSrc ? (
-                      <video
-                        ref={(el) => { mobileVideoRefs.current[idx] = el; if (idx === 2) centerImageRef.current = el; }}
-                        className="trending-video"
-                        playsInline
-                        muted
-                        loop
-                        autoPlay={idx === 2}
-                        preload={idx === 2 ? 'auto' : 'metadata'}
-                        src={slot.videoSrc}
-                        onLoadedData={(e) => {
-                          if (idx === 2) {
-                            try { e.currentTarget.play().catch(() => {}); } catch (err) {}
-                          }
-                          try { e.currentTarget.classList.add('loaded'); } catch (err) {}
-                        }}
-                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                      />
-                    ) : (
-                      <SkeletonLoader variant="video" />
-                    )}
-                    {isAdmin && slot.item && (
-                      <div style={{ position: 'absolute', inset: 0, display: 'flex', justifyContent: 'center', alignItems: 'flex-end', padding: 8, pointerEvents: 'none' }}>
-                        <button
-                          onClick={(e) => { e.stopPropagation(); setReplacePosition(slot.positionValue); fileInputRef.current && fileInputRef.current.click(); }}
-                          style={{ pointerEvents: 'auto', marginBottom: 6, zIndex: 20, padding: '6px 8px', borderRadius: 6, background: 'rgba(255,255,255,0.95)', border: '1px solid #ccc', cursor: 'pointer' }}
-                        >
-                          {replacing && replacePosition === slot.positionValue ? 'Replacing...' : 'Edit'}
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                ))
+                // Render ALL videos once - they stay mounted, only position class changes
+                sortedTrending.map((item, videoIndex) => {
+                  const videoSrc = item ? (item.video || item.videoUrl || item.url) : null;
+                  const positionClass = getPositionClass(videoIndex);
+                  const isCenter = positionClass.includes('center');
+                  const isVisible = positionClass !== 'hidden';
+                  const isNearCenter = positionClass.includes('pos2') || positionClass.includes('pos3') || positionClass.includes('pos4');
+                  
+                  return (
+                    <motion.div 
+                      key={item._id || `video-${videoIndex}`}
+                      className={`trending-img ${positionClass}`}
+                      animate={{
+                        opacity: isVisible ? 1 : 0,
+                        scale: isCenter ? 1 : (positionClass.includes('pos2') || positionClass.includes('pos4') ? 0.95 : 0.85),
+                      }}
+                      transition={{ 
+                        type: "spring", 
+                        stiffness: 250, 
+                        damping: 25,
+                      }}
+                      style={{ display: isVisible ? 'block' : 'none' }}
+                    >
+                      {videoSrc ? (
+                        <video
+                          ref={(el) => { 
+                            mobileVideoRefs.current[videoIndex] = el; 
+                            if (isCenter) centerImageRef.current = el; 
+                          }}
+                          className="trending-video"
+                          playsInline
+                          muted
+                          loop
+                          autoPlay={isCenter}
+                          preload={isNearCenter ? 'auto' : 'none'}
+                          src={videoSrc}
+                          onLoadedData={(e) => {
+                            try { e.currentTarget.classList.add('loaded'); } catch (err) {}
+                          }}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '16px' }}
+                        />
+                      ) : (
+                        <SkeletonLoader variant="video" />
+                      )}
+                      {isAdmin && item && (
+                        <div style={{ position: 'absolute', inset: 0, display: 'flex', justifyContent: 'center', alignItems: 'flex-end', padding: 8, pointerEvents: 'none' }}>
+                          <button
+                            onClick={(e) => { e.stopPropagation(); setReplacePosition(item.position); fileInputRef.current && fileInputRef.current.click(); }}
+                            style={{ pointerEvents: 'auto', marginBottom: 6, zIndex: 20, padding: '6px 8px', borderRadius: 6, background: 'rgba(255,255,255,0.95)', border: '1px solid #ccc', cursor: 'pointer' }}
+                          >
+                            {replacing && replacePosition === item.position ? 'Replacing...' : 'Edit'}
+                          </button>
+                        </div>
+                      )}
+                    </motion.div>
+                  );
+                })
               ) : (
                 [1,2,3,4,5].map(pos => {
                   const videoItem = trendingVideos.find(t => t.position === pos);
