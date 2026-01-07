@@ -100,12 +100,14 @@
   .stay-classy-grid {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 1fr);
-    /* make grid square and fit well on small screens */
-    width: 92vw;
-    height: 92vw;
-    max-width: 420px;
-    max-height: 336px;
-    gap: 0px;
+    /* widescreen feel on mobile: wider than tall */
+    box-sizing: border-box;
+    padding: 0 0px;
+    width: calc(100vw - 24px);
+    height: calc((100vw - 24px) * 0.72);
+    max-width: 640px;
+    max-height: 460px;
+    gap: 1px;
   }
 
   /* Hide tiles beyond the 16th (only show 4x4) */
@@ -120,6 +122,7 @@
   color: white;
   transform: rotateY(180deg);
   overflow: hidden;
+  position: relative; /* allow next/image fill positioning */
 }
 
 .flip-card-back img {
