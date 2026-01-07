@@ -148,8 +148,11 @@ export default function ProductCard({ product, isAdmin, onProductClick, onEdit, 
     };
 
     // Touch handlers: replicate the desktop hover/leave behaviour for touch devices
+    const isTouchingRef = useRef(false);
+
     const handleTouchStart = (e) => {
         if (supportsHover.current) return;
+        isTouchingRef.current = true;
         if (!wrapperRef.current) return;
         const touch = e.touches && e.touches[0];
         if (!touch) return;
@@ -166,6 +169,7 @@ export default function ProductCard({ product, isAdmin, onProductClick, onEdit, 
 
     const handleTouchMove = (e) => {
         if (supportsHover.current) return;
+        if (!isTouchingRef.current) return;
         if (!wrapperRef.current) return;
         const touch = e.touches && e.touches[0];
         if (!touch) return;
@@ -182,12 +186,16 @@ export default function ProductCard({ product, isAdmin, onProductClick, onEdit, 
 
     const handleTouchEnd = () => {
         // Reset to default same as mouse leave
+        isTouchingRef.current = false;
         handleMouseLeave();
     };
 
     // Pointer handlers to cover touch + mouse in one set of events (fixes DevTools emulation)
+    const isPointerDownRef = useRef(false);
+
     const handlePointerDown = (e) => {
         if (e.pointerType === 'mouse' && e.button !== 0) return;
+        isPointerDownRef.current = true;
         if (!wrapperRef.current) return;
         const rect = wrapperRef.current.getBoundingClientRect();
         const clientX = e.clientX;
@@ -203,6 +211,8 @@ export default function ProductCard({ product, isAdmin, onProductClick, onEdit, 
     };
 
     const handlePointerMove = (e) => {
+        // On mobile (touch), only track movement while pointer is down
+        if (e.pointerType === 'touch' && !isPointerDownRef.current) return;
         if (!wrapperRef.current) return;
         const rect = wrapperRef.current.getBoundingClientRect();
         const clientX = e.clientX;
@@ -218,6 +228,11 @@ export default function ProductCard({ product, isAdmin, onProductClick, onEdit, 
     };
 
     const handlePointerUp = () => {
+        isPointerDownRef.current = false;
+        handleMouseLeave();
+    };
+
+    const handlePointerLeave = () => {
         handleMouseLeave();
     };
 
@@ -240,6 +255,7 @@ export default function ProductCard({ product, isAdmin, onProductClick, onEdit, 
                 onPointerMove={handlePointerMove}
                 onPointerUp={handlePointerUp}
                 onPointerCancel={handlePointerUp}
+                onPointerLeave={handlePointerLeave}
                 onClick={openProduct}
                 onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openProduct(); } }}
                 tabIndex={0}
