@@ -616,6 +616,14 @@
         transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
+    .trending-img.pos1 {
+        order: 1;
+    }
+
+    .trending-img.pos5 {
+        order: 5;
+    }
+
     .trending-img.pos2,
     .trending-img.pos4 {
         width: 180px !important;
@@ -626,6 +634,14 @@
         transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
+    .trending-img.pos2 {
+        order: 2;
+    }
+
+    .trending-img.pos4 {
+        order: 4;
+    }
+
     .trending-img.pos3,
     .trending-img.pos3.center {
         width: 260px !important;
@@ -634,6 +650,7 @@
         opacity: 1;
         transform: scale(1);
         z-index: 5;
+        order: 3;
         box-shadow: 0 14px 36px rgba(0,0,0,0.25);
         transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
@@ -645,6 +662,7 @@
         width: 0 !important;
         height: 0 !important;
         flex: 0 0 0;
+        order: 99;
     }
 
     /* Hide the decorative background used on desktop */
