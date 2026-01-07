@@ -544,53 +544,37 @@
     .trending-images-container {
         display: flex;
         flex-direction: row;
-        /* border: 2px solid red; */
-        gap: 15px;
+        gap: 12px;
         align-items: center;
-        overflow-x: auto;
-        overflow-y: hidden;
+        justify-content: center;
+        overflow: hidden; /* Disable native scroll - use JS carousel */
         padding: 20px 0;
         width: 100%;
         height: auto;
-        scroll-snap-type: x mandatory; /* <--- YEH SAHI HAI (Point #2) */
-        -webkit-overflow-scrolling: touch;
-        justify-content: flex-start;
-        /* Padding to allow proper centering and side views */
-    /* Adjusted padding to match center image half-width (130px) for proper centering */
-    padding-left: calc(50vw - 130px); /* Center images properly */
-    padding-right: calc(50vw - 130px); /* Center images properly */
-        /* enable snapping so each card can snap into the center of the viewport */
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
+        touch-action: pan-y; /* Allow vertical scroll, JS handles horizontal */
+        user-select: none;
     }
 
     .trending-images-container::-webkit-scrollbar {
-        height: 0; /* Hide scrollbar for cleaner look */
+        display: none;
     }
 
     .trending-img {
         position: relative;
-        /* Base size for outer images (pos1/pos5) on mobile */
-        flex: 0 0 200px;
-        width: 200px !important; /* override inline styles from JSX */
-        height: 300px !important; /* override inline styles from JSX */
-        border-radius: 12px;
+        flex: 0 0 260px;
+        width: 260px !important;
+        height: 420px !important;
+        border-radius: 16px;
         overflow: hidden;
-        box-shadow: 0 6px 18px rgba(0,0,0,0.10);
-        scroll-snap-align: center; /* <--- YEH SAHI HAI (Point #2) */
-        transition: transform 0.28s ease, opacity 0.28s ease;
-        /* Remove absolute positioning styles */
+        box-shadow: 0 10px 24px rgba(0,0,0,0.15);
+        transition: transform 0.3s ease, opacity 0.3s ease;
         top: auto !important;
         left: auto !important;
-        transform: none !important;
-        /* snap align each card to center of the container */
-        scroll-snap-align: center !important;
-        /* margin: 0 8px; small gap around cards for breathing room */
     }
 
-    /* Make the trending container taller to accommodate the larger center image */
+    /* Make the trending container taller */
     .trending-images-container {
-        height: 460px !important;
+        height: 480px !important;
         margin-top: 6px !important;
         padding-top: 8px !important;
         padding-bottom: 8px !important;
@@ -605,35 +589,34 @@
         border-radius: 16px;
     }
 
-    /* Graduated sizes: outermost (pos1/pos5) small, neighbors (pos2/pos4) medium, center (pos3) largest */
+    /* Circular carousel - side videos smaller, center video bigger */
     .trending-img.pos1,
     .trending-img.pos5 {
-        width: 200px !important;
-        height: 300px !important;
-        flex: 0 0 200px;
-        z-index: 2 !important;
-        transform: translateY(0) !important;
-        box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+        width: 80px !important;
+        height: 140px !important;
+        flex: 0 0 80px;
+        opacity: 0.4;
+        transform: scale(0.85);
     }
 
     .trending-img.pos2,
     .trending-img.pos4 {
-        width: 235px !important;
-        height: 350px !important;
-        flex: 0 0 235px;
-        z-index: 4 !important;
-        transform: translateY(-6px) !important;
-        box-shadow: 0 10px 22px rgba(0,0,0,0.14);
+        width: 180px !important;
+        height: 300px !important;
+        flex: 0 0 180px;
+        opacity: 0.7;
+        transform: scale(0.95);
     }
 
+    .trending-img.pos3,
     .trending-img.pos3.center {
         width: 260px !important;
         height: 420px !important;
         flex: 0 0 260px;
-        border-radius: 16px;
-        box-shadow: 0 14px 36px rgba(0,0,0,0.2);
-        transform: translateY(-14px) !important; /* lift it up more */
-        z-index: 6 !important;
+        opacity: 1;
+        transform: scale(1);
+        z-index: 5;
+        box-shadow: 0 14px 36px rgba(0,0,0,0.25);
     }
 
     /* Hide the decorative background used on desktop */

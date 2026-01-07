@@ -251,25 +251,27 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
     };
   }, [filteredHeroItems.length, isMobile]);
 
-  // Effect to center trending section when it comes into view
+  // Effect to center trending section when it comes into view - only needed for desktop
   useEffect(() => {
+    if (isMobile) return; // Mobile uses JS carousel, no scroll centering needed
     const trendingContainer = trendingContainerRef.current;
-    const imageToCenter = centerImageRef.current;
+    if (!trendingContainer) return;
 
-    if (!trendingContainer || !imageToCenter) return;
-
-    // Helper which centers the given element inside the scroll container
-    const centerTrendingView = (elem) => {
+    // Desktop centering logic remains same
+    const centerTrendingView = (elem, smooth = true) => {
+      if (!elem) return;
       try {
         const containerRect = trendingContainer.getBoundingClientRect();
         const elemRect = elem.getBoundingClientRect();
-        // compute element center relative to container scrollLeft
         const containerCenterX = containerRect.width / 2;
         const elemCenterOffset = (elemRect.left - containerRect.left) + (elemRect.width / 2);
         const scrollPosition = Math.max(0, elemCenterOffset - containerCenterX + trendingContainer.scrollLeft);
-        trendingContainer.scrollTo({ left: scrollPosition, behavior: 'smooth' });
+        if (smooth) {
+          trendingContainer.scrollTo({ left: scrollPosition, behavior: 'smooth' });
+        } else {
+          trendingContainer.scrollLeft = scrollPosition;
+        }
       } catch (err) {
-        // fallback: compute using offsets
         const containerCenter = trendingContainer.offsetWidth / 2;
         const imageCenter = (elem.offsetLeft || 0) + (elem.offsetWidth || 0) / 2;
         const scrollPosition = imageCenter - containerCenter;
@@ -277,36 +279,15 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
       }
     };
 
-    // On mobile we want the 3rd video to be centered initially
-    // give a slightly longer delay to ensure layout & media have settled
     const initialTimeout = setTimeout(() => {
-      // prefer the explicit centerImageRef (pos === 3), otherwise pick the 3rd child
-      const el = centerImageRef.current || trendingContainer.querySelector('.trending-img.pos3') || trendingContainer.children[2];
-      if (el) centerTrendingView(el);
-    }, 300);
+      const el = trendingContainer.querySelector('.trending-img.pos3.center') || trendingContainer.children[2];
+      if (el) centerTrendingView(el, false);
+    }, 100);
 
-    // When the trending container becomes visible again (re-entry), recenter to the 3rd video
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          const el = centerImageRef.current || trendingContainer.querySelector('.trending-img.pos3') || trendingContainer.children[2];
-          if (el) centerTrendingView(el);
-        }
-      },
-      { threshold: 0.5 }
-    );
-
-    if (trendingContainer) {
-      observer.observe(trendingContainer);
-    }
-    
     return () => {
-      if (trendingContainer) {
-        observer.unobserve(trendingContainer);
-      }
       clearTimeout(initialTimeout);
     };
-  }, []);
+  }, [isMobile, trendingVideos]);
 
   // Load trending videos if not provided by SSR
   useEffect(() => {
@@ -686,7 +667,7 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
                           muted
                           loop
                           autoPlay
-                          preload={pos === 3 || pos === 2 || pos === 4 ? 'auto' : 'metadata'}
+                          preload={pos === 3 ? 'auto' : 'metadata'}
                           src={videoSrc}
                           onLoadedData={(e) => {
                             try {

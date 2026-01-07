@@ -37,7 +37,7 @@
   height: 80vw;
   max-width: 1000px;
   max-height: 800px;
-  gap: 1px;
+  gap: 0px;
 }
 
 .flip-card {
