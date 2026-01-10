@@ -31,49 +31,11 @@ export default function ProductCard({ product, isAdmin, onProductClick, onEdit, 
         imageUrl = currentImage.url;
     }
 
-    // If the image is hosted on Cloudinary, request a higher-quality
-    // delivery variant to avoid blurry thumbnails (especially on high-DPR displays).
-    const enhanceCloudinaryUrl = (url, preferredWidth = 800) => {
-        try {
-            if (!url || typeof url !== 'string') return url;
-            const cloudinaryHost = 'res.cloudinary.com';
-            const u = new URL(url);
-            if (!u.hostname.includes(cloudinaryHost)) return url;
-            // Insert quality/format/width transformation after '/upload/'
-            // Example: https://res.cloudinary.com/demo/image/upload/v123/...jpg
-            // becomes https://res.cloudinary.com/demo/image/upload/q_auto:best,f_auto,w_800/v123/...jpg
-            const parts = u.pathname.split('/upload/');
-            if (parts.length < 2) return url;
-            const before = parts[0];
-            const after = parts[1];
-            const transform = `q_auto:best,f_auto,w_${preferredWidth}`;
-            const newPath = `${before}/upload/${transform}/${after}`;
-            return `${u.protocol}//${u.host}${newPath}`;
-        } catch (e) {
-            return url;
-        }
-    };
-    // Generate a tiny blurred placeholder for fast perceived load
-    const makeBlurUrl = (url) => {
-        try {
-            if (!url || typeof url !== 'string') return null;
-            const cloudinaryHost = 'res.cloudinary.com';
-            const u = new URL(url);
-            if (!u.hostname.includes(cloudinaryHost)) return null;
-            const parts = u.pathname.split('/upload/');
-            if (parts.length < 2) return null;
-            const before = parts[0];
-            const after = parts[1];
-            const transform = `q_1,w_16,e_blur:2000`;
-            const newPath = `${before}/upload/${transform}/${after}`;
-            return `${u.protocol}//${u.host}${newPath}`;
-        } catch (e) {
-            return null;
-        }
-    };
-
-    const displayUrl = imageUrl ? enhanceCloudinaryUrl(imageUrl, 800) : null;
-    const blurUrl = imageUrl ? makeBlurUrl(imageUrl) : null;
+    // For all images use the provided URL (S3 or remote). Do not perform
+    // provider-specific transformations — uploads now go to S3 and remote
+    // URLs should be used as-is.
+    const displayUrl = imageUrl || null;
+    const blurUrl = null;
 
     const isPending = !!product.isPending;
     const imagePending = !!product.imagePending;
@@ -264,21 +226,25 @@ export default function ProductCard({ product, isAdmin, onProductClick, onEdit, 
             >
                 {imageUrl ? (
                     <>
-                        <Image
-                            src={displayUrl || imageUrl}
-                            alt={title || 'Collection item'}
-                            className={styles['product-image']}
-                            width={300}
-                            height={349}
-                            sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-                            placeholder={blurUrl ? 'blur' : undefined}
-                            blurDataURL={blurUrl || undefined}
-                            // we rely on Cloudinary-delivered image quality; keep Next's optimization
-                            // disabled in dev via next.config, so requesting a higher-quality Cloudinary
-                            // variant ensures the thumbnail is crisp on high-DPR screens.
-                            loading="lazy"
-                            // click is handled on the card so the entire card is clickable
-                        />
+                        {/*
+                          We use Next.js Image optimization for S3-hosted assets. Keep `loading="lazy"`
+                          because product cards are generally below-the-fold. The surrounding
+                          container defines an explicit aspect ratio and background color to
+                          reserve layout space and avoid Cumulative Layout Shift (CLS) when
+                          the remote S3 image loads.
+                        */}
+                        <div style={{ width: '100%', aspectRatio: '300 / 349', background: '#f3f4f6', position: 'relative' }}>
+                            <Image
+                                src={displayUrl || imageUrl}
+                                alt={title || 'Collection item'}
+                                className={styles['product-image']}
+                                fill
+                                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                                placeholder={blurUrl ? 'blur' : undefined}
+                                blurDataURL={blurUrl || undefined}
+                                loading="lazy"
+                            />
+                        </div>
                         {imagePending && (
                             <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.35)' }}>
                                 <svg width="40" height="40" viewBox="0 0 50 50" style={{ display: 'block' }}>

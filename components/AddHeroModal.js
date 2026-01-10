@@ -178,7 +178,7 @@ export default function AddHeroModal({ onClose, onAdd }) {
                 {saving ? 'Adding...' : 'Add'}
               </button>
             </div>
-            {/* Debug panel shown after a successful create to help verify saved Cloudinary URL */}
+            {/* Debug panel shown after a successful create to help verify saved image URL */}
             {debugSaved && (
               <div style={{ marginTop: 14, padding: 12, borderRadius: 8, background: '#f7f7f9', border: '1px solid #e6e6ea' }}>
                 <div style={{ fontSize: 13, marginBottom: 8, color: '#222', fontWeight: 600 }}>Saved hero item (debug)</div>

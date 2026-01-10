@@ -25,7 +25,7 @@ export async function POST(request) {
       return NextResponse.json({ success: false, error: 'Forbidden' }, { status: 403 });
     }
 
-      // Support JSON-based submissions (front-end uploads images directly to Cloudinary and sends URLs)
+      // Support JSON-based submissions (front-end may upload images separately and send URLs)
       const contentType = (request.headers.get('content-type') || '').toLowerCase();
       let fields = {};
       let files = {};
@@ -71,7 +71,7 @@ export async function POST(request) {
 
     // Upload only when a File-like object exists. Keep promises grouped so we can
     // map results back to keys. Also allow `fields` to supply a pre-uploaded URL
-    // (when frontend uploads directly to Cloudinary and sends URLs).
+    // (when frontend uploads separately to S3 or another host and sends URLs).
     const mainFile = pickFirstFile(files.mainImage);
     const mainFile2 = pickFirstFile(files.mainImage2);
     const otherFiles = files.otherImages

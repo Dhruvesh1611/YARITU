@@ -115,9 +115,9 @@ const StayClassy = () => {
     }
   };
 
-  // Treat absolute http(s) URLs as remote. Legacy Cloudinary env vars were removed
-  // during the migration to S3; any existing Cloudinary-hosted URLs are still
-  // remote (they start with http(s)).
+  // Treat absolute http(s) URLs as remote. Legacy build-time host envs were
+  // removed during the S3 migration; any existing third-party-hosted URLs
+  // are still considered remote (they start with http(s)).
   const isRemote = (url) => {
     if (!url) return false;
     try {

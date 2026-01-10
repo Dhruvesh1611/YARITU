@@ -121,14 +121,19 @@ export default function HeroImageCard({ item, onUpdate, onDelete }) {
   return (
     <>
       <div className="hero-card-container">
+        {/*
+          This image is above-the-fold on most pages and is a Largest Contentful Paint (LCP)
+          candidate. We remove `loading="lazy"` and set `priority={true}` so Next.js
+          preloads it to improve LCP. `sizes` is set to avoid downloading large desktop
+          images on small viewports (mobile will get 100vw).
+        */}
         <Image
           src={item.imageUrl}
           alt={item.title || 'hero'}
           fill
-          sizes="(max-width: 480px) 100vw, 300px"
+          sizes="(max-width: 600px) 100vw, 300px"
           className="hero-card-image"
-          priority={false}
-          loading="lazy"
+          priority={true}
         />
         {session && (
           <button onClick={() => setIsOpen(true)} className="edit-button">Edit</button>

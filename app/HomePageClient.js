@@ -449,7 +449,7 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
               const currentItem = hasItem ? list[currentHeroImage % list.length] : null;
               const imageUrl = currentItem?.imageUrl;
 
-              // Treat absolute http(s) URLs as remote. Cloudinary build-time envs
+              // Treat absolute http(s) URLs as remote. Build-time Cloudinary envs
               // were removed during the S3 migration so we only rely on protocol.
               const isRemote = (url) => {
                 if (!url) return false;

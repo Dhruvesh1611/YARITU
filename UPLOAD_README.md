@@ -33,4 +33,5 @@ npm run dev
 Notes:
 - The server accepts files up to 150MB; adjust client-side limits as needed.
 - The server stores uploads at the bucket root (object keys are prefixed with a timestamp to reduce collisions).
-- Remove any Cloudinary-related environment variables (CLOUDINARY_*) from your local `.env.local` or Vercel project settings.
+ - The server stores uploads at the bucket root (object keys are prefixed with a timestamp to reduce collisions).
+ - If you previously used Cloudinary, remove any legacy Cloudinary-related environment variables (CLOUDINARY_*) from your local `.env.local` or Vercel project settings.

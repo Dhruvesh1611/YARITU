@@ -213,20 +213,21 @@ const ImageSlider = () => {
                                         }}
                                         style={{ cursor: image.position === 'center' ? 'pointer' : 'default' }}
                                     >
-                                        {image.src ? (
+                                                                                {image.src ? (
+
                                             <Image
-                                                src={image.src}
-                                                alt={image.alt || 'Featured image'}
-                                                fill
-                                                sizes="(max-width: 768px) 50vw, 33vw"
-                                                className={`${styles.image} ${styles.initialHidden}`}
-                                                priority={image.position === 'center'}
-                                                loading={image.position === 'center' ? undefined : 'lazy'}
-                                                placeholder="empty"
-                                                onLoad={(e) => {
-                                                    try { e.target.classList.add(styles.loaded); } catch (err) { }
-                                                }}
-                                            />
+        src={image.src}
+        alt={image.alt || 'Featured image'}
+        fill
+        sizes="(max-width: 768px) 50vw, 33vw"
+        className={`${styles.image} ${styles.initialHidden}`}
+        priority={image.position === 'center'}
+        loading={image.position === 'center' ? undefined : 'lazy'}
+        placeholder="empty"
+        onLoad={(e) => {
+            try { e.target.classList.add(styles.loaded); } catch (err) { }
+        }}
+    />
                                         ) : (
                                             <div style={{ width: '100%', height: '100%', background: '#eee' }} />
                                         )}

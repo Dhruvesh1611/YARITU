@@ -31,12 +31,10 @@ export default function RootLayout({ children, session }) {
     <html lang="en" className={`${poppins.variable} ${playfair.variable} ${poiret.variable} ${cinzel.variable} ${sourceSerif4.variable}`}>
       <head>
         {/* Preconnect to external domains for faster resource loading */}
-        <link rel="preconnect" href="https://res.cloudinary.com" />
         <link rel="preconnect" href="https://s3.amazonaws.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* DNS prefetch for faster lookups */}
-        <link rel="dns-prefetch" href="https://res.cloudinary.com" />
         <link rel="dns-prefetch" href="https://s3.amazonaws.com" />
       </head>
       <body>

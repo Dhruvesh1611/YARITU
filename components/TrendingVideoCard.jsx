@@ -59,6 +59,13 @@ export default function TrendingVideoCard({ item, onUpdate }) {
   return (
     <div style={{ width: 220, padding: 8, background: '#fff', borderRadius: 8, boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
       <div style={{ height: 120, background: '#000', borderRadius: 6, overflow: 'hidden', marginBottom: 8 }}>
+        {/*
+          Use `preload="metadata"` to fetch only video metadata (duration/dimensions)
+          instead of the full file which saves bandwidth and reduces buffering.
+          Provide a `poster` (thumbnail) so the UI doesn't show a black box while the
+          video metadata or player initializes. `playsInline` + `muted` improve mobile
+          compatibility and increase the chance autoplay will succeed where used.
+        */}
         <video
           src={item.videoUrl}
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
@@ -66,7 +73,7 @@ export default function TrendingVideoCard({ item, onUpdate }) {
           loop
           playsInline
           preload="metadata"
-          poster={item.posterUrl || undefined}
+          poster={item.posterUrl || '/images/video-placeholder.jpg'}
         />
       </div>
       <div style={{ display: 'flex', gap: 8 }}>

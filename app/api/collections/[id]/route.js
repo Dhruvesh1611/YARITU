@@ -31,7 +31,8 @@ export async function PUT(request, { params }) {
       return NextResponse.json({ success: false, error: 'Forbidden' }, { status: 403 });
     }
 
-    // Support JSON-based submissions where client uploads images to Cloudinary directly
+    // Support JSON-based submissions where client provides pre-uploaded image URLs
+    // (uploaded separately to S3 or another host) or multipart form uploads.
     const contentType = (request.headers.get('content-type') || '').toLowerCase();
     let fields = {};
     let files = {};

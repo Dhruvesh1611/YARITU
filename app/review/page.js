@@ -17,7 +17,6 @@ function VideoReview({ src, className, isPlaying, onPlay, onStop, thumbnail }) {
     if (lower.endsWith('.mp4')) return 'video/mp4';
     if (lower.endsWith('.webm')) return 'video/webm';
     if (lower.endsWith('.ogg') || lower.endsWith('.ogv')) return 'video/ogg';
-    if (lower.includes('/video/upload/')) return 'video/mp4'; // common Cloudinary path
     return undefined;
   };
 
@@ -201,14 +200,8 @@ export default function Review() {
   const [playingIdx, setPlayingIdx] = useState(null);
 
   const normalizeVideoUrl = (u) => {
-    try {
-      if (typeof u !== 'string') return u;
-      if (u.includes('res.cloudinary.com') && u.includes('/video/upload/')) {
-        // ensure mp4 delivery
-        return u.replace('/upload/', '/upload/f_mp4/');
-      }
-      return u;
-    } catch { return u; }
+    // Do not perform Cloudinary-specific normalization. Return URL as-is.
+    try { return u; } catch { return u; }
   };
 
   // CHANGE #1: Add a state to track if we are on the client

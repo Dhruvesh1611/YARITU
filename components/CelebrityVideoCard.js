@@ -72,13 +72,18 @@ export default function CelebrityVideoCard({ item, onUpdate, onDelete }) {
     <>
       <div className="video-card">
         <div className="video-thumbnail">
+          {/*
+            `preload="metadata"` avoids downloading the full video immediately (saves bandwidth)
+            and `poster` prevents layout shift / a black box while the player initializes.
+            `playsInline` + `muted` help with mobile playback behavior and autoplay policies.
+          */}
           <video
             src={item.videoUrl}
             muted
             loop
             playsInline
             preload="metadata"
-            poster={item.posterUrl || undefined}
+            poster={item.posterUrl || '/images/video-placeholder.jpg'}
           />
         </div>
         <div className="card-footer">

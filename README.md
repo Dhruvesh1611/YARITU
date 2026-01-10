@@ -61,9 +61,6 @@ Once env variables are configured, push to your `main` branch and Vercel will au
 
 ## Troubleshooting
 
-- If a build fails on Vercel with a missing module, ensure all packages are listed in `package.json` and run `npm install` locally to replicate.
-- If images appear blurry, check `app/lib/gtag.js` and Cloudinary transform helpers in `components/ProductCard.js`.
-
 ---
 
 If you'd like a richer README (more screenshots, architecture diagram, or runbook), tell me which sections to expand and I'll add them.

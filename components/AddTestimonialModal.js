@@ -50,7 +50,7 @@ export default function AddTestimonialModal({ location = 'home', item = null, on
         
         setLoading(true);
         try {
-            // If a new file was selected, upload it directly to Cloudinary unsigned so client shows progress
+            // If a new file was selected, upload it to the S3-backed server endpoint so client shows progress
             let avatarUrlToSend = item?.avatarUrl || item?.avatar || '';
             if (selectedFile) {
                 setUploadProgress(0);
