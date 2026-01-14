@@ -50,6 +50,29 @@ export default function Offer() {
   const currentAddress = currentStore?.address || '';
   const mapHref = buildGoogleMapsUrl(currentStore?.mapQuery || currentAddress) || '';
   const telHref = buildTelHref(currentStore?.phone || '');
+
+  // Helper: decide whether it's safe to use Next's Image component for a URL.
+  // We only allow known S3/CDN hosts here; Cloudinary or other unknown hosts
+  // will be rendered with a plain <img> to avoid Next/Image hostname config errors.
+  const allowedNextImageHost = (url) => {
+    if (!url) return false;
+    try {
+      const u = String(url).trim();
+      if (!u) return false;
+      if (u.startsWith('/')) return true; // local asset
+      if (u.startsWith('//')) {
+        // protocol-relative
+        const parsed = new URL(u, 'https:');
+        const h = parsed.hostname.toLowerCase();
+        return h === 'placehold.co' || h.endsWith('.amazonaws.com') || h.endsWith('cloudfront.net');
+      }
+      const parsed = new URL(u);
+      const host = parsed.hostname.toLowerCase();
+      return host === 'placehold.co' || host.endsWith('.amazonaws.com') || host.endsWith('cloudfront.net');
+    } catch (e) {
+      return false;
+    }
+  };
   // centralize fetching logic so other handlers can refresh the list after edits
   const sortStoresByName = (arr) => {
     if (!Array.isArray(arr)) return arr;
@@ -150,25 +173,32 @@ export default function Offer() {
               <div className="store-selector-image">
                   <div style={{ width: '100%', height: '100%' }}>
                     {isRemote(currentStore.imageUrl || currentStore.image) ? (
-                      mapHref ? (
-                        <a href={mapHref} target="_blank" rel="noopener noreferrer">
-                          <Image
-                            src={currentStore.imageUrl || currentStore.image}
-                            alt={`${currentStore.name || 'Store'} store interior`}
-                            fill
-                            style={{ objectFit: 'cover' }}
-                            className="store-photo"
-                          />
-                        </a>
-                      ) : (
-                        <Image
-                          src={currentStore.imageUrl || currentStore.image}
-                          alt={`${currentStore.name || 'Store'} store interior`}
-                          fill
-                          style={{ objectFit: 'cover' }}
-                          className="store-photo"
-                        />
-                      )
+                      (() => {
+                        const src = currentStore.imageUrl || currentStore.image;
+                        if (allowedNextImageHost(src)) {
+                          return mapHref ? (
+                            <a href={mapHref} target="_blank" rel="noopener noreferrer">
+                              <Image
+                                src={src}
+                                alt={`${currentStore.name || 'Store'} store interior`}
+                                fill
+                                style={{ objectFit: 'cover' }}
+                                className="store-photo"
+                              />
+                            </a>
+                          ) : (
+                            <Image
+                              src={src}
+                              alt={`${currentStore.name || 'Store'} store interior`}
+                              fill
+                              style={{ objectFit: 'cover' }}
+                              className="store-photo"
+                            />
+                          );
+                        }
+                        // Fallback to plain img tag for hosts not configured in next.config
+                        return <img src={src} alt={`${currentStore.name || 'Store'} store interior`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} className="store-photo" />;
+                      })()
                     ) : (
                       <SkeletonLoader style={{ width: '100%', height: '100%' }} />
                     )}
@@ -219,11 +249,17 @@ export default function Offer() {
                   <div key={off._id || off.id || `offer-${i}`} className={`offer-card ${i === 1 ? 'offset-up' : ''}`}>
                   <div className="offer-card-image">
                     <div >
-                      {isRemote(off.image) ? (
-                        <Image src={off.image} alt={off.heading || 'Offer image'} fill sizes="(max-width: 600px) 100vw, (max-width: 992px) 50vw, 33vw" style={{ objectFit: 'cover' }} />
-                      ) : (
-                        <SkeletonLoader style={{ width: '100%', height: '100%' }} />
-                      )}
+                        {isRemote(off.image) ? (
+                          (() => {
+                            const src = off.image;
+                            if (allowedNextImageHost(src)) {
+                              return <Image src={src} alt={off.heading || 'Offer image'} fill sizes="(max-width: 600px) 100vw, (max-width: 992px) 50vw, 33vw" style={{ objectFit: 'cover' }} />;
+                            }
+                            return <img src={src} alt={off.heading || 'Offer image'} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />;
+                          })()
+                        ) : (
+                          <SkeletonLoader style={{ width: '100%', height: '100%' }} />
+                        )}
                     </div>
                     {off.discount ? <div className="discount-tag">{off.discount}</div> : null}
                   </div>

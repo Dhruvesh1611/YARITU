@@ -261,6 +261,33 @@
         }
     }
 
+/* Mobile subscribe button responsive text */
+@media (max-width: 480px) {
+    .offer-page .subscribe-form {
+        max-width: 100%;
+    }
+    .offer-page .subscribe-form input {
+        padding: 14px 16px;
+        font-size: 14px;
+    }
+    .offer-page .subscribe-form button {
+        padding: 14px 20px;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 400px) {
+    .offer-page .subscribe-form input {
+        padding: 12px 12px;
+        font-size: 13px;
+    }
+    .offer-page .subscribe-form button {
+        padding: 12px 16px;
+        font-size: 11px;
+    }
+}
+
 /* Landscape phone adjustments */
 @media (max-width: 1024px) {
     .offer-page .store-selector-container {
@@ -432,6 +459,7 @@
   transition: transform 0.1s;
 }
 .offer-page .offer-card {
+    position: relative;
     background-color: var(--color-white);
     border-radius: 20px;
     box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.1);
@@ -455,7 +483,8 @@
     position: relative;
     /* increased container height so images show more content */
     height: 260px;
-    overflow: hidden;
+    overflow: visible;
+    background: transparent;
 }
 .offer-page .offer-card-image img {
     width: 100%;
@@ -463,6 +492,11 @@
     /* fill the image area so visuals are consistent across cards */
     object-fit: cover;
     object-position: center;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: relative;
+    z-index: 50;
 }
 .offer-page .discount-tag {
     position: absolute;
@@ -480,24 +514,29 @@
 /* Hide discount tag when it's empty (server may return empty string or null) */
 .offer-page .discount-tag:empty { display: none; }
 .offer-page .offer-card-content {
+    position: relative; /* ensure content sits above the image */
+    z-index: 70; /* above image z-index (image uses 50) so buttons are clickable */
     padding: 32px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    background: transparent;
 }
     .offer-modal-overlay {
         position: fixed;
         inset: 0;
-        z-index: 1200;
+        z-index: 100000; /* ensure modal overlays page content */
         display: flex;
         align-items: center;
         justify-content: center;
+        pointer-events: auto;
     }
     .offer-modal-backdrop {
-        position: absolute;
+        position: fixed; /* cover entire viewport and create a new stacking context */
         inset: 0;
         background: rgba(0,0,0,0.45);
         backdrop-filter: blur(6px);
+        z-index: 99999;
     }
     .offer-modal {
         position: relative;
@@ -510,7 +549,7 @@
         border-radius: 16px;
         padding: 0;
         box-shadow: 0 40px 80px rgba(9,18,30,0.7);
-        z-index: 1201;
+        z-index: 100001; /* sit above backdrop and all page content */
         overflow: hidden;
     }
     

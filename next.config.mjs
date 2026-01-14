@@ -36,8 +36,7 @@ const nextConfig = {
     },
     // Enable compression
     compress: true,
-    // Optimize production builds
-    swcMinify: true,
+    // Optimize production builds (no swcMinify flag required)
 };
 
 // Enable @next/bundle-analyzer when the ANALYZE env var is set to 'true'

@@ -71,20 +71,27 @@ export default function CelebrityVideoCard({ item, onUpdate, onDelete }) {
   return (
     <>
       <div className="video-card">
-        <div className="video-thumbnail">
+        <div className="video-thumbnail" style={{ position: 'relative', height: 140, backgroundColor: '#000' }}>
           {/*
-            `preload="metadata"` avoids downloading the full video immediately (saves bandwidth)
+            `preload="auto"` for admin cards since they're small previews
             and `poster` prevents layout shift / a black box while the player initializes.
             `playsInline` + `muted` help with mobile playback behavior and autoplay policies.
           */}
           <video
-            src={item.videoUrl}
             muted
             loop
             playsInline
-            preload="metadata"
-            poster={item.posterUrl || '/images/video-placeholder.jpg'}
-          />
+            preload="auto"
+            poster={item.thumbnail || item.posterUrl || undefined}
+            controls
+            className="card-video"
+            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', position: 'relative', zIndex: 1, backgroundColor: '#000', opacity: 1, visibility: 'visible' }}
+            onError={(e) => { console.error('CelebrityVideoCard: video load error', item.videoUrl, e); }}
+            onLoadedMetadata={(e) => { try { e.target.play().catch(err => console.error('Auto-play blocked', err)); } catch (err) { } }}
+          >
+            <source src={item.videoUrl} type="video/mp4" />
+            <source src={item.videoUrl} type="video/quicktime" />
+          </video>
         </div>
         <div className="card-footer">
             <p className="card-title">{item.title || 'Untitled'}</p>
@@ -112,7 +119,20 @@ export default function CelebrityVideoCard({ item, onUpdate, onDelete }) {
               <div className="formGroup">
                 <label>Video</label>
                  <div className="videoPreview">
-                    {form.videoUrl ? <video src={form.videoUrl} controls /> : <span>No video selected</span>}
+                    {form.videoUrl ? (
+                      <video
+                        controls
+                        preload="metadata"
+                        muted
+                        loop
+                        playsInline
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        onLoadedMetadata={(e) => { try { e.target.play().catch(err => console.error('Auto-play blocked', err)); } catch (err) { } }}
+                      >
+                        <source src={form.videoUrl} type="video/mp4" />
+                        <source src={form.videoUrl} type="video/quicktime" />
+                      </video>
+                    ) : <span>No video selected</span>}
                  </div>
               </div>
 
@@ -170,13 +190,27 @@ export default function CelebrityVideoCard({ item, onUpdate, onDelete }) {
             box-shadow: 0 8px 20px rgba(0,0,0,0.12);
         }
         .video-thumbnail {
-            height: 140px;
-            background: #000;
+          height: 140px;
+          background: transparent;
+          position: relative;
         }
         .video-thumbnail video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          position: relative;
+          z-index: 2;
+          background-color: transparent !important;
+          opacity: 1 !important;
+          visibility: visible !important;
+          display: block;
+        }
+        .card-video {
+          position: relative;
+          z-index: 2;
+          background-color: transparent !important;
+          opacity: 1 !important;
+          visibility: visible !important;
         }
         .card-footer {
             padding: 12px;

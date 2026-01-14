@@ -233,7 +233,7 @@ export default function ProductCard({ product, isAdmin, onProductClick, onEdit, 
                           reserve layout space and avoid Cumulative Layout Shift (CLS) when
                           the remote S3 image loads.
                         */}
-                        <div style={{ width: '100%', aspectRatio: '300 / 349', background: '#f3f4f6', position: 'relative' }}>
+                        <div style={{ width: '100%', height: '100%', background: '#f3f4f6', position: 'relative' }}>
                             <Image
                                 src={displayUrl || imageUrl}
                                 alt={title || 'Collection item'}

@@ -24,7 +24,7 @@ const sanitize = (s) => {
   let v = String(s).trim();
   v = v.replace(/^\/+/g, '').replace(/\/+$/g, '');
   v = v.replace(/\.\.+/g, '');
-  v = v.replace(/[^A-Za-z0-9\/_-]/g, '');
+  v = v.replace(/[^A-Za-z0-9\/._-]/g, '');
   return v;
 };
 
@@ -66,10 +66,15 @@ export async function POST(request) {
     const safeFile = sanitize(file) || `${Date.now()}`;
     const key = `${safeFolder}/${Date.now()}-${generateId()}-${safeFile}`;
 
+    // Recommend setting a long cache lifetime for uploaded assets so browsers
+    // reuse them when components re-mount (prevents repeated downloads on slides).
+    const cacheControl = process.env.S3_CACHE_CONTROL || 'public, max-age=31536000, immutable';
+    const resolvedContentType = contentType || 'video/mp4';
     const putCommand = new PutObjectCommand({
       Bucket: bucketName,
       Key: key,
-      ContentType: contentType || 'application/octet-stream',
+      ContentType: resolvedContentType,
+      CacheControl: cacheControl,
     });
 
     const signedUrl = await getSignedUrl(s3Client, putCommand, { expiresIn: 60 });

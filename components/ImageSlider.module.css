@@ -130,19 +130,24 @@
 }
 
 .featuredCardImage {
-  display: block;
+  display: block !important;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: relative;
+  z-index: 50;
 }
 
 /* Fade-in for featured images when content is ready */
 .image {
-  opacity: 0;
-  transition: opacity 0.5s ease, transform 0.35s ease;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transition: transform 0.35s ease;
 }
 .image.loaded {
-  opacity: 1;
+  opacity: 1 !important;
 }
 .featuredCard.initHidden { opacity: 0; transform: translateY(6px); }
 .featuredCard.loaded { opacity: 1; transform: translateY(0); }

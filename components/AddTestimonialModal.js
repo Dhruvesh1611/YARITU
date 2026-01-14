@@ -260,19 +260,21 @@ export default function AddTestimonialModal({ location = 'home', item = null, on
                 .avatar-preview {
                     width: 150px;
                     height: 150px;
-                    border-radius: 50%;
+                    border-radius: 8px;
                     background: #f0f0f0;
                     margin: 0 auto 12px;
-                    overflow: hidden;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
+                    overflow: visible;
+                    display: block;
+                    position: relative;
                     border: 2px dashed #ccc;
                 }
                 .avatar-preview img {
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
+                    display: block;
+                    position: relative;
+                    z-index: 9999;
                 }
                 .avatar-placeholder {
                     color: #888;

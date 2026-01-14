@@ -32,6 +32,10 @@ export default async function uploadFileWithPresign(file, folder = 'YARITU/misc'
     xhr.open('PUT', signedUrl, true);
     // Set content-type so S3 stores correct metadata
     try { xhr.setRequestHeader('Content-Type', file.type || 'application/octet-stream'); } catch (e) { /* some browsers disallow setting */ }
+    // Encourage long-lived browser caching for uploaded assets. Matches server-side
+    // presign which includes CacheControl. If you want a different value, set
+    // `S3_CACHE_CONTROL` in your environment.
+    try { xhr.setRequestHeader('Cache-Control', process.env.S3_CACHE_CONTROL || 'public, max-age=31536000, immutable'); } catch (e) { /* ignore */ }
 
     xhr.upload.onprogress = (event) => {
       if (event.lengthComputable && typeof onProgress === 'function') {

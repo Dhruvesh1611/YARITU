@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react';
 import CelebrityVideoCard from './CelebrityVideoCard';
 import AddCelebrityModal from './AddCelebrityModal';
 import uploadFileWithPresign from '../utils/uploadFileWithPresign';
+import isRemote from '../utils/isRemote';
 import SkeletonLoader from './SkeletonLoader';
 
 const CelebritySection = () => {
@@ -59,14 +60,9 @@ const CelebritySection = () => {
   // displayed list is either the filtered (client) list after mount, or the server-provided videos (SSR)
   const displayed = mounted ? filteredVideos : videos;
 
-  const isRemote = (url) => {
-    if (!url) return false;
-    try {
-      if (url.startsWith('http://') || url.startsWith('https://')) return true;
-      // S3-hosted files are served via https URLs; no Cloudinary-specific checks needed.
-    } catch (e) { }
-    return false;
-  };
+  
+
+  // Use shared remote URL checker from utils
 
   // Keep currentVideo in-bounds when displayed list changes
   useEffect(() => {
@@ -104,6 +100,7 @@ const CelebritySection = () => {
   }, [currentVideo, displayed.length]);
 
   // === NEW: Jab user swipe/scroll kare, toh state ko update karne ke liye ===
+  // Also handles lazy loading - only loads videos that are visible or adjacent
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (!container) return;
@@ -111,18 +108,32 @@ const CelebritySection = () => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
+          const index = parseInt(entry.target.getAttribute('data-index'), 10);
+          const videoEl = entry.target.querySelector('video');
+          
           if (entry.isIntersecting) {
             // Jo video screen par dikh raha hai, uska index state me set karo
-            const index = parseInt(entry.target.getAttribute('data-index'), 10);
             if (!isNaN(index)) {
               setCurrentVideo(index);
+            }
+            // Start loading the video when it becomes visible
+            if (videoEl && videoEl.preload === 'none') {
+              videoEl.preload = 'metadata';
+            }
+          } else {
+            // Pause video when it goes out of view to save resources
+            if (videoEl) {
+              try {
+                videoEl.pause();
+              } catch (e) { /* ignore */ }
             }
           }
         });
       },
       {
         root: container,
-        threshold: 0.5, // Video 50% dikhne par active maano
+        threshold: 0.3, // Video 30% dikhne par active maano (better for lazy loading)
+        rootMargin: '100px', // Pre-load videos that are about to come into view
       }
     );
 
@@ -159,6 +170,28 @@ const CelebritySection = () => {
   useEffect(() => {
     videoRefs.current = [];
   }, [displayed.length]);
+
+  // Preload first video URL for priority loading (after hero images)
+  useEffect(() => {
+    if (displayed.length > 0 && displayed[0]?.videoUrl) {
+      const firstVideoUrl = displayed[0].videoUrl;
+      // Check if preload link already exists
+      const existingLink = document.querySelector(`link[href="${firstVideoUrl}"]`);
+      if (!existingLink) {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'video';
+        link.href = firstVideoUrl;
+        // Use 'low' priority so hero images load first
+        link.fetchPriority = 'low';
+        document.head.appendChild(link);
+        // Cleanup on unmount
+        return () => {
+          try { document.head.removeChild(link); } catch (e) { /* ignore */ }
+        };
+      }
+    }
+  }, [displayed]);
 
   const goToPrevious = () => {
     const len = displayed.length || 0;
@@ -262,18 +295,24 @@ const CelebritySection = () => {
           <div className="video-container" ref={scrollContainerRef}>
             {displayed.length > 0 ? (
               displayed.map((video, index) => (
-                <div className="video-slide" key={video._id} data-index={index} style={{ position: 'relative' }}>
-                  {isRemote(video.videoUrl) ? (
+                <div className="video-slide" key={video._id} data-index={index} style={{ position: 'relative', height: '80vh', flex: '0 0 100%' }}>
+                  {video.videoUrl ? (
                     <video
                       ref={(el) => (videoRefs.current[index] = el)}
-                      src={video.videoUrl}
                       muted
                       playsInline
                       loop
-                      // leave autoplay attribute off and control playback programmatically
+                      preload={index < 3 ? 'auto' : 'none'}
+                      poster={video.thumbnail || video.posterUrl || undefined}
+                      controls
                       className="main-video"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', position: 'relative', zIndex: 1, backgroundColor: '#000', opacity: 1, visibility: 'visible' }}
+                      onError={(e) => { console.error('CelebritySection: video load error', video.videoUrl, e); }}
+                      onLoadedMetadata={(e) => { try { if (index === currentVideo) e.target.play().catch(err => console.error('Auto-play blocked', err)); } catch (err) { } }}
+                      onCanPlay={(e) => { try { if (index === currentVideo && index === 0) e.target.play().catch(() => {}); } catch (err) { } }}
                     >
                       <source src={video.videoUrl} type="video/mp4" />
+                      <source src={video.videoUrl} type="video/quicktime" />
                       Your browser does not support the video tag.
                     </video>
                   ) : (
@@ -319,16 +358,7 @@ const CelebritySection = () => {
           <button className="video-nav-arrow next" onClick={goToNext} aria-label="Next video">&#8250;</button>
         </div>
 
-        <div className="video-dots">
-          {displayed.map((_, index) => (
-            <button
-              key={index}
-              className={`dot ${index === currentVideo ? 'active' : ''}`}
-              onClick={() => goToVideo(index)}
-              aria-label={`Go to video ${index + 1}`}
-            />
-          ))}
-        </div>
+        {/* Timeline/dots removed per request — only videos are shown now */}
 
         {isAdmin && (
           <div style={{ paddingTop: 24 }}>
@@ -444,7 +474,7 @@ const CelebritySection = () => {
             overflow: hidden;
             border-radius: 16px;
             position: relative;
-            background-color: #f0f0f0;
+          background-color: transparent;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             
             /* === NEW: Saare videos ko side-by-side rakhega === */
@@ -460,9 +490,21 @@ const CelebritySection = () => {
         }
 
         .main-video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          position: relative;
+          z-index: 2;
+          background-color: transparent !important;
+          opacity: 1 !important;
+          visibility: visible !important;
+        }
+        .card-video {
+          position: relative;
+          z-index: 2;
+          background-color: transparent !important;
+          opacity: 1 !important;
+          visibility: visible !important;
         }
         .no-videos-placeholder {
             width: 100%;
@@ -515,26 +557,7 @@ const CelebritySection = () => {
             background: white;
             transform: scale(1.1);
         }
-        .video-dots {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 24px;
-        }
-        .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            border: 2px solid #ccc;
-            background-color: transparent;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .dot.active {
-            background-color: #333;
-            border-color: #333;
-            transform: scale(1.1);
-        }
+        /* Timeline/dots removed - only videos should be visible */
         
         /* Admin Controls */
         .admin-video-controls {

@@ -388,7 +388,8 @@
 .product-image-wrapper {
   position: relative;
   width: 100%;
-  height: 349px;
+  /* Increased height to reduce cropping and fix vertical cut-off */
+  height: 400px;
   overflow: hidden; /* keep zoom contained */
   border-radius: 6px;
 }
@@ -422,7 +423,7 @@
 }
 
 .card-info {
-  padding: 24px 12px 0px 0px;
+  padding: 12px 12px 0px 0px; /* Reduced top padding to decrease gap between image and title */
   font-size: 16px;
   line-height: 1.5;
 }
@@ -576,7 +577,8 @@
   }
 
   .product-card { width: 100%; }
-  .product-image-wrapper { height: 300px; }
+  /* Slightly taller tiles on tablet to preserve aspect and avoid tight crops */
+  .product-image-wrapper { height: 450px; }
 
   @media (max-width: 900px) {
     .product-grid.grid-view {
@@ -586,7 +588,7 @@
       padding: 0 15px;
     }
 
-    .product-image-wrapper { height: 349px; }
+    .product-image-wrapper { height: 480px; }
   }
 }
 

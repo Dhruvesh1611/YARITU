@@ -4,21 +4,22 @@ import TestimonialsSlider from '../../components/TestimonialsSlider';
 import { useSession } from 'next-auth/react';
 import uploadFileWithPresign from '../../utils/uploadFileWithPresign';
 
+// Helper function to get MIME type from URL
+const getMimeFromUrl = (url) => {
+  if (!url || typeof url !== 'string') return 'video/mp4';
+  const lower = url.split('?')[0].toLowerCase();
+  if (lower.endsWith('.mov')) return 'video/quicktime';
+  if (lower.endsWith('.webm')) return 'video/webm';
+  if (lower.endsWith('.ogg') || lower.endsWith('.ogv')) return 'video/ogg';
+  return 'video/mp4';
+};
+
 // Custom video component for review gallery
 function VideoReview({ src, className, isPlaying, onPlay, onStop, thumbnail }) {
   const videoRef = useRef(null);
   const overlayRef = useRef(null);
   const observerRef = useRef(null);
   const DEBUG_VIDEO = false;
-
-  const getMimeFromUrl = (u) => {
-    if (!u || typeof u !== 'string') return undefined;
-    const lower = u.split('?')[0].toLowerCase();
-    if (lower.endsWith('.mp4')) return 'video/mp4';
-    if (lower.endsWith('.webm')) return 'video/webm';
-    if (lower.endsWith('.ogg') || lower.endsWith('.ogv')) return 'video/ogg';
-    return undefined;
-  };
 
   useEffect(() => {
     if (!isPlaying && videoRef.current) {
@@ -118,19 +119,29 @@ function VideoReview({ src, className, isPlaying, onPlay, onStop, thumbnail }) {
     // Prevent page-level click handlers from firing when user clicks the video
     e.stopPropagation();
     if (!src) return; // no video set yet
-    if (videoRef.current) {
-      onPlay();
+    if (!videoRef.current) return;
+    // If already playing, clicking should stop and revert to thumbnail
+    if (isPlaying) {
+      try {
+        videoRef.current.pause();
+        videoRef.current.currentTime = 0;
+      } catch (err) { /* ignore */ }
+      if (overlayRef.current) overlayRef.current.style.display = 'flex';
+      if (typeof onStop === 'function') onStop();
+      return;
+    }
+
+    // Otherwise start playback for this card
+    try {
       if (overlayRef.current) overlayRef.current.style.display = 'none';
+      if (typeof onPlay === 'function') onPlay();
       const playPromise = videoRef.current.play();
       if (playPromise && typeof playPromise.then === 'function') {
         playPromise.catch((err) => {
-          // AbortError happens if play is immediately interrupted by pause(); safe to ignore
-          if (err?.name !== 'AbortError') {
-            console.warn('Video play failed:', err);
-          }
+          if (err?.name !== 'AbortError') console.warn('Video play failed:', err);
         });
       }
-    }
+    } catch (err) { console.warn('play attempt failed', err); }
   };
 
   return (
@@ -161,11 +172,23 @@ function VideoReview({ src, className, isPlaying, onPlay, onStop, thumbnail }) {
       <video
         ref={videoRef}
         controls={false}
-        muted={false}
-        style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover', background: '#222', zIndex: 2 }}
+        muted
+        loop
+        style={{ display: 'block', width: '100%', height: '100%', objectFit: 'cover', background: 'transparent', zIndex: 1, opacity: 1, visibility: 'visible' }}
         controlsList="nodownload noremoteplayback nofullscreen noplaybackrate"
         playsInline
         preload="metadata"
+        poster={thumbnail || undefined}
+        onLoadedMetadata={(e) => {
+          try {
+            if (isPlaying && e.target && typeof e.target.play === 'function') {
+              const p = e.target.play();
+              if (p && typeof p.then === 'function') p.catch(err => { if (err?.name !== 'AbortError') console.warn('Auto-play failed', err); });
+            }
+          } catch (err) { /* ignore */ }
+        }}
+        onPause={(e) => { try { e.target.load(); } catch (err) { } }}
+        onEnded={(e) => { try { e.target.load(); } catch (err) { } }}
         onError={async (e) => {
           if (!DEBUG_VIDEO) return;
           try {
@@ -174,7 +197,8 @@ function VideoReview({ src, className, isPlaying, onPlay, onStop, thumbnail }) {
           } catch (err) { console.warn('Video HEAD failed', err); }
         }}
       >
-        {src ? <source src={src} type={getMimeFromUrl(src)} /> : null}
+        {src ? <source src={src} type={getMimeFromUrl(src) || 'video/mp4'} /> : null}
+        {src ? <source src={src} type="video/mp4" /> : null}
       </video>
       <div ref={overlayRef} style={{
         position: 'absolute',
@@ -553,22 +577,36 @@ export default function Review() {
           /* This will hold the image or video */
           width: 100%;
           height: 400px; /* A fixed height for the media area */
+          min-height: 200px;
           background-color: #F5F5F5;
           border-radius: 8px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
           font-family: 'Poppins', sans-serif;
           color: #888;
           font-size: 18px;
           margin-bottom: 16px;
-          overflow: hidden; /* Ensures image corners are rounded */
+          overflow: visible; /* Changed from hidden to visible */
+          position: relative;
         }
         
         #review-page-wrapper .card-media-placeholder img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: 100% !important;
+            height: 100% !important;
+            min-height: 200px;
+            object-fit: cover !important;
+            display: block !important;
+            position: relative !important;
+            top: 0;
+            left: 0;
+            z-index: 5;
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+        
+        #review-page-wrapper .card-media-placeholder span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
         #review-page-wrapper .client-name {
@@ -829,7 +867,26 @@ export default function Review() {
                   {/* Media Area */}
                   <div className="card-media-placeholder">
                     {t.avatarUrl ? (
-                      <img src={t.avatarUrl} alt={t.name} />
+                      <img 
+                        src={t.avatarUrl} 
+                        alt={t.name}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          minHeight: '200px',
+                          objectFit: 'cover',
+                          display: 'block',
+                          position: 'relative',
+                          zIndex: 10,
+                          opacity: 1,
+                          visibility: 'visible'
+                        }}
+                        onError={(e) => {
+                          console.error('Image Load Error:', e.target.src);
+                          e.target.style.display = 'none';
+                          e.target.parentElement.innerHTML = '<span>Client</span>';
+                        }}
+                      />
                     ) : (
                       <span>Client</span>
                     )}
@@ -874,9 +931,11 @@ export default function Review() {
                     </select>
                   </div>
                   <div style={{ width: 220 }}>
-                      <div style={{ width: 160, height: 160, borderRadius: '50%', background: '#eee', marginBottom: 8, overflow: 'hidden' }}>
-                      <img src={avatarUploadedUrl || filePreview || form.avatarUrl || '/images/Rectangle 4.png'} alt="avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      <label style={{ display: 'block', marginBottom: 8, fontWeight: 500 }}>Image Preview</label>
+                      <div style={{ width: 200, height: 200, borderRadius: '8px', background: '#eee', marginBottom: 8, overflow: 'visible', position: 'relative' }}>
+                      <img src={avatarUploadedUrl || filePreview || form.avatarUrl || '/images/Rectangle 4.png'} alt="preview" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', position: 'relative', zIndex: 9999 }} />
                     </div>
+                    <label style={{ display: 'block', marginBottom: 4 }}>Upload Image</label>
                     <input
                       type="file"
                       accept="image/*"
@@ -903,16 +962,16 @@ export default function Review() {
                           // start immediate upload
                           setAvatarUploading(true);
                           setAvatarUploadProgress(0);
-                          setUploadStatusMessage('Uploading avatar...');
+                          setUploadStatusMessage('Uploading image...');
                           try {
-                            const uploaded = await uploadWithProgress(f, (p) => { setAvatarUploadProgress(p); setUploadStatusMessage(`Uploading avatar: ${p}%`); }, 'YARITU/testimonials');
+                            const uploaded = await uploadWithProgress(f, (p) => { setAvatarUploadProgress(p); setUploadStatusMessage(`Uploading image: ${p}%`); }, 'YARITU/testimonials');
                             setAvatarUploadedUrl(uploaded);
-                            setUploadStatusMessage('Avatar uploaded');
+                            setUploadStatusMessage('Image uploaded');
                             // successful upload - clear the staged file
                             setFileForUpload(null);
                           } catch (err) {
-                            console.error('Avatar upload failed', err);
-                            setUploadStatusMessage('Avatar upload failed: ' + (err.message || ''));
+                            console.error('Image upload failed', err);
+                            setUploadStatusMessage('Image upload failed: ' + (err.message || ''));
                             setAvatarUploadedUrl('');
                             // keep fileForUpload so Save can retry
                           } finally {
@@ -957,9 +1016,9 @@ export default function Review() {
                   <div style={{ flex: 1 }}>
                     <label>Replace video</label>
                     <div style={{ marginBottom: 8 }}>
-                      <div style={{ width: '100%', height: 220, background: '#f2f2f2', borderRadius: 8, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <div style={{ width: '100%', height: 220, background: '#f2f2f2', borderRadius: 8, overflow: 'visible', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         {videoFilePreview ? (
-                          <video src={videoFilePreview} style={{ width: '100%', height: '100%', objectFit: 'cover' }} controls />
+                          <video src={videoFilePreview} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', position: 'relative', zIndex: 9999 }} controls />
                         ) : (
                           <p style={{ color: '#666' }}>No new video selected</p>
                         )}
@@ -1043,12 +1102,18 @@ export default function Review() {
                         <div style={{ width: '100%', height: 220, background: '#fafafa', borderRadius: 8, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                           {displayMode === 'video' ? (
                             <video
-                              src={videoSrc}
                               poster={posterSrc}
                               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                               controls
                               muted
-                            />
+                              loop
+                              playsInline
+                              preload="metadata"
+                              onPause={(e) => { try { e.target.load(); } catch (err) { } }}
+                              onEnded={(e) => { try { e.target.load(); } catch (err) { } }}
+                            >
+                              {videoSrc ? <source src={videoSrc} type={getMimeFromUrl(videoSrc)} /> : null}
+                            </video>
                           ) : (
                             <img src={posterSrc || '/images/Rectangle 4.png'} alt="thumbnail preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                           )}

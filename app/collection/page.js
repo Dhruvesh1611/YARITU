@@ -28,6 +28,7 @@ const [jewelleryItems, setJewelleryItems] = useState([]);
 const [selectedStoreFilter, setSelectedStoreFilter] = useState('');
 const [storesList, setStoresList] = useState([]);
 const [collections, setCollections] = useState([]);
+const [isLoading, setIsLoading] = useState(true);
 const [metaOptions, setMetaOptions] = useState({});
 const [showModal, setShowModal] = useState(false);
 const [editingCollection, setEditingCollection] = useState(null);
@@ -161,6 +162,7 @@ useEffect(() => {
                 if (!jewelleryMode && (activeCategory === 'ALL' || !activeCategory)) {
                     setFilteredProducts(parsed.slice());
                 }
+                setIsLoading(false);
             }
         }
         const mRaw = localStorage.getItem(META_CACHE_KEY);
@@ -206,6 +208,7 @@ useEffect(() => {
             const m = await resMeta.json();
             if (resCollections.ok && j.success && mounted) {
                 setCollections(j.data || []);
+                setIsLoading(false);
                 try { localStorage.setItem(COLLECTIONS_CACHE_KEY, JSON.stringify(j.data || [])); } catch (_) {}
             }
             if (resMeta.ok && m.success && mounted) {
@@ -704,6 +707,9 @@ return (
                 <p className={styles['collection-subtitle']}>Explore our finest selection.</p>
                 {/* Count for current view */}
                 <p className={styles['collection-count']}>{(() => {
+                    // Show loading state
+                    if (isLoading && !jewelleryMode) return 'Loading...';
+                    
                     // If in jewellery mode, show jewellery items count
                     if (jewelleryMode) return `${jewelleryItems.length || 0} items`;
 

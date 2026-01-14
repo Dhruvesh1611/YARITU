@@ -99,15 +99,11 @@
   object-position: var(--ox, 50%) var(--oy, 50%);
   transform-origin: var(--ox, 50%) var(--oy, 50%);
   transform: scale(var(--scale, 1));
-  transition: transform 220ms cubic-bezier(.2,.9,.2,1), object-position 220ms ease;
+  transition: transform 80ms ease-out, object-position 80ms ease-out;
+  will-change: transform, object-position;
 }
 
-/* Fallback hover for non-JS or touchless browsers */
-.main-image-container:hover .main-image,
-.main-image-container:focus-within .main-image {
-  /* fallback hover scale for non-JS environments */
-  --scale: 2.6;
-}
+/* Removed fallback hover rule - JS handles zoom now */
 
 .thumbnail-container {
   display: grid;

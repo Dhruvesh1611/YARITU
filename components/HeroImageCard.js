@@ -58,6 +58,12 @@ export default function HeroImageCard({ item, onUpdate, onDelete }) {
         xhr.open('PUT', signedUrl, true);
         xhr.setRequestHeader('Content-Type', file.type || 'application/octet-stream');
 
+        // Set Cache-Control so uploaded hero images are cached by the browser
+        // and will appear instantly when the slider returns to the same image.
+        try {
+          xhr.setRequestHeader('Cache-Control', process.env.S3_CACHE_CONTROL || 'public, max-age=31536000, immutable');
+        } catch (e) { /* some environments disallow setting certain headers */ }
+
         xhr.upload.onprogress = (event) => {
           if (event.lengthComputable && typeof onProgress === 'function') {
             onProgress(Math.round((event.loaded * 100) / event.total));
@@ -118,6 +124,26 @@ export default function HeroImageCard({ item, onUpdate, onDelete }) {
     }
   };
 
+  // Decide whether it's safe to use Next's Image component for this URL
+  const allowedNextImageHost = (url) => {
+    if (!url) return false;
+    try {
+      const u = String(url).trim();
+      if (!u) return false;
+      if (u.startsWith('/')) return true; // local asset
+      if (u.startsWith('//')) {
+        const parsed = new URL(u, 'https:');
+        const h = parsed.hostname.toLowerCase();
+        return h === 'placehold.co' || h.endsWith('.amazonaws.com') || h.endsWith('cloudfront.net');
+      }
+      const parsed = new URL(u);
+      const host = parsed.hostname.toLowerCase();
+      return host === 'placehold.co' || host.endsWith('.amazonaws.com') || host.endsWith('cloudfront.net');
+    } catch (e) {
+      return false;
+    }
+  };
+
   return (
     <>
       <div className="hero-card-container">
@@ -127,14 +153,22 @@ export default function HeroImageCard({ item, onUpdate, onDelete }) {
           preloads it to improve LCP. `sizes` is set to avoid downloading large desktop
           images on small viewports (mobile will get 100vw).
         */}
-        <Image
-          src={item.imageUrl}
-          alt={item.title || 'hero'}
-          fill
-          sizes="(max-width: 600px) 100vw, 300px"
-          className="hero-card-image"
-          priority={true}
-        />
+        {(() => {
+          const src = item.imageUrl;
+          if (allowedNextImageHost(src)) {
+            return (
+              <Image
+                src={src}
+                alt={item.title || 'hero'}
+                fill
+                sizes="(max-width: 600px) 100vw, 300px"
+                className="hero-card-image"
+                priority={true}
+              />
+            );
+          }
+          return <img src={src} alt={item.title || 'hero'} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />;
+        })()}
         {session && (
           <button onClick={() => setIsOpen(true)} className="edit-button">Edit</button>
         )}
@@ -217,6 +251,7 @@ export default function HeroImageCard({ item, onUpdate, onDelete }) {
             cursor: pointer;
             font-weight: 500;
             transition: all 0.2s;
+          z-index: 60;
         }
         .edit-button:hover {
             background: white;

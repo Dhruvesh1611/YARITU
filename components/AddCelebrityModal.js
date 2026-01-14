@@ -117,7 +117,15 @@ export default function AddCelebrityModal({ onClose, onAdd }) {
 
             {form.videoUrl && (
               <div className="videoPreview">
-                <video src={form.videoUrl} controls />
+                <video
+                  controls
+                  preload="metadata"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', position: 'relative', zIndex: 9999 }}
+                  onLoadedMetadata={(e) => { e.target.play().catch(err => console.error('Auto-play blocked', err)); }}
+                >
+                  <source src={form.videoUrl} type="video/mp4" />
+                  <source src={form.videoUrl} type="video/quicktime" />
+                </video>
               </div>
             )}
             
@@ -181,16 +189,23 @@ export default function AddCelebrityModal({ onClose, onAdd }) {
             font-size: 14px; font-weight: 500;
         }
         .videoPreview {
-            margin-top: 16px;
-            width: 100%;
-            background: #f0f0f0;
-            border-radius: 8px;
-            overflow: hidden;
+          margin-top: 16px;
+          width: 100%;
+          min-height: 200px;
+          background: transparent;
+          border-radius: 8px;
+          overflow: visible;
+          position: relative;
         }
         .videoPreview video {
             width: 100%;
+            height: 100%;
+            min-height: 200px;
             max-height: 240px;
             display: block;
+            position: relative;
+            z-index: 9999;
+            object-fit: cover;
         }
         .actionButtons {
             display: flex; justify-content: flex-end; gap: 12px;

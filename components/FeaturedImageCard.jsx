@@ -81,8 +81,8 @@ export default function FeaturedImageCard({ item, onUpdate, onDelete }) {
 
   return (
     <div style={{ width: 220, padding: 8, background: '#fff', borderRadius: 8, position: 'relative' }}>
-      <div style={{ height: 160, overflow: 'hidden', borderRadius: 8, marginBottom: 8 }}>
-        <img src={item.src} alt={item.alt || 'featured'} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+      <div style={{ height: 160, overflow: 'visible', borderRadius: 8, marginBottom: 8, position: 'relative', background: 'transparent' }}>
+        <img src={item.src} alt={item.alt || 'featured'} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', position: 'relative', zIndex: 50, opacity: 1, visibility: 'visible' }} />
       </div>
       
       {/* Action Buttons */}

@@ -154,16 +154,19 @@ a {
   }
 }
 
-/* Fast loading - videos and images fade in smoothly when loaded */
+/* Fast loading - videos and images should always be visible */
 video, img {
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: relative;
+  z-index: 1;
 }
 
 video.loaded, img.loaded,
 video[data-loaded="true"], img[data-loaded="true"],
 img[data-nimg] {
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 /* Next.js Image component auto-loaded state */

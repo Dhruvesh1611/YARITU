@@ -193,19 +193,21 @@ const ProductModal = ({ product, onClose }) => {
               })()}</div>
             ) : null}
             <button className="rent-now-button" onClick={() => {
-              // Build WhatsApp message without exposing internal product IDs
+              // Build WhatsApp message with product image URL
+              const imageUrl = activeImage || finalGallery[0] || '';
               const msg = `Hi, I'm interested in renting "${product.title || product.name}"` +
-                `${product.collectionType ? ' - Type: ' + product.collectionType : ''}` +
-                `${!isJewellery && product.category ? ' - Category: ' + product.category : ''}` +
-                `${product.store ? ' - Store: ' + product.store : ''}`;
+                `${product.collectionType ? '\n📌 Type: ' + product.collectionType : ''}` +
+                `${!isJewellery && product.category ? '\n📁 Category: ' + product.category : ''}` +
+                `${imageUrl ? '\n\n🖼️ Product Image:\n' + imageUrl : ''}`;
               openWhatsAppWithMessage({ phone: WHATSAPP_NUMBER, message: msg });
             }}>Rent Now</button>
             <button className="enquire-button" onClick={() => {
-              // Build WhatsApp message without internal IDs
+              // Build WhatsApp message with product image URL
+              const imageUrl = activeImage || finalGallery[0] || '';
               const msg = `Hello, I have a question about "${product.title || product.name}"` +
-                `${product.collectionType ? ' - Type: ' + product.collectionType : ''}` +
-                `${!isJewellery && product.category ? ' - Category: ' + product.category : ''}` +
-                `${product.store ? ' - Store: ' + product.store : ''}`;
+                `${product.collectionType ? '\n📌 Type: ' + product.collectionType : ''}` +
+                `${!isJewellery && product.category ? '\n📁 Category: ' + product.category : ''}` +
+                `${imageUrl ? '\n\n🖼️ Product Image:\n' + imageUrl : ''}`;
               openWhatsAppWithMessage({ phone: WHATSAPP_NUMBER, message: msg });
             }}>Enquire on WhatsApp</button>
           </div>

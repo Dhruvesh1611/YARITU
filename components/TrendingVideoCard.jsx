@@ -67,14 +67,26 @@ export default function TrendingVideoCard({ item, onUpdate }) {
           compatibility and increase the chance autoplay will succeed where used.
         */}
         <video
-          src={item.videoUrl}
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          style={{ width: '100%', height: '100%', objectFit: 'cover', background: 'transparent', visibility: 'visible', zIndex: 1 }}
           muted
           loop
           playsInline
           preload="metadata"
           poster={item.posterUrl || '/images/video-placeholder.jpg'}
-        />
+          onLoadedMetadata={(e) => {
+            try {
+              if (e.target && typeof e.target.play === 'function') {
+                const p = e.target.play();
+                if (p && typeof p.then === 'function') p.catch(() => {});
+              }
+            } catch (err) { /* ignore */ }
+          }}
+          onPause={(e) => { try { e.target.load(); } catch (err) { } }}
+          onEnded={(e) => { try { e.target.load(); } catch (err) { } }}
+        >
+          {item.videoUrl ? <source src={item.videoUrl} type="video/mp4" /> : null}
+          {item.videoUrl ? <source src={item.videoUrl} type="video/quicktime" /> : null}
+        </video>
       </div>
       <div style={{ display: 'flex', gap: 8 }}>
         <button onClick={() => setIsOpen(true)}>Edit</button>
@@ -95,7 +107,9 @@ export default function TrendingVideoCard({ item, onUpdate }) {
                 {uploading && <div>Uploading...</div>}
                 {form.videoUrl && (
                   <div style={{ marginTop: 8 }}>
-                    <video src={form.videoUrl} controls style={{ width: '100%', maxHeight: 240 }} />
+                    <video controls style={{ width: '100%', maxHeight: 240, objectFit: 'cover' }} muted loop playsInline preload="metadata">
+                      <source src={form.videoUrl + (form.videoUrl.includes('?') ? '&' : '?') + `t=${Date.now()}`} type="video/mp4" />
+                    </video>
                   </div>
                 )}
               </div>
