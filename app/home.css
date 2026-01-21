@@ -767,6 +767,10 @@
 .home-store-card.animate-in {
     opacity: 1;
     transform: translateX(0);
+        /* Hide trending background image on mobile */
+        .trending-bg {
+            display: none !important;
+        }
 }
 
 /* Fade-in for stores grid cards when data loads */

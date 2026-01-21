@@ -561,7 +561,10 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
             onTouchMove={handleTrendingSwipeMove}
             onTouchEnd={handleTrendingSwipeEnd}
           >
-              <Image src="/images/background_shape.png" className="trending-bg" alt="background shape" fill sizes="(max-width: 1024px) 100vw, 1200px" style={{ objectFit: 'cover' }} />
+              {/* Show background shape only on desktop/tablet */}
+              {typeof window === 'undefined' || window.innerWidth > 768 ? (
+                <Image src="/images/background_shape.png" className="trending-bg" alt="background shape" fill sizes="(max-width: 1024px) 100vw, 1200px" style={{ objectFit: 'cover' }} />
+              ) : null}
 
               {isAdmin && (
                 <input
