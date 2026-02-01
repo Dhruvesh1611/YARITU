@@ -173,25 +173,42 @@ const CelebritySection = () => {
 
   // Preload first video URL for priority loading (after hero images)
   useEffect(() => {
-    if (displayed.length > 0 && displayed[0]?.videoUrl) {
-      const firstVideoUrl = displayed[0].videoUrl;
-      // Check if preload link already exists
-      const existingLink = document.querySelector(`link[href="${firstVideoUrl}"]`);
-      if (!existingLink) {
-        const link = document.createElement('link');
-        link.rel = 'preload';
-        link.as = 'video';
-        link.href = firstVideoUrl;
-        // Use 'low' priority so hero images load first
-        link.fetchPriority = 'low';
-        document.head.appendChild(link);
-        // Cleanup on unmount
-        return () => {
-          try { document.head.removeChild(link); } catch (e) { /* ignore */ }
-        };
-      }
+    const firstVideoUrl = displayed?.[0]?.videoUrl;
+    if (!firstVideoUrl) return;
+
+    // Check if preload link already exists
+    const existingLink = document.querySelector(`link[href="${firstVideoUrl}"]`);
+    if (existingLink) return;
+
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    // Set href before setting as/type to avoid browser warnings in some engines
+    link.href = firstVideoUrl;
+
+    // Try to infer MIME type from file extension; fallback to generic video/*
+    const extMatch = firstVideoUrl.match(/\.([a-z0-9]+)(?:\?|$)/i);
+    let mime = 'video/*';
+    if (extMatch) {
+      const ext = extMatch[1].toLowerCase();
+      if (ext === 'mp4') mime = 'video/mp4';
+      else if (ext === 'webm') mime = 'video/webm';
+      else if (ext === 'ogg' || ext === 'ogv') mime = 'video/ogg';
     }
-  }, [displayed]);
+
+    link.as = 'video';
+    link.type = mime;
+    // Some browsers require crossorigin attribute for media preloads
+    link.crossOrigin = 'anonymous';
+    link.fetchPriority = 'low';
+
+    document.head.appendChild(link);
+
+    // Cleanup on unmount
+    return () => {
+      try { document.head.removeChild(link); } catch (e) { /* ignore */ }
+    };
+  // Run only when the first video's URL changes
+  }, [displayed?.[0]?.videoUrl]);
 
   const goToPrevious = () => {
     const len = displayed.length || 0;
