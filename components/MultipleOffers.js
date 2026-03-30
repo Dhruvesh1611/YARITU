@@ -8,11 +8,11 @@ import EditOfferModal from './EditOfferModal';
 import SkeletonLoader from './SkeletonLoader';
 
 const offers = [
-  { id: 1, image: '/images/offer1.png', discount: 'UP TO 50% OFF', category: 'HAUL' },
-  { id: 2, image: '/images/offer2.png', discount: 'UP TO 40% OFF', category: 'STYLE' },
-  { id: 3, image: '/images/offer3.png', discount: 'UP TO 60% OFF', category: 'LIFE' },
-  { id: 4, image: '/images/offer4.png', discount: 'UP TO 30% OFF', category: 'FRESH' },
-  { id: 5, image: '/images/offer5.png', discount: 'UP TO 70% OFF', category: 'OOTD' },
+  { id: 1, image: '', discount: 'UP TO 50% OFF', category: 'HAUL' },
+  { id: 2, image: '', discount: 'UP TO 40% OFF', category: 'STYLE' },
+  { id: 3, image: '', discount: 'UP TO 60% OFF', category: 'LIFE' },
+  { id: 4, image: '', discount: 'UP TO 30% OFF', category: 'FRESH' },
+  { id: 5, image: '', discount: 'UP TO 70% OFF', category: 'OOTD' },
 ];
 
 const MultipleOffers = () => {
@@ -103,6 +103,7 @@ const MultipleOffers = () => {
             const s = server[i] || {};
             return {
               id: s._id || s.id || fallback.id,
+              _id: s._id || null,  // keep real MongoDB _id separate for edits
               image: s.image || s.imageUrl || s.url || fallback.image,
               discount: s.discount || fallback.discount,
               category: s.category || s.heading || s.store || fallback.category,

@@ -32,6 +32,11 @@ const nextConfig = {
                 protocol: 'https',
                 hostname: '*.s3.*.amazonaws.com',
             },
+            // Explicit entry for the current S3 bucket
+            {
+                protocol: 'https',
+                hostname: 'yaritu-new.s3.eu-north-1.amazonaws.com',
+            },
         ],
     },
     // Enable compression

@@ -194,7 +194,7 @@ const ImageSlider = () => {
                                 <motion.div
                                         // Use a stable key per image so AnimatePresence can animate src changes
                                         // prefer unique _id, fallback to src, fallback to position
-                                        key={image._id || image.src || image.position}
+                                        key={`${image._id || image.src || 'img'}-${image.position}`}
                                         className={styles.imageCard}
                                         variants={isMobile ? mobileVariants : desktopVariants}
                                         initial={false}

@@ -561,8 +561,8 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
             onTouchMove={handleTrendingSwipeMove}
             onTouchEnd={handleTrendingSwipeEnd}
           >
-              {/* Show background shape only on desktop/tablet */}
-              {typeof window === 'undefined' || window.innerWidth > 768 ? (
+              {/* Show background shape only on desktop/tablet - use mounted+isMobile to avoid hydration mismatch */}
+              {(!mounted || !isMobile) ? (
                 <Image src="/images/background_shape.png" className="trending-bg" alt="background shape" fill sizes="(max-width: 1024px) 100vw, 1200px" style={{ objectFit: 'cover' }} />
               ) : null}
 
@@ -672,7 +672,7 @@ export default function HomePageClient({ initialHeroItems, initialStores, initia
                   
                   return (
                     <motion.div 
-                      key={item._id || `video-${videoIndex}`}
+                      key={`mobile-${item._id || `video-${videoIndex}`}`}
                       className={`trending-img ${positionClass}`}
                       animate={{
                         opacity: isVisible ? 1 : 0,

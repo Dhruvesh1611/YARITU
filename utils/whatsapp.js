@@ -6,14 +6,8 @@
  */
 export function sanitizeWhatsAppText(text = '') {
   try {
-    const noId = text.replace(/\s*-?\s*product\s*id:\s*[^\s]+/gi, '').trim();
-    // Clean up leftover multiple spaces and duplicate separators like ' -  - '
-    return noId
-      .replace(/\s{2,}/g, ' ')
-      .replace(/\s*-\s*-\s*/g, ' - ')
-      .replace(/\s*-\s*$/g, '')
-      .replace(/^\s*-\s*/g, '')
-      .trim();
+    // Trim the overall message only — keep internal newlines intact
+    return text.trim();
   } catch {
     return text;
   }

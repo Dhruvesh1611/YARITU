@@ -383,7 +383,7 @@ const CelebritySection = () => {
             <div className="admin-grid-container">
               {videos.filter(v => (v.visibility || 'both') === 'desktop' || (v.visibility || 'both') === 'both').map((v) => (
                 <CelebrityVideoCard
-                  key={v._id}
+                  key={`admin-desktop-${v._id}`}
                   item={v}
                   onUpdate={(updated) => setVideos((prev) => prev.map((x) => (x._id === updated._id ? updated : x)))}
                   onDelete={(id) => setVideos((prev) => prev.filter((x) => x._id !== id))}
@@ -395,7 +395,7 @@ const CelebritySection = () => {
             <div className="admin-grid-container">
               {videos.filter(v => (v.visibility || 'both') === 'mobile').map((v) => (
                 <CelebrityVideoCard
-                  key={v._id}
+                  key={`admin-mobile-${v._id}`}
                   item={v}
                   onUpdate={(updated) => setVideos((prev) => prev.map((x) => (x._id === updated._id ? updated : x)))}
                   onDelete={(id) => setVideos((prev) => prev.filter((x) => x._id !== id))}

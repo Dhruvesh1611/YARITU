@@ -109,10 +109,10 @@ const TestimonialsSlider = ({ location = 'home' }) => {
                             <div className={styles.cellActions}>Actions</div>
                         </div>
 
-                        {uniqueItems.map((item) => (
-                            <div key={item._id || item.id} className={styles.adminRow}>
+                        {uniqueItems.map((item, idx) => (
+                            <div key={`admin-testimonial-${item._id || item.id}-${idx}`} className={styles.adminRow}>
                                 <div className={styles.cellUser}>
-                                    <img src={item.avatarUrl || '/images/Rectangle 4.png'} alt={item.name} className={styles.adminAvatar} />
+                                    <img src={item.avatarUrl || 'https://placehold.co/72x72'} alt={item.name} className={styles.adminAvatar} />
                                     <span>{item.name || '—'}</span>
                                 </div>
                                 <div className={styles.cellReview}>
@@ -176,13 +176,13 @@ function ClickableTrack({ isPaused, items, onCardClick }) {
 
     // Use a fallback for when items are not yet loaded
     const displayItems = items.length > 0 ? items : [
-        { id: 'f1', avatar: '/images/Rectangle 4.png', name: 'Meera Patel', rating: 5, quote: 'The attention to detail is remarkable.' },
-        { id: 'f2', avatar: '/images/Rectangle 4.png', name: 'Rohit Gupta', rating: 5, quote: 'Exceptional quality and service. Highly recommended!' },
-        { id: 'f3', avatar: '/images/Rectangle 4.png', name: 'Aisha Sharma', rating: 5, quote: 'Absolutely stunning collection!' },
+        { id: 'f1', avatarUrl: 'https://placehold.co/72x72', name: 'Meera Patel', rating: 5, quote: 'The attention to detail is remarkable.' },
+        { id: 'f2', avatarUrl: 'https://placehold.co/72x72', name: 'Rohit Gupta', rating: 5, quote: 'Exceptional quality and service. Highly recommended!' },
+        { id: 'f3', avatarUrl: 'https://placehold.co/72x72', name: 'Aisha Sharma', rating: 5, quote: 'Absolutely stunning collection!' },
         // Duplicate fallback items for scrolling effect
-        { id: 'f4', avatar: '/images/Rectangle 4.png', name: 'Meera Patel', rating: 5, quote: 'The attention to detail is remarkable.' },
-        { id: 'f5', avatar: '/images/Rectangle 4.png', name: 'Rohit Gupta', rating: 5, quote: 'Exceptional quality and service. Highly recommended!' },
-        { id: 'f6', avatar: '/images/Rectangle 4.png', name: 'Aisha Sharma', rating: 5, quote: 'Absolutely stunning collection!' },
+        { id: 'f4', avatarUrl: 'https://placehold.co/72x72', name: 'Meera Patel', rating: 5, quote: 'The attention to detail is remarkable.' },
+        { id: 'f5', avatarUrl: 'https://placehold.co/72x72', name: 'Rohit Gupta', rating: 5, quote: 'Exceptional quality and service. Highly recommended!' },
+        { id: 'f6', avatarUrl: 'https://placehold.co/72x72', name: 'Aisha Sharma', rating: 5, quote: 'Absolutely stunning collection!' },
     ];
 
     return (
@@ -192,7 +192,7 @@ function ClickableTrack({ isPaused, items, onCardClick }) {
                     <div className={styles.cardInner}>
                         <div className={styles.cardTop}>
                             <div className={styles.cardAvatar}>
-                                <Image src={item.avatarUrl || '/images/Rectangle 4.png'} alt={`${item.name} avatar`} width={72} height={72} loading="lazy" />
+                                <Image src={item.avatarUrl || 'https://placehold.co/72x72'} alt={`${item.name} avatar`} width={72} height={72} loading="lazy" />
                             </div>
                             <div className={styles.cardMeta}>
                                 <div className={styles.cardName}>{item.name}</div>

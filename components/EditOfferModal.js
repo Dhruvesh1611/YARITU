@@ -45,10 +45,14 @@ export default function EditOfferModal({ item, onClose, onSave, position = null 
     // Call the parent onSave with the final data
     // Persist change to server so edits survive reload
       try {
-        const id = item?.id || item?._id;
-        const isUpdate = !!id;
-        // Build endpoint: dynamic route when id present; otherwise collection route
-        const endpoint = isUpdate ? `/api/offers/${id}` : '/api/offers';
+        // Only treat id as a real MongoDB ObjectId if it's a 24-char hex string
+        // Local fallback IDs are integers (1-5) and cannot be used as Mongo _id
+        const mongoIdRegex = /^[a-fA-F0-9]{24}$/;
+        const rawId = item?._id || item?.id;
+        const mongoId = rawId && typeof rawId === 'string' && mongoIdRegex.test(rawId) ? rawId : null;
+        const isUpdate = !!mongoId;
+        // Build endpoint: dynamic route when real Mongo id present; otherwise create new
+        const endpoint = isUpdate ? `/api/offers/${mongoId}` : '/api/offers';
         const method = isUpdate ? 'PUT' : 'POST';
         // For OfferContent we store heading, map from category
         const payload = {

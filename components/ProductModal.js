@@ -247,22 +247,22 @@ const ProductModal = ({ product, onClose }) => {
               })()}</div>
             ) : null}
             <button className="rent-now-button" onClick={() => {
-              // Build WhatsApp message with product image URL
               const imageUrl = activeImage || finalGallery[0] || '';
-              const msg = `Hi, I'm interested in renting "${product.title || product.name}"` +
-                `${product.collectionType ? '\n📌 Type: ' + product.collectionType : ''}` +
-                `${!isJewellery && product.category ? '\n📁 Category: ' + product.category : ''}` +
-                `${imageUrl ? '\n\n🖼️ Product Image:\n' + imageUrl : ''}`;
-              openWhatsAppWithMessage({ phone: WHATSAPP_NUMBER, message: msg });
+              const lines = [`Hi, I'm interested in renting "${product.title || product.name}"`];
+              if (product.productId) lines.push(`🏷 Product ID: ${product.productId}`);
+              if (product.collectionType) lines.push(`🏷 Type: ${product.collectionType}`);
+              if (!isJewellery && product.category) lines.push(`🏷 Category: ${product.category}`);
+              if (imageUrl) lines.push(`🏷 Product Image: ${imageUrl}`);
+              openWhatsAppWithMessage({ phone: WHATSAPP_NUMBER, message: lines.join('\n') });
             }}>Rent Now</button>
             <button className="enquire-button" onClick={() => {
-              // Build WhatsApp message with product image URL
               const imageUrl = activeImage || finalGallery[0] || '';
-              const msg = `Hello, I have a question about "${product.title || product.name}"` +
-                `${product.collectionType ? '\n📌 Type: ' + product.collectionType : ''}` +
-                `${!isJewellery && product.category ? '\n📁 Category: ' + product.category : ''}` +
-                `${imageUrl ? '\n\n🖼️ Product Image:\n' + imageUrl : ''}`;
-              openWhatsAppWithMessage({ phone: WHATSAPP_NUMBER, message: msg });
+              const lines = [`Hello, I have a question about "${product.title || product.name}"`];
+              if (product.productId) lines.push(`🏷 Product ID: ${product.productId}`);
+              if (product.collectionType) lines.push(`🏷 Type: ${product.collectionType}`);
+              if (!isJewellery && product.category) lines.push(`🏷 Category: ${product.category}`);
+              if (imageUrl) lines.push(`🏷 Product Image: ${imageUrl}`);
+              openWhatsAppWithMessage({ phone: WHATSAPP_NUMBER, message: lines.join('\n') });
             }}>Enquire on WhatsApp</button>
           </div>
         </div>
